@@ -1,7 +1,8 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <%@ Register TagPrefix="sstchur" Namespace="sstchur.web.SmartNav" Assembly="sstchur.web.smartnav" %><%@ Page language="c#" Debug="true" Codebehind="change_email_address.pas" AutoEventWireup="false" Inherits="change_email_address.TWebForm_change_email_address" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
-<%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %><html>
+<%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
+<html>
   <head runat="server">
     <title id="Title" runat="server"></title>
     <link href="../css/standard.css" rel="stylesheet" type="text/css" />
@@ -35,7 +36,10 @@
               </tr>
               <tr>
                 <td></td>
-                <td><ASP:Button id="Button_submit" runat="server" text="Submit"></ASP:Button></td>
+                <td>
+                  <ASP:Button id="Button_submit" runat="server" text="Submit"></ASP:Button>&nbsp;&nbsp;&nbsp;&nbsp;
+                  <asp:Button id="Button_cancel" runat="server" text="Cancel" causesvalidation="False"></asp:Button>
+                </td>
                 <td></td>
               </tr>
             </table>
@@ -45,4 +49,5 @@
       <uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent>
       <p><sstchur:SmartScroller runat="server" /></p>
     </form>
-  </body></html>
+  </body>
+</html>
