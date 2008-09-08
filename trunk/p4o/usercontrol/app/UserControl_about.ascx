@@ -15,7 +15,7 @@
               <uc2:UserControl_about_by id="UserControl_about_by_control" runat="server"></uc2:UserControl_about_by>
               <p>Prepared for:</p>
               <blockquote>
-                <p>{customer}</p>
+                <p>Portsmouth Police Department, Virginia, USA</p>
               </blockquote>
               <uc3:UserControl_about_tools id="UserControl_about_tools_control" runat="server"></uc3:UserControl_about_tools>
             </td>
