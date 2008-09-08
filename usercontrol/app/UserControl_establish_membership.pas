@@ -14,12 +14,6 @@ uses
   System.Web.UI.HtmlControls;
 
 type
-  p_type =
-    RECORD
-    be_loaded: boolean;
-    biz_user: TClass_biz_user;
-    biz_users: TClass_biz_users;
-    END;
   TWebUserControl_establish_membership = class(ki_web_ui.usercontrol_class)
   {$REGION 'Designer Managed Code'}
   strict private
@@ -30,15 +24,16 @@ type
     procedure LinkButton_trouble_handler_Click(sender: System.Object; e: System.EventArgs);
     procedure LinkButton_proceed_Click(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
-  strict private
-    p: p_type;
-    procedure Page_Load(sender: System.Object; e: System.EventArgs);
+  published
+    function Fresh: TWebUserControl_establish_membership;
+  protected
+    procedure OnInit(e: System.EventArgs); override;
   strict protected
     Label_application_name_1: System.Web.UI.WebControls.Label;
     Label_sponsor_1: System.Web.UI.WebControls.Label;
     Label_sponsor_2: System.Web.UI.WebControls.Label;
     Label_sponsor_3: System.Web.UI.WebControls.Label;
-    Label_shared_secret_description: System.Web.UI.WebControls.Label;
+    Label_shared_secret_description_1: System.Web.UI.WebControls.Label;
     Button_submit: System.Web.UI.WebControls.Button;
     TextBox_shared_secret: System.Web.UI.WebControls.TextBox;
     RequiredFieldValidator_shared_secret: System.Web.UI.WebControls.RequiredFieldValidator;
@@ -47,14 +42,19 @@ type
     LinkButton_trouble_handler: System.Web.UI.WebControls.LinkButton;
     LinkButton_proceed: System.Web.UI.WebControls.LinkButton;
     Table_proceed: System.Web.UI.HtmlControls.HtmlTable;
-  protected
-    procedure OnInit(e: System.EventArgs); override;
-  private
-    { Private Declarations }
-  public
-    { Public Declarations }
-  published
-    function Fresh: TWebUserControl_establish_membership;
+    Label_shared_secret_description_2: System.Web.UI.WebControls.Label;
+    Label_sponsor_4: System.Web.UI.WebControls.Label;
+  strict private
+    type
+      p_type =
+        RECORD
+        be_loaded: boolean;
+        biz_user: TClass_biz_user;
+        biz_users: TClass_biz_users;
+        END;
+  strict private
+    p: p_type;
+    procedure Page_Load(sender: System.Object; e: System.EventArgs);
   end;
 
 implementation
@@ -73,7 +73,9 @@ begin
     Label_sponsor_1.text := configurationmanager.appsettings['sponsor'];
     Label_sponsor_2.text := configurationmanager.appsettings['sponsor'];
     Label_sponsor_3.text := configurationmanager.appsettings['sponsor'];
-    Label_shared_secret_description.text := configurationmanager.appsettings['shared_secret_description'];
+    Label_sponsor_4.text := configurationmanager.appsettings['sponsor'];
+    Label_shared_secret_description_1.text := configurationmanager.appsettings['shared_secret_description'];
+    Label_shared_secret_description_2.text := configurationmanager.appsettings['shared_secret_description'];
     //
     Focus(TextBox_shared_secret,TRUE);
     //
@@ -116,13 +118,14 @@ end;
 procedure TWebUserControl_establish_membership.LinkButton_trouble_handler_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  server.Transfer('establish_membership_trouble.aspx');
+  DropCrumbAndTransferTo('establish_membership_trouble.aspx');
 end;
 
 procedure TWebUserControl_establish_membership.Button_submit_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  if p.biz_users.AcceptAsMember(Safe(TextBox_shared_secret.text,NUM),p.biz_user.IdNum) then begin
+  if p.biz_users.AcceptAsMember(Safe(TextBox_shared_secret.text,ALPHANUM),p.biz_user.IdNum) then begin
+    SessionSet('privilege_array',p.biz_user.Privileges);  // User was an unprivileged user until now, so reset privs.
     Alert(kix.USER,kix.SUCCESS,'memaccept','Link to membership record established.  Membership privileges granted.',TRUE);
     Table_proceed.visible := TRUE;
   end else begin
@@ -140,8 +143,8 @@ begin
   Include(Self.Button_submit.Click, Self.Button_submit_Click);
   Include(Self.LinkButton_trouble_handler.Click, Self.LinkButton_trouble_handler_Click);
   Include(Self.LinkButton_proceed.Click, Self.LinkButton_proceed_Click);
-  Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebUserControl_establish_membership_PreRender);
+  Include(Self.Load, Self.Page_Load);
 end;
 {$ENDREGION}
 
