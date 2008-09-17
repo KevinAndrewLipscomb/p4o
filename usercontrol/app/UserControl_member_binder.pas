@@ -13,13 +13,26 @@ uses
   System.Web.UI.HtmlControls;
 
 type
-  p_type =
-    RECORD
-    be_loaded: boolean;
-    content_id: string;
-    tab_index: cardinal;
-    END;
   TWebUserControl_member_binder = class(ki_web_ui.usercontrol_class)
+  published
+    function Fresh: TWebUserControl_member_binder;
+  protected
+    procedure OnInit(e: System.EventArgs); override;
+  strict protected
+    PlaceHolder_content: System.Web.UI.WebControls.PlaceHolder;
+    TabContainer_control: AjaxControlToolkit.TabContainer;
+    TabPanel_config: AjaxControlToolkit.TabPanel;
+  strict private
+    type
+      p_type =
+        RECORD
+        be_loaded: boolean;
+        content_id: string;
+        tab_index: cardinal;
+        END;
+  strict private
+    p: p_type;
+    procedure Page_Load(sender: System.Object; e: System.EventArgs);
   {$REGION 'Designer Managed Code'}
   strict private
     procedure InitializeComponent;
@@ -27,21 +40,6 @@ type
       e: System.EventArgs);
     procedure TabContainer_control_ActiveTabChanged(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
-  strict private
-    p: p_type;
-    procedure Page_Load(sender: System.Object; e: System.EventArgs);
-  strict protected
-    PlaceHolder_content: System.Web.UI.WebControls.PlaceHolder;
-    TabContainer_control: AjaxControlToolkit.TabContainer;
-    TabPanel_config: AjaxControlToolkit.TabPanel;
-  protected
-    procedure OnInit(e: System.EventArgs); override;
-  private
-    { Private Declarations }
-  public
-    { Public Declarations }
-  published
-    function Fresh: TWebUserControl_member_binder;
   end;
 
 implementation

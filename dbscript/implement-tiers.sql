@@ -1,4 +1,4 @@
-START TRANSACTION;
+﻿START TRANSACTION;
 
 -- --------------------------------------------------------
 
@@ -10,7 +10,7 @@ CREATE TABLE tier (
   id tinyint unsigned NOT NULL,
   name varchar(31) NOT NULL,
   PRIMARY KEY id (id),
-  UNIQUE KEY name (name)
+  UNIQUE name (name)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT tier (id,name) VALUES
@@ -39,12 +39,21 @@ insert role_member_map set
   member_id = (select id from member where registration_code = "1");
 
 insert privilege (name) values
-("send-quickmessages"),
 ("config-users"),
-("config-roles-and-matrices");
+("config-roles-and-matrices"),
+("config-business-objects"),
+("config-members");
 
 insert role_privilege_map (role_id,privilege_id) values
+((select id from role where name = "Application Administrator"),(select id from privilege where name = "send-quickmessages")),
 ((select id from role where name = "Application Administrator"),(select id from privilege where name = "config-users")),
-((select id from role where name = "Application Administrator"),(select id from privilege where name = "config-roles-and-matrices"));
+((select id from role where name = "Application Administrator"),(select id from privilege where name = "config-roles-and-matrices")),
+((select id from role where name = "Application Administrator"),(select id from privilege where name = "config-business-objects")),
+((select id from role where name = "Application Administrator"),(select id from privilege where name = "config-members"));
+
+ALTER TABLE `member`
+ ADD COLUMN `squad_id` BIGINT UNSIGNED,
+ ADD UNIQUE `registration_code`(`registration_code`),
+ ADD CONSTRAINT `member_squad_id` FOREIGN KEY `member_squad_id` (`squad_id`) REFERENCES `squad` (`id`);
 
 COMMIT

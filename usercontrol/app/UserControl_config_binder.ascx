@@ -8,6 +8,8 @@
           <cc1:TabContainer id="TabContainer_control" autopostback="True" runat="server" cssclass="ajax__tab_ki">
             <cc1:TabPanel runat="server" headertext="Roles & mappings" id="TabPanel_roles_and_mappings"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Users & mappings" id="TabPanel_users_and_mappings" enabled="False"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="Members" id="TabPanel_members" enabled="False"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="Business objects" id="TabPanel_business_objects" enabled="False"></cc1:TabPanel>
           </cc1:TabContainer>
         </td>
       </tr>
