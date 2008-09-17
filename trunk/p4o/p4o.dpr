@@ -67,7 +67,13 @@ uses
   UserControl_users_and_mapping_binder in 'usercontrol\app\UserControl_users_and_mapping_binder.pas' {UserControl_users_and_mapping_binder.TWebUserControl_users_and_mapping_binder: ki_web_ui.usercontrol_class},
   UserControl_session_interrupted in 'usercontrol\ki\UserControl_session_interrupted.pas',
   UserControl_about_tools in 'usercontrol\ki\UserControl_about_tools.pas' {UserControl_about_tools.TWebUserControl_about_tools: ki_web_ui.usercontrol_class},
-  UserControl_about_by in 'usercontrol\ki\UserControl_about_by.pas' {UserControl_about_by.TWebUserControl_about_by: ki_web_ui.usercontrol_class};
+  UserControl_about_by in 'usercontrol\ki\UserControl_about_by.pas' {UserControl_about_by.TWebUserControl_about_by: ki_web_ui.usercontrol_class},
+  Class_db_squads in 'component\db\Class_db_squads.pas',
+  Class_biz_squads in 'component\biz\Class_biz_squads.pas',
+  UserControl_squad in 'usercontrol\app\UserControl_squad.pas' {UserControl_squad.TWebUserControl_squad: ki_web_ui.usercontrol_class},
+  UserControl_business_objects_binder in 'usercontrol\app\UserControl_business_objects_binder.pas' {UserControl_business_objects_binder.TWebUserControl_business_objects_binder: ki_web_ui.usercontrol_class},
+  UserControl_member in 'usercontrol\app\UserControl_member.pas' {UserControl_member.TWebUserControl_member: ki_web_ui.usercontrol_class},
+  WebUserControl1 in 'usercontrol\app\WebUserControl1.pas' {WebUserControl1.TWebUserControl1: System.Windows.Forms.UserControl};
 
 //
 // General Information about an assembly is controlled through the following
