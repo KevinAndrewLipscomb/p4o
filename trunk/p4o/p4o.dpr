@@ -73,7 +73,15 @@ uses
   UserControl_squad in 'usercontrol\app\UserControl_squad.pas' {UserControl_squad.TWebUserControl_squad: ki_web_ui.usercontrol_class},
   UserControl_business_objects_binder in 'usercontrol\app\UserControl_business_objects_binder.pas' {UserControl_business_objects_binder.TWebUserControl_business_objects_binder: ki_web_ui.usercontrol_class},
   UserControl_member in 'usercontrol\app\UserControl_member.pas' {UserControl_member.TWebUserControl_member: ki_web_ui.usercontrol_class},
-  WebUserControl1 in 'usercontrol\app\WebUserControl1.pas' {WebUserControl1.TWebUserControl1: System.Windows.Forms.UserControl};
+  Class_biz_units in 'component\biz\Class_biz_units.pas',
+  Class_db_units in 'component\db\Class_db_units.pas',
+  UserControl_unit in 'usercontrol\app\UserControl_unit.pas',
+  Class_biz_divisions in 'component\biz\Class_biz_divisions.pas',
+  Class_db_divisions in 'component\db\Class_db_divisions.pas',
+  UserControl_division in 'usercontrol\app\UserControl_division.pas',
+  Class_biz_bureaus in 'component\biz\Class_biz_bureaus.pas',
+  Class_db_bureaus in 'component\db\Class_db_bureaus.pas',
+  UserControl_bureau in 'usercontrol\app\UserControl_bureau.pas';
 
 //
 // General Information about an assembly is controlled through the following
