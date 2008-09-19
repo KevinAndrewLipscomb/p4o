@@ -163,6 +163,8 @@
     <DelphiCompile Include="p4o.dpr">
       <MainSource>MainSource</MainSource>
     </DelphiCompile>
+    <DCCReference Include="component\biz\Class_biz_bureaus.pas" />
+    <DCCReference Include="component\biz\Class_biz_divisions.pas" />
     <DCCReference Include="component\biz\Class_biz_members.pas" />
     <DCCReference Include="component\biz\Class_biz_milestones.pas" />
     <DCCReference Include="component\biz\Class_biz_notifications.pas" />
@@ -173,10 +175,13 @@
     <DCCReference Include="component\biz\Class_biz_role_privilege_map.pas" />
     <DCCReference Include="component\biz\Class_biz_scheduled_tasks.pas" />
     <DCCReference Include="component\biz\Class_biz_squads.pas" />
+    <DCCReference Include="component\biz\Class_biz_units.pas" />
     <DCCReference Include="component\biz\Class_biz_user.pas" />
     <DCCReference Include="component\biz\Class_biz_users.pas" />
     <DCCReference Include="component\biz\Class_biz_user_member_map.pas" />
     <DCCReference Include="component\db\Class_db.pas" />
+    <DCCReference Include="component\db\Class_db_bureaus.pas" />
+    <DCCReference Include="component\db\Class_db_divisions.pas" />
     <DCCReference Include="component\db\Class_db_members.pas" />
     <DCCReference Include="component\db\Class_db_milestones.pas" />
     <DCCReference Include="component\db\Class_db_notifications.pas" />
@@ -187,6 +192,7 @@
     <DCCReference Include="component\db\Class_db_role_privilege_map.pas" />
     <DCCReference Include="component\db\Class_db_squads.pas" />
     <DCCReference Include="component\db\Class_db_trail.pas" />
+    <DCCReference Include="component\db\Class_db_units.pas" />
     <DCCReference Include="component\db\Class_db_user.pas" />
     <DCCReference Include="component\db\Class_db_users.pas" />
     <DCCReference Include="component\db\Class_db_user_member_map.pas" />
@@ -265,6 +271,9 @@
       <Form>UserControl_about.TWebUserControl_about</Form>
       <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_bureau.pas">
+      <DependentUpon>usercontrol\app\UserControl_bureau.ascx</DependentUpon>
+    </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_business_objects_binder.pas">
       <DependentUpon>usercontrol\app\UserControl_business_objects_binder.ascx</DependentUpon>
       <Form>UserControl_business_objects_binder.TWebUserControl_business_objects_binder</Form>
@@ -279,6 +288,9 @@
       <DependentUpon>usercontrol\app\UserControl_config_binder.ascx</DependentUpon>
       <Form>UserControl_config_binder.TWebUserControl_config_binder</Form>
       <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_division.pas">
+      <DependentUpon>usercontrol\app\UserControl_division.ascx</DependentUpon>
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_establish_membership.pas">
       <DependentUpon>usercontrol\app\UserControl_establish_membership.ascx</DependentUpon>
@@ -350,6 +362,9 @@
       <Form>UserControl_squad.TWebUserControl_squad</Form>
       <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_unit.pas">
+      <DependentUpon>usercontrol\app\UserControl_unit.ascx</DependentUpon>
+    </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_update_progress_blocker.pas">
       <DependentUpon>usercontrol\app\UserControl_update_progress_blocker.ascx</DependentUpon>
       <Form>UserControl_update_progress_blocker.TWebUserControl_update_progress_blocker</Form>
@@ -369,11 +384,6 @@
       <DependentUpon>usercontrol\app\UserControl_user_member_mapping.ascx</DependentUpon>
       <Form>UserControl_user_member_mapping.TWebUserControl_user_member_mapping</Form>
       <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
-    </DCCReference>
-    <DCCReference Include="usercontrol\app\WebUserControl1.pas">
-      <DependentUpon>usercontrol\app\WebUserControl1.ascx</DependentUpon>
-      <Form>WebUserControl1.TWebUserControl1</Form>
-      <DesignClass>System.Windows.Forms.UserControl</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\ki\UserControl_about_by.pas">
       <DependentUpon>usercontrol\ki\UserControl_about_by.ascx</DependentUpon>
@@ -433,9 +443,11 @@
     <None Include="testdata.sql" />
     <None Include="unpublished.config" />
     <None Include="usercontrol\app\UserControl_about.ascx" />
+    <None Include="usercontrol\app\UserControl_bureau.ascx" />
     <None Include="usercontrol\app\UserControl_business_objects_binder.ascx" />
     <None Include="usercontrol\app\UserControl_common_header_bar.ascx" />
     <None Include="usercontrol\app\UserControl_config_binder.ascx" />
+    <None Include="usercontrol\app\UserControl_division.ascx" />
     <None Include="usercontrol\app\UserControl_establish_membership.ascx" />
     <None Include="usercontrol\app\UserControl_member.ascx" />
     <None Include="usercontrol\app\UserControl_member_binder.ascx" />
@@ -450,11 +462,11 @@
     <None Include="usercontrol\app\UserControl_role_privilege_mapping.ascx" />
     <None Include="usercontrol\app\UserControl_role_privilege_matrix.ascx" />
     <None Include="usercontrol\app\UserControl_squad.ascx" />
+    <None Include="usercontrol\app\UserControl_unit.ascx" />
     <None Include="usercontrol\app\UserControl_update_progress_blocker.ascx" />
     <None Include="usercontrol\app\UserControl_user.ascx" />
     <None Include="usercontrol\app\UserControl_users_and_mapping_binder.ascx" />
     <None Include="usercontrol\app\UserControl_user_member_mapping.ascx" />
-    <None Include="usercontrol\app\WebUserControl1.ascx" />
     <None Include="usercontrol\ki\UserControl_about_by.ascx" />
     <None Include="usercontrol\ki\UserControl_about_tools.ascx" />
     <None Include="usercontrol\ki\UserControl_bread_crumb_trail.ascx" />
