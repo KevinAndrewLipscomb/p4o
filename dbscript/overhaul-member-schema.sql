@@ -19,6 +19,6 @@ insert member (last_name,first_name,email_address,registration_code) values
 ALTER TABLE `user`
   MODIFY COLUMN `last_login` DATETIME;
 
-insert privilege set name = "send-quickmessages";
+insert ignore privilege set name = "send-quickmessages";
 
 COMMIT

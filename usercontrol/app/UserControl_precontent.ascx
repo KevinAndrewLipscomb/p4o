@@ -2,7 +2,7 @@
 <%@ Register TagPrefix="uc1" TagName="UserControl_common_header_bar" Src="~/usercontrol/app/UserControl_common_header_bar.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_bread_crumb_trail" Src="~/usercontrol/ki/UserControl_bread_crumb_trail.ascx" %>
 <asp:ScriptManager id="ScriptManager_control" runat="server"></asp:ScriptManager>
-<table width="100%" bgcolor="#808080" border="1" bordercolor="#808080" cellspacing="0" cellpadding="0">
+<table width="100%" bgcolor="Gold" border="1" bordercolor="Gold" cellspacing="0" cellpadding="0">
   <tr>
     <td>
       <table width="100%" cellspacing="0" cellpadding="5">

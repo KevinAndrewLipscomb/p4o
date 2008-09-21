@@ -26,13 +26,15 @@ type
     function Get
       (
       id: string;
-      out description: string
+      out description: string;
+      out unit_id: string
       )
       : boolean;
     procedure &Set
       (
       id: string;
-      description: string
+      description: string;
+      unit_id: string
       );
   public
     constructor Create;
@@ -134,7 +136,8 @@ end;
 function TClass_db_squads.Get
   (
   id: string;
-  out description: string
+  out description: string;
+  out unit_id: string
   )
   : boolean;
 var
@@ -142,10 +145,11 @@ var
 begin
   Get := FALSE;
   self.Open;
-  dr := mysqlcommand.Create('select description from squad where id = "' + id + '"',connection).ExecuteReader;
+  dr := mysqlcommand.Create('select description,unit_id from squad where id = "' + id + '"',connection).ExecuteReader;
   if dr.Read then begin
     //
     description := dr['description'].tostring;
+    unit_id := dr['unit_id'].tostring;
     //
     Get := TRUE;
     //
@@ -157,13 +161,15 @@ end;
 procedure TClass_db_squads.&Set
   (
   id: string;
-  description: string
+  description: string;
+  unit_id: string
   );
 var
   childless_field_assignments_clause: string;
 begin
   //
-  childless_field_assignments_clause := 'description = "' + description + '"';
+  childless_field_assignments_clause := ' description = NULLIF("' + description + '","")'
+  + ' , unit_id = NULLIF("' + unit_id + '","")';
   //
   self.Open;
   mysqlcommand.Create

@@ -4,6 +4,7 @@ interface
 
 uses
   Class_biz_squads,
+  Class_biz_units,
   ki_web_ui,
   System.Data,
   System.Drawing,
@@ -29,12 +30,14 @@ type
     DropDownList_spec: System.Web.UI.WebControls.DropDownList;
     TextBox_description: System.Web.UI.WebControls.TextBox;
     RequiredFieldValidator_description: System.Web.UI.WebControls.RequiredFieldValidator;
+    DropDownList_unit: DropDownList;
   strict private
     type
       p_type =
         RECORD
         be_loaded: boolean;
         biz_squads: TClass_biz_squads;
+        biz_units: TClass_biz_units;
         END;
   strict private
     p: p_type;
@@ -69,6 +72,7 @@ begin
   TextBox_id.text := EMPTY;
   DropDownList_spec.visible := FALSE;
   TextBox_description.text := EMPTY;
+  DropDownList_unit.ClearSelection;
   //
   Button_delete.enabled := FALSE;
   //
@@ -158,6 +162,7 @@ begin
   //
   if not p.be_loaded then begin
     //
+    p.biz_units.BindDirectToListControl(DropDownList_unit);
     //
     RequireConfirmation(Button_delete,'Are you sure you want to delete this record?');
     //
@@ -174,17 +179,20 @@ end;
 function TWebUserControl_squad.PresentRecord(id: string): boolean;
 var
   description: string;
+  unit_id: string;
 begin
   PresentRecord := FALSE;
   if p.biz_squads.Get
     (
     id,
-    description
+    description,
+    unit_id
     )
   then begin
     //
     TextBox_id.text := id;
     TextBox_description.text := description;
+    DropDownList_unit.selectedvalue := unit_id;
     //
     TextBox_id.enabled := FALSE;
     Button_delete.enabled := TRUE;
@@ -204,12 +212,13 @@ begin
   //
   if session['UserControl_squad.p'] <> nil then begin
     p := p_type(session['UserControl_squad.p']);
-    p.be_loaded := IsPostBack and (string(session['UserControl_member_binder_PlaceHolder_content']) = 'UserControl_squad');
+    p.be_loaded := IsPostBack and (string(session['UserControl_member_binder_UserControl_config_UserControl_business_objects_binder_PlaceHolder_content']) = 'UserControl_squad');
   end else begin
     //
     p.be_loaded := FALSE;
     //
     p.biz_squads := TClass_biz_squads.Create;
+    p.biz_units := TClass_biz_units.Create;
     //
   end;
   //
@@ -253,7 +262,8 @@ begin
     p.biz_squads.&Set
       (
       Safe(TextBox_id.text,NUM),
-      Safe(TextBox_description.text,PUNCTUATED)
+      Safe(TextBox_description.text,PUNCTUATED),
+      Safe(DropDownList_unit.SelectedValue,NUM)
       );
     Alert(USER,SUCCESS,'recsaved','Record saved.');
   end else begin

@@ -9,7 +9,7 @@ uses
   system.web.ui, ki_web_ui, System.Web.UI.WebControls, System.Web.UI.HtmlControls, kix, mysql.data.mysqlclient, system.configuration,
   system.web.security,
   Class_biz_users,
-  Class_biz_user, sstchur.web.SmartNav;
+  Class_biz_user;
 
 type
   p_type =
@@ -40,7 +40,6 @@ type
     RegularExpressionValidator_password: System.Web.UI.WebControls.RegularExpressionValidator;
     CompareValidator_confirmation_password: System.Web.UI.WebControls.CompareValidator;
     Button_cancel: System.Web.UI.WebControls.Button;
-    SmartScroller_control: sstchur.web.SmartNav.SmartScroller;
   protected
     procedure OnInit(e: EventArgs); override;
   private

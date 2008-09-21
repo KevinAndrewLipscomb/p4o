@@ -1,4 +1,4 @@
--- $Id$
+﻿-- $Id$
 
 SET FOREIGN_KEY_CHECKS=0;
 
@@ -56,6 +56,9 @@ create table notification
   UNIQUE KEY (`name`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO notification (`name`) VALUES
+('member-added');
+
 -- --------------------------------------------------------
 
 --
@@ -70,7 +73,9 @@ create table privilege
   UNIQUE KEY (`name`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-insert privilege set name = "send-quickmessages";
+insert privilege (`name`) values
+("send-quickmessages"),
+("config-users");
 
 --
 -- Table structure for table `role`
@@ -81,12 +86,13 @@ CREATE TABLE role (
   `name` varchar(63) NOT NULL,
   `soft_hyphenation_text` VARCHAR(127) NOT NULL,
   `pecking_order` INTEGER UNSIGNED NOT NULL,
+  `tier_id` TINYINT UNSIGNED,
   PRIMARY KEY  (id),
   UNIQUE KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO role (id,`name`,`soft_hyphenation_text`,`pecking_order`) VALUES
-(1,'Application Administrator',"Ap&shy;pli&shy;ca&shy;tion Ad&shy;min&shy;is&shy;tra&shy;tor",11000);
+INSERT INTO role (`name`,`soft_hyphenation_text`,`pecking_order`,`tier_id`) VALUES
+('Application Administrator',"Ap&shy;pli&shy;ca&shy;tion Ad&shy;min&shy;is&shy;tra&shy;tor",11000,1);
 
 --
 -- table structure for table `role_member_map`
@@ -120,6 +126,22 @@ CREATE TABLE role_privilege_map (
   PRIMARY KEY  (role_id,privilege_id),
   KEY privilege_id (privilege_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+insert role_privilege_map (privilege_id,role_id) values
+((select id from privilege where name = "config-users"),(select id from role where name = "Application Administrator"));
+
+--
+-- Table structure for table `tier`
+--
+DROP TABLE IF EXISTS tier;
+CREATE TABLE tier (
+  id tinyint unsigned NOT NULL,
+  name varchar(31) NOT NULL,
+  PRIMARY KEY id (id),
+  UNIQUE KEY name (name)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE role ADD CONSTRAINT tier_id FOREIGN KEY tier_id (tier_id) REFERENCES tier (id);
 
 --
 -- Table structure for table `user`

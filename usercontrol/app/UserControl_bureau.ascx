@@ -29,6 +29,11 @@
               <ASP:RequiredFieldValidator id="RequiredFieldValidator_description" runat="server" errormessage="Please enter Description." font-bold="True" controltovalidate="TextBox_description" display="Dynamic">!ERR!</ASP:RequiredFieldValidator>
             </td>
           </tr>
+          <tr>
+            <td><font class="compact">Reports to:</font></td>
+            <td><font class="compact">DEPARTMENT</font></td>
+            <td></td>
+          </tr>
         </table>
       </td>
     </tr>

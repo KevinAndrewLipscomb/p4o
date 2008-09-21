@@ -29,6 +29,17 @@
               <ASP:RequiredFieldValidator id="RequiredFieldValidator_description" runat="server" errormessage="Please enter Description." font-bold="True" controltovalidate="TextBox_description" display="Dynamic">!ERR!</ASP:RequiredFieldValidator>
             </td>
           </tr>
+          <tr>
+            <td><font class="compact">Bureau:</font></td>
+            <td>
+              <font class="compact">
+                <ASP:DropDownList id="DropDownList_bureau" runat="server" cssclass="compact"></ASP:DropDownList>
+              </font>
+            </td>
+            <td>
+              <ASP:RequiredFieldValidator id="RequiredFieldValidator_bureau" runat="server" errormessage="Please select a Bureau." font-bold="True" controltovalidate="DropDownList_bureau" display="Dynamic">!ERR!</ASP:RequiredFieldValidator>
+            </td>
+          </tr>
         </table>
       </td>
     </tr>

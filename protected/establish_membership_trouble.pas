@@ -9,7 +9,7 @@ uses
   Class_biz_notifications,
   Class_biz_user,
   ki_web_ui,
-  UserControl_print_div, sstchur.web.SmartNav;
+  UserControl_print_div;
 
 type
   p_type =
@@ -48,7 +48,6 @@ type
     Label_application_name_2: System.Web.UI.WebControls.Label;
     TextBox_explanation: System.Web.UI.WebControls.TextBox;
     RequiredFieldValidator_explanation: System.Web.UI.WebControls.RequiredFieldValidator;
-    SmartScroller_control: sstchur.web.SmartNav.SmartScroller;
     Button_cancel: System.Web.UI.WebControls.Button;
   protected
     procedure OnInit(e: EventArgs); override;

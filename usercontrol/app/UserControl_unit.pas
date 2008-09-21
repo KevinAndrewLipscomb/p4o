@@ -3,6 +3,7 @@ unit UserControl_unit;
 interface
 
 uses
+  Class_biz_divisions,
   Class_biz_units,
   ki_web_ui,
   System.Data,
@@ -17,6 +18,7 @@ type
   p_type =
     RECORD
     be_loaded: boolean;
+    biz_divisions: TClass_biz_divisions;
     biz_units: TClass_biz_units;
     END;
   TWebUserControl_unit = class(ki_web_ui.usercontrol_class)
@@ -48,6 +50,7 @@ type
     DropDownList_spec: System.Web.UI.WebControls.DropDownList;
     TextBox_description: System.Web.UI.WebControls.TextBox;
     RequiredFieldValidator_description: System.Web.UI.WebControls.RequiredFieldValidator;
+    DropDownList_division: DropDownList;
   protected
     procedure OnInit(e: System.EventArgs); override;
   private
@@ -71,6 +74,7 @@ begin
   TextBox_id.text := EMPTY;
   DropDownList_spec.visible := FALSE;
   TextBox_description.text := EMPTY;
+  DropDownList_division.ClearSelection;
   //
   Button_delete.enabled := FALSE;
   //
@@ -160,6 +164,7 @@ begin
   //
   if not p.be_loaded then begin
     //
+    p.biz_divisions.BindDirectToListControl(DropDownList_division);
     //
     RequireConfirmation(Button_delete,'Are you sure you want to delete this record?');
     //
@@ -176,17 +181,20 @@ end;
 function TWebUserControl_unit.PresentRecord(id: string): boolean;
 var
   description: string;
+  division_id: string;
 begin
   PresentRecord := FALSE;
   if p.biz_units.Get
     (
     id,
-    description
+    description,
+    division_id
     )
   then begin
     //
     TextBox_id.text := id;
     TextBox_description.text := description;
+    DropDownList_division.selectedvalue := division_id;
     //
     TextBox_id.enabled := FALSE;
     Button_delete.enabled := TRUE;
@@ -206,11 +214,12 @@ begin
   //
   if session['UserControl_unit.p'] <> nil then begin
     p := p_type(session['UserControl_unit.p']);
-    p.be_loaded := IsPostBack and (string(session['UserControl_member_binder_PlaceHolder_content']) = 'UserControl_unit');
+    p.be_loaded := IsPostBack and (string(session['UserControl_member_binder_UserControl_config_UserControl_business_objects_binder_PlaceHolder_content']) = 'UserControl_unit');
   end else begin
     //
     p.be_loaded := FALSE;
     //
+    p.biz_divisions := TClass_biz_divisions.Create;
     p.biz_units := TClass_biz_units.Create;
     //
   end;
@@ -255,7 +264,8 @@ begin
     p.biz_units.&Set
       (
       Safe(TextBox_id.text,NUM),
-      Safe(TextBox_description.text,PUNCTUATED)
+      Safe(TextBox_description.text,PUNCTUATED),
+      Safe(DropDownList_division.SelectedValue,NUM)
       );
     Alert(USER,SUCCESS,'recsaved','Record saved.');
   end else begin
