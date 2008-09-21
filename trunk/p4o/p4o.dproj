@@ -175,6 +175,7 @@
     <DCCReference Include="component\biz\Class_biz_role_privilege_map.pas" />
     <DCCReference Include="component\biz\Class_biz_scheduled_tasks.pas" />
     <DCCReference Include="component\biz\Class_biz_squads.pas" />
+    <DCCReference Include="component\biz\Class_biz_training_requests.pas" />
     <DCCReference Include="component\biz\Class_biz_units.pas" />
     <DCCReference Include="component\biz\Class_biz_user.pas" />
     <DCCReference Include="component\biz\Class_biz_users.pas" />
@@ -192,6 +193,7 @@
     <DCCReference Include="component\db\Class_db_role_privilege_map.pas" />
     <DCCReference Include="component\db\Class_db_squads.pas" />
     <DCCReference Include="component\db\Class_db_trail.pas" />
+    <DCCReference Include="component\db\Class_db_training_requests.pas" />
     <DCCReference Include="component\db\Class_db_units.pas" />
     <DCCReference Include="component\db\Class_db_user.pas" />
     <DCCReference Include="component\db\Class_db_users.pas" />
@@ -366,6 +368,11 @@
       <Form>UserControl_squad.TWebUserControl_squad</Form>
       <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_training_request.pas">
+      <DependentUpon>usercontrol\app\UserControl_training_request.ascx</DependentUpon>
+      <Form>UserControl_training_request.TWebUserControl_training_request</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
+    </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_unit.pas">
       <DependentUpon>usercontrol\app\UserControl_unit.ascx</DependentUpon>
       <Form>UserControl_unit.TWebUserControl_unit</Form>
@@ -468,6 +475,7 @@
     <None Include="usercontrol\app\UserControl_role_privilege_mapping.ascx" />
     <None Include="usercontrol\app\UserControl_role_privilege_matrix.ascx" />
     <None Include="usercontrol\app\UserControl_squad.ascx" />
+    <None Include="usercontrol\app\UserControl_training_request.ascx" />
     <None Include="usercontrol\app\UserControl_unit.ascx" />
     <None Include="usercontrol\app\UserControl_update_progress_blocker.ascx" />
     <None Include="usercontrol\app\UserControl_user.ascx" />
