@@ -7,7 +7,7 @@
     <td valign="top">
       <table cellspacing="0" cellpadding="5" border="0">
   <tr>
-    <td valign="top"><font class="">Id:</font></td>
+    <td valign="top"><font class="">ID:</font></td>
     <td valign="top"><font class="">
       <ASP:TextBox id="TextBox_id" runat="server"  cssclass=""></ASP:TextBox>
          
@@ -23,7 +23,7 @@
     </td>
   </tr>
   <tr>
-    <td><font class="">Nature:</font></td>
+    <td><font class="">Nature of training:</font></td>
     <td><font class="">
       <ASP:TextBox id="TextBox_nature" runat="server" columns="72" maxlength="127" cssclass=""></ASP:TextBox>
     </font>
@@ -63,7 +63,7 @@
   <tr>
     <td><font class="">Cost of enrollment:</font></td>
     <td><font class="">
-      <ASP:TextBox id="TextBox_cost_of_enrollment" runat="server"  cssclass=""></ASP:TextBox>
+      $<ASP:TextBox id="TextBox_cost_of_enrollment" runat="server"  cssclass=""></ASP:TextBox>
     </font>
     </td>
     <td>
@@ -74,7 +74,7 @@
   <tr>
     <td><font class="">Cost of lodging:</font></td>
     <td><font class="">
-      <ASP:TextBox id="TextBox_cost_of_lodging" runat="server"  cssclass=""></ASP:TextBox>
+      $<ASP:TextBox id="TextBox_cost_of_lodging" runat="server"  cssclass=""></ASP:TextBox>
     </font>
     </td>
     <td>
@@ -85,7 +85,7 @@
   <tr>
     <td><font class="">Cost of meals:</font></td>
     <td><font class="">
-      <ASP:TextBox id="TextBox_cost_of_meals" runat="server"  cssclass=""></ASP:TextBox>
+      $<ASP:TextBox id="TextBox_cost_of_meals" runat="server"  cssclass=""></ASP:TextBox>
     </font>
     </td>
     <td>
@@ -96,7 +96,7 @@
   <tr>
     <td><font class="">Cost of transportation:</font></td>
     <td><font class="">
-      <ASP:TextBox id="TextBox_cost_of_transportation" runat="server"  cssclass=""></ASP:TextBox>
+      $<ASP:TextBox id="TextBox_cost_of_transportation" runat="server"  cssclass=""></ASP:TextBox>
     </font>
     </td>
     <td>
@@ -105,14 +105,15 @@
     </td>
   </tr>
   <tr>
-    <td><font class="">Reason:</font></td>
+    <td><font class="">Reason to attend:</font></td>
     <td><font class="">
-      <ASP:TextBox id="TextBox_reason" runat="server" columns="0" maxlength="0" textmode="MultiLine" rows="2" cssclass=""></ASP:TextBox>
+      <ASP:TextBox id="TextBox_reason" runat="server" columns="60" maxlength="0" textmode="MultiLine" rows="4" cssclass=""></ASP:TextBox>
     </font>
     </td>
     <td>
     </td>
   </tr>
+<div id="Div_disposition_training" runat="server">
   <tr>
     <td><font class="">Disposition training timestamp:</font></td>
     <td><font class="">
@@ -154,6 +155,8 @@
     <td>
     </td>
   </tr>
+</div>
+<div id="Div_disposition_squad" runat="server">
   <tr>
     <td><font class="">Disposition squad timestamp:</font></td>
     <td><font class="">
@@ -193,6 +196,8 @@
     <td>
     </td>
   </tr>
+</div>
+<div id="Div_disposition_unit" runat="server">
   <tr>
     <td><font class="">Disposition unit timestamp:</font></td>
     <td><font class="">
@@ -232,6 +237,8 @@
     <td>
     </td>
   </tr>
+</div>
+<div id="Div_disposition_division" runat="server">
   <tr>
     <td><font class="">Disposition division timestamp:</font></td>
     <td><font class="">
@@ -271,6 +278,8 @@
     <td>
     </td>
   </tr>
+</div>
+<div id="Div_disposition_assistnat_chief" runat="server">
   <tr>
     <td><font class="">Disposition assistant chief timestamp:</font></td>
     <td><font class="">
@@ -310,6 +319,8 @@
     <td>
     </td>
   </tr>
+</div>
+<div id="Div_disposition_finance" runat="server">
   <tr>
     <td><font class="">Payment timestamp:</font></td>
     <td><font class="">
@@ -360,6 +371,8 @@
     <td>
     </td>
   </tr>
+</div>
+<div id="Div_disposition_status" runat="server">
   <tr>
     <td><font class="">Status code:</font></td>
     <td><font class="">
@@ -371,6 +384,8 @@
       <ASP:RegularExpressionValidator id="RegularExpressionValidator_status_code" runat="server" errormessage="Please enter a valid Status code." font-bold="True" controltovalidate="TextBox_status_code" validationexpression="(-?\d+)?" display="Dynamic">!ERR!</ASP:RegularExpressionValidator>
     </td>
   </tr>
+</div>
+<div id="Div_disposition_finalization" runat="server">
   <tr>
     <td><font class="">Finalization timestamp:</font></td>
     <td><font class="">
@@ -381,6 +396,7 @@
       <ASP:RequiredFieldValidator id="RequiredFieldValidator_finalization_timestamp" runat="server" errormessage="Please enter Finalization timestamp." font-bold="True" controltovalidate="TextBox_finalization_timestamp" display="Dynamic">!ERR!</ASP:RequiredFieldValidator>
     </td>
   </tr>
+</div>
       </table>
     </td>
   </tr>

@@ -21,6 +21,9 @@ type
   strict protected
     PlaceHolder_content: System.Web.UI.WebControls.PlaceHolder;
     TabContainer_control: AjaxControlToolkit.TabContainer;
+    TabPanel_new: AjaxControlToolkit.TabPanel;
+    TabPanel_current: AjaxControlToolkit.TabPanel;
+    TabPanel_old: AjaxControlToolkit.TabPanel;
     TabPanel_config: AjaxControlToolkit.TabPanel;
   strict private
     type
@@ -49,14 +52,15 @@ uses
   System.Collections,
   system.configuration,
   UserControl_about,
-  UserControl_config_binder
-//  ,UserControl_resources
-  ;
+  UserControl_config_binder,
+  UserControl_new_binder;
 
 const
-  TSSI_RESOURCES = 0;
-  TSSI_CONFIG = 1;
-  TSSI_ABOUT = 2;
+  TSSI_NEW = 0;
+  TSSI_CURRENT = 1;
+  TSSI_OLD = 2;
+  TSSI_CONFIG = 3;
+  TSSI_ABOUT = 4;
 
 procedure TWebUserControl_member_binder.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
@@ -92,6 +96,13 @@ begin
     // Dynamic controls must be re-added on each postback.
     //
     case p.tab_index of
+    TSSI_NEW:
+      p.content_id := AddIdentifiedControlToPlaceHolder
+        (
+        TWebUserControl_new_binder(LoadControl('~/usercontrol/app/UserControl_new_binder.ascx')),
+        'UserControl_new_binder',
+        PlaceHolder_content
+        );
     TSSI_CONFIG:
       p.content_id := AddIdentifiedControlToPlaceHolder
         (
@@ -99,13 +110,6 @@ begin
         'UserControl_config',
         PlaceHolder_content
         );
-//    TSSI_RESOURCES:
-//      p.content_id := AddIdentifiedControlToPlaceHolder
-//        (
-//        TWebUserControl_resources(LoadControl('~/usercontrol/app/UserControl_resources.ascx')),
-//        'UserControl_resources',
-//        PlaceHolder_content
-//        );
     TSSI_ABOUT:
       p.content_id := AddIdentifiedControlToPlaceHolder
         (
@@ -118,14 +122,14 @@ begin
     //
     p.be_loaded := FALSE;
     //
-    p.tab_index := TSSI_RESOURCES;
+    p.tab_index := TSSI_NEW;
     //
-//    p.content_id := AddIdentifiedControlToPlaceHolder
-//      (
-//      TWebUserControl_resources(LoadControl('~/usercontrol/app/UserControl_resources.ascx')).Fresh,
-//      'UserControl_resources',
-//      PlaceHolder_content
-//      );
+    p.content_id := AddIdentifiedControlToPlaceHolder
+      (
+      TWebUserControl_new_binder(LoadControl('~/usercontrol/app/UserControl_new_binder.ascx')).Fresh,
+      'UserControl_new_binder',
+      PlaceHolder_content
+      );
     //
   end;
   //
@@ -172,13 +176,13 @@ begin
   PlaceHolder_content.controls.Clear;
   //
   case p.tab_index of
-//  TSSI_RESOURCES:
-//    p.content_id := AddIdentifiedControlToPlaceHolder
-//      (
-//      TWebUserControl_resources(LoadControl('~/usercontrol/app/UserControl_resources.ascx')).Fresh,
-//      'UserControl_resources',
-//      PlaceHolder_content
-//      );
+  TSSI_NEW:
+    p.content_id := AddIdentifiedControlToPlaceHolder
+      (
+      TWebUserControl_new_binder(LoadControl('~/usercontrol/app/UserControl_new_binder.ascx')).Fresh,
+      'UserControl_new_binder',
+      PlaceHolder_content
+      );
   TSSI_CONFIG:
     p.content_id := AddIdentifiedControlToPlaceHolder
       (

@@ -313,6 +313,11 @@
       <Form>UserControl_member_binder.TWebUserControl_member_binder</Form>
       <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_new_binder.pas">
+      <DependentUpon>usercontrol\app\UserControl_new_binder.ascx</DependentUpon>
+      <Form>UserControl_new_binder.TWebUserControl_new_binder</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
+    </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_postcontent.pas">
       <DependentUpon>usercontrol\app\UserControl_postcontent.ascx</DependentUpon>
       <Form>UserControl_postcontent.TWebUserControl_postcontent</Form>
@@ -464,6 +469,7 @@
     <None Include="usercontrol\app\UserControl_establish_membership.ascx" />
     <None Include="usercontrol\app\UserControl_member.ascx" />
     <None Include="usercontrol\app\UserControl_member_binder.ascx" />
+    <None Include="usercontrol\app\UserControl_new_binder.ascx" />
     <None Include="usercontrol\app\UserControl_postcontent.ascx" />
     <None Include="usercontrol\app\UserControl_precontent.ascx" />
     <None Include="usercontrol\app\UserControl_role.ascx" />
