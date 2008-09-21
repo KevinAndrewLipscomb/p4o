@@ -19,20 +19,22 @@ type
     procedure BindDirectToListControl
       (
       target: system.object;
-      unselected_literal: string = '-- division --';
+      unselected_literal: string = '-- Division --';
       selected_value: string = EMPTY
       );
     function Delete(id: string): boolean;
     function Get
       (
       id: string;
-      out description: string
+      out description: string;
+      out bureau_id: string
       )
       : boolean;
     procedure &Set
       (
       id: string;
-      description: string
+      description: string;
+      bureau_id: string
       );
   public
     constructor Create;
@@ -87,7 +89,7 @@ end;
 procedure TClass_db_divisions.BindDirectToListControl
   (
   target: system.object;
-  unselected_literal: string = '-- division --';
+  unselected_literal: string = '-- Division --';
   selected_value: string = EMPTY
   );
 var
@@ -134,7 +136,8 @@ end;
 function TClass_db_divisions.Get
   (
   id: string;
-  out description: string
+  out description: string;
+  out bureau_id: string
   )
   : boolean;
 var
@@ -142,10 +145,11 @@ var
 begin
   Get := FALSE;
   self.Open;
-  dr := mysqlcommand.Create('select description from division where id = "' + id + '"',connection).ExecuteReader;
+  dr := mysqlcommand.Create('select description,bureau_id from division where id = "' + id + '"',connection).ExecuteReader;
   if dr.Read then begin
     //
     description := dr['description'].tostring;
+    bureau_id := dr['bureau_id'].tostring;
     //
     Get := TRUE;
     //
@@ -157,13 +161,15 @@ end;
 procedure TClass_db_divisions.&Set
   (
   id: string;
-  description: string
+  description: string;
+  bureau_id: string
   );
 var
   childless_field_assignments_clause: string;
 begin
   //
-  childless_field_assignments_clause := 'description = "' + description + '"';
+  childless_field_assignments_clause := ' description = NULLIF("' + description + '","")'
+  + ' , bureau_id = NULLIF("' + bureau_id + '","")';
   //
   self.Open;
   mysqlcommand.Create

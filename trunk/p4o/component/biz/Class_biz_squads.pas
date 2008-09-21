@@ -25,13 +25,15 @@ type
     function Get
       (
       code: string;
-      out description: string
+      out description: string;
+      out unit_id: string
       )
       : boolean;
     procedure &Set
       (
       code: string;
-      description: string
+      description: string;
+      unit_id: string
       );
   public
     constructor Create;
@@ -75,8 +77,9 @@ end;
 
 function TClass_biz_squads.Get
   (
-      code: string;
-      out description: string
+  code: string;
+  out description: string;
+  out unit_id: string
   )
   : boolean;
 begin
@@ -84,22 +87,25 @@ begin
   Get := db_squads.Get
     (
     code,
-    description
+    description,
+    unit_id
     );
   //
 end;
 
 procedure TClass_biz_squads.&Set
   (
-      code: string;
-      description: string
+  code: string;
+  description: string;
+  unit_id: string
   );
 begin
   //
   db_squads.&Set
     (
     code,
-    description
+    description,
+    unit_id
     );
   //
 end;

@@ -18,20 +18,22 @@ type
     procedure BindDirectToListControl
       (
       target: system.object;
-      unselected_literal: string = '-- division --';
+      unselected_literal: string = '-- Division --';
       selected_value: string = EMPTY
       );
     function Delete(code: string): boolean;
     function Get
       (
       code: string;
-      out description: string
+      out description: string;
+      out bureau_id: string
       )
       : boolean;
     procedure &Set
       (
       code: string;
-      description: string
+      description: string;
+      bureau_id: string
       );
   public
     constructor Create;
@@ -61,7 +63,7 @@ end;
 procedure TClass_biz_divisions.BindDirectToListControl
   (
   target: system.object;
-  unselected_literal: string = '-- division --';
+  unselected_literal: string = '-- Division --';
   selected_value: string = EMPTY
   );
 begin
@@ -75,8 +77,9 @@ end;
 
 function TClass_biz_divisions.Get
   (
-      code: string;
-      out description: string
+  code: string;
+  out description: string;
+  out bureau_id: string
   )
   : boolean;
 begin
@@ -84,22 +87,25 @@ begin
   Get := db_divisions.Get
     (
     code,
-    description
+    description,
+    bureau_id
     );
   //
 end;
 
 procedure TClass_biz_divisions.&Set
   (
-      code: string;
-      description: string
+  code: string;
+  description: string;
+  bureau_id: string
   );
 begin
   //
   db_divisions.&Set
     (
     code,
-    description
+    description,
+    bureau_id
     );
   //
 end;

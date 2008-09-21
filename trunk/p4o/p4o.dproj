@@ -153,7 +153,7 @@
     </Reference>
     <Reference Include="lib\ki\ki.dll">
       <AssemblyName>ki</AssemblyName>
-      <Version>1.0.3176.21956</Version>
+      <Version>1.0.3185.24747</Version>
       <HintPath>lib\ki\ki.dll</HintPath>
       <AssemblyTag>lib\ki\ki.dll</AssemblyTag>
       <LinkUnits>False</LinkUnits>
@@ -273,6 +273,8 @@
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_bureau.pas">
       <DependentUpon>usercontrol\app\UserControl_bureau.ascx</DependentUpon>
+      <Form>UserControl_bureau.TWebUserControl_bureau</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_business_objects_binder.pas">
       <DependentUpon>usercontrol\app\UserControl_business_objects_binder.ascx</DependentUpon>
@@ -291,6 +293,8 @@
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_division.pas">
       <DependentUpon>usercontrol\app\UserControl_division.ascx</DependentUpon>
+      <Form>UserControl_division.TWebUserControl_division</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_establish_membership.pas">
       <DependentUpon>usercontrol\app\UserControl_establish_membership.ascx</DependentUpon>
@@ -364,6 +368,8 @@
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_unit.pas">
       <DependentUpon>usercontrol\app\UserControl_unit.ascx</DependentUpon>
+      <Form>UserControl_unit.TWebUserControl_unit</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_update_progress_blocker.pas">
       <DependentUpon>usercontrol\app\UserControl_update_progress_blocker.ascx</DependentUpon>

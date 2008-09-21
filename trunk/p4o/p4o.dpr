@@ -75,13 +75,13 @@ uses
   UserControl_member in 'usercontrol\app\UserControl_member.pas' {UserControl_member.TWebUserControl_member: ki_web_ui.usercontrol_class},
   Class_biz_units in 'component\biz\Class_biz_units.pas',
   Class_db_units in 'component\db\Class_db_units.pas',
-  UserControl_unit in 'usercontrol\app\UserControl_unit.pas',
+  UserControl_unit in 'usercontrol\app\UserControl_unit.pas' {UserControl_unit.TWebUserControl_unit: ki_web_ui.usercontrol_class},
   Class_biz_divisions in 'component\biz\Class_biz_divisions.pas',
   Class_db_divisions in 'component\db\Class_db_divisions.pas',
-  UserControl_division in 'usercontrol\app\UserControl_division.pas',
+  UserControl_division in 'usercontrol\app\UserControl_division.pas' {UserControl_division.TWebUserControl_division: ki_web_ui.usercontrol_class},
   Class_biz_bureaus in 'component\biz\Class_biz_bureaus.pas',
   Class_db_bureaus in 'component\db\Class_db_bureaus.pas',
-  UserControl_bureau in 'usercontrol\app\UserControl_bureau.pas';
+  UserControl_bureau in 'usercontrol\app\UserControl_bureau.pas' {UserControl_bureau.TWebUserControl_bureau: ki_web_ui.usercontrol_class};
 
 //
 // General Information about an assembly is controlled through the following

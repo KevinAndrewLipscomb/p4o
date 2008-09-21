@@ -19,7 +19,7 @@ type
     procedure BindDirectToListControl
       (
       target: system.object;
-      unselected_literal: string = '-- bureau --';
+      unselected_literal: string = '-- Bureau --';
       selected_value: string = EMPTY
       );
     function Delete(id: string): boolean;
@@ -87,7 +87,7 @@ end;
 procedure TClass_db_bureaus.BindDirectToListControl
   (
   target: system.object;
-  unselected_literal: string = '-- bureau --';
+  unselected_literal: string = '-- Bureau --';
   selected_value: string = EMPTY
   );
 var

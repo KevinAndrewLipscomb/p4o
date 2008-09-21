@@ -1,4 +1,4 @@
-﻿START TRANSACTION;
+START TRANSACTION;
 
 -- --------------------------------------------------------
 
@@ -38,13 +38,13 @@ insert role_member_map set
   role_id = (select id from role where name = "Application Administrator"),
   member_id = (select id from member where registration_code = "1");
 
-insert privilege (name) values
+insert ignore privilege (name) values
 ("config-users"),
 ("config-roles-and-matrices"),
 ("config-business-objects"),
 ("config-members");
 
-insert role_privilege_map (role_id,privilege_id) values
+insert ignore role_privilege_map (role_id,privilege_id) values
 ((select id from role where name = "Application Administrator"),(select id from privilege where name = "send-quickmessages")),
 ((select id from role where name = "Application Administrator"),(select id from privilege where name = "config-users")),
 ((select id from role where name = "Application Administrator"),(select id from privilege where name = "config-roles-and-matrices")),
