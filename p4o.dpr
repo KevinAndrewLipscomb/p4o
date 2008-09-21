@@ -81,7 +81,10 @@ uses
   UserControl_division in 'usercontrol\app\UserControl_division.pas' {UserControl_division.TWebUserControl_division: ki_web_ui.usercontrol_class},
   Class_biz_bureaus in 'component\biz\Class_biz_bureaus.pas',
   Class_db_bureaus in 'component\db\Class_db_bureaus.pas',
-  UserControl_bureau in 'usercontrol\app\UserControl_bureau.pas' {UserControl_bureau.TWebUserControl_bureau: ki_web_ui.usercontrol_class};
+  UserControl_bureau in 'usercontrol\app\UserControl_bureau.pas' {UserControl_bureau.TWebUserControl_bureau: ki_web_ui.usercontrol_class},
+  Class_biz_training_requests in 'component\biz\Class_biz_training_requests.pas',
+  Class_db_training_requests in 'component\db\Class_db_training_requests.pas',
+  UserControl_training_request in 'usercontrol\app\UserControl_training_request.pas' {UserControl_training_request.TWebUserControl_training_request: ki_web_ui.usercontrol_class};
 
 //
 // General Information about an assembly is controlled through the following
