@@ -81,6 +81,13 @@ type
     TextBox_status_code: TextBox;
     TextBox_finalization_timestamp: TextBox;
     TextBox_id: TextBox;
+    Div_disposition_training: htmlgenericcontrol;
+    Div_disposition_squad: htmlgenericcontrol;
+    Div_disposition_unit: htmlgenericcontrol;
+    Div_disposition_division: htmlgenericcontrol;
+    Div_disposition_assistant_chief: htmlgenericcontrol;
+    Div_disposition_payment: htmlgenericcontrol;
+    Div_disposition_status: htmlgenericcontrol;
   protected
     procedure OnInit(e: System.EventArgs); override;
   private
@@ -230,6 +237,7 @@ begin
   //
   if not p.be_loaded then begin
     //
+    Div_disposition_training.visible := FALSE;
     //
     RequireConfirmation(Button_delete,'Are you sure you want to delete this record?');
     //
@@ -461,39 +469,39 @@ begin
       Safe(TextBox_id.text,PUNCTUATED).trim,
       Safe(TextBox_nature.text,PUNCTUATED).trim,
       Safe(TextBox_dates.text,PUNCTUATED).trim,
-      Safe(TextBox_conducting_agency.text,PUNCTUATED).trim,
+      Safe(TextBox_conducting_agency.text,ORG_NAME).trim,
       Safe(TextBox_location.text,PUNCTUATED).trim,
-      Safe(TextBox_cost_of_enrollment.text,PUNCTUATED).trim,
-      Safe(TextBox_cost_of_lodging.text,PUNCTUATED).trim,
-      Safe(TextBox_cost_of_meals.text,PUNCTUATED).trim,
-      Safe(TextBox_cost_of_transportation.text,PUNCTUATED).trim,
+      Safe(TextBox_cost_of_enrollment.text,CURRENCY_USA).trim,
+      Safe(TextBox_cost_of_lodging.text,CURRENCY_USA).trim,
+      Safe(TextBox_cost_of_meals.text,CURRENCY_USA).trim,
+      Safe(TextBox_cost_of_transportation.text,CURRENCY_USA).trim,
       Safe(TextBox_reason.text,PUNCTUATED).trim,
       disposition_training_timestamp,
-      Safe(TextBox_disposition_training_member_id.text,PUNCTUATED).trim,
-      Safe(TextBox_disposition_training_funding_source.text,PUNCTUATED).trim,
+      Safe(TextBox_disposition_training_member_id.text,NUM).trim,
+      Safe(TextBox_disposition_training_funding_source.text,NUM).trim,
       Safe(TextBox_disposition_training_comments.text,PUNCTUATED).trim,
       disposition_squad_timestamp,
-      Safe(TextBox_disposition_squad_member_id.text,PUNCTUATED).trim,
+      Safe(TextBox_disposition_squad_member_id.text,NUM).trim,
       CheckBox_disposition_squad_be_approved.checked,
       Safe(TextBox_disposition_squad_comments.text,PUNCTUATED).trim,
       disposition_unit_timestamp,
-      Safe(TextBox_disposition_unit_member_id.text,PUNCTUATED).trim,
+      Safe(TextBox_disposition_unit_member_id.text,NUM).trim,
       CheckBox_disposition_unit_be_approved.checked,
       Safe(TextBox_disposition_unit_comments.text,PUNCTUATED).trim,
       disposition_division_timestamp,
-      Safe(TextBox_disposition_division_member_id.text,PUNCTUATED).trim,
+      Safe(TextBox_disposition_division_member_id.text,NUM).trim,
       CheckBox_disposition_division_be_approved.checked,
       Safe(TextBox_disposition_division_comments.text,PUNCTUATED).trim,
       disposition_assistant_chief_timestamp,
-      Safe(TextBox_disposition_assistant_chief_member_id.text,PUNCTUATED).trim,
+      Safe(TextBox_disposition_assistant_chief_member_id.text,NUM).trim,
       CheckBox_disposition_assistant_chief_be_approved.checked,
       Safe(TextBox_disposition_assistant_chief_comments.text,PUNCTUATED).trim,
       payment_timestamp,
-      Safe(TextBox_payment_member_id.text,PUNCTUATED).trim,
+      Safe(TextBox_payment_member_id.text,NUM).trim,
       CheckBox_payment_be_done.checked,
-      Safe(TextBox_payment_actual_amount.text,PUNCTUATED).trim,
+      Safe(TextBox_payment_actual_amount.text,CURRENCY_USA).trim,
       Safe(TextBox_payment_comments.text,PUNCTUATED).trim,
-      Safe(TextBox_status_code.text,PUNCTUATED).trim,
+      Safe(TextBox_status_code.text,NUM).trim,
       finalization_timestamp
       );
     Alert(USER,SUCCESS,'recsaved','Record saved.');
