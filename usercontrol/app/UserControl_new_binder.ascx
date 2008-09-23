@@ -6,9 +6,10 @@
       <tr>
         <td>
           <cc1:TabContainer id="TabContainer_control" runat="server" autopostback="True" cssclass="ajax__tab_ki">
+            <cc1:TabPanel runat="server" headertext="Time & attendance record" id="TabPanel_time_and_attendance_record"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Training request" id="TabPanel_training_request"></cc1:TabPanel>
-            <cc1:TabPanel runat="server" headertext="Tab 1" id="TabPanel_1"></cc1:TabPanel>
-            <cc1:TabPanel runat="server" headertext="Tab 2" id="TabPanel_2"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="Internal requisition" id="TabPanel_internal_requisition"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="Lateral transfer request" id="TabPanel_lateral_transfer_request"></cc1:TabPanel>
           </cc1:TabContainer>
         </td>
       </tr>

@@ -10,7 +10,8 @@ uses
   System.Web,
   System.Web.UI,
   System.Web.UI.WebControls,
-  System.Web.UI.HtmlControls;
+  System.Web.UI.HtmlControls,
+  UserControl_training_request;
 
 type
   p_type =
@@ -33,12 +34,9 @@ type
   strict protected
     TabContainer_control: AjaxControlToolkit.TabContainer;
     PlaceHolder_content: System.Web.UI.WebControls.PlaceHolder;
+    UserControl_training_request_control: TWebUserControl_training_request;
   protected
     procedure OnInit(e: System.EventArgs); override;
-  private
-    { Private Declarations }
-  public
-    { Public Declarations }
   published
     function Fresh: TWebUserControl_new_binder;
   end;
@@ -48,13 +46,13 @@ implementation
 uses
   kix,
   System.Collections,
-  system.configuration,
-  UserControl_training_request;
+  system.configuration;
 
 const
-  TSSI_TRAINING_REQUEST = 0;
-//  TSSI_1 = 1;
-//  TSSI_2 = 2;
+  TSSI_TIME_AND_ATTENDANCE_RECORD = 0;
+  TSSI_TRAINING_REQUEST = 1;
+//  TSSI_INTERNAL_REQUISITION = 2;
+//  TSSI_LATERAL_TANSFER_REQUEST = 3;
 
 procedure TWebUserControl_new_binder.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
@@ -77,6 +75,8 @@ begin
   InitializeComponent;
   inherited OnInit(e);
   //
+  UserControl_training_request_control := TWebUserControl_training_request(LoadControl('~/usercontrol/app/UserControl_training_request.ascx'));
+  //
   if session['UserControl_new_binder.p'] <> nil then begin
     p := p_type(session['UserControl_new_binder.p']);
     p.be_loaded := IsPostBack and (string(session['UserControl_member_binder_PlaceHolder_content']) = 'UserControl_new_binder');
@@ -90,20 +90,23 @@ begin
     //
     case p.tab_index of
     TSSI_TRAINING_REQUEST:
+      BEGIN
       p.content_id := AddIdentifiedControlToPlaceHolder
         (
-        TWebUserControl_training_request(LoadControl('~/usercontrol/app/UserControl_training_request.ascx')),
+        UserControl_training_request_control,
         'UserControl_training_request',
         PlaceHolder_content
         );
-//    TSSI_1:
+      UserControl_training_request_control.mode := NEW;
+      END;
+//    TSSI_INTERNAL_REQUISITION:
 //      p.content_id := AddIdentifiedControlToPlaceHolder
 //        (
 //        TWebUserControl2(LoadControl('~/usercontrol/app/UserControl2.ascx')),
 //        'UserControl2',
 //        PlaceHolder_content
 //        );
-//    TSSI_2:
+//    TSSI_LATERAL_TANSFER_REQUEST:
 //      p.content_id := AddIdentifiedControlToPlaceHolder
 //        (
 //        TWebUserControl3(LoadControl('~/usercontrol/app/UserControl3.ascx')),
@@ -119,10 +122,11 @@ begin
     //
     p.content_id := AddIdentifiedControlToPlaceHolder
       (
-      TWebUserControl_training_request(LoadControl('~/usercontrol/app/UserControl_training_request.ascx')).Fresh,
+      UserControl_training_request_control.Fresh,
       'UserControl_training_request',
       PlaceHolder_content
       );
+    UserControl_training_request_control.mode := NEW;
     //
   end;
   //
@@ -138,20 +142,23 @@ begin
   //
   case p.tab_index of
   TSSI_TRAINING_REQUEST:
+    BEGIN
     p.content_id := AddIdentifiedControlToPlaceHolder
       (
-      TWebUserControl_training_request(LoadControl('~/usercontrol/app/UserControl_training_request.ascx')).Fresh,
+      UserControl_training_request_control,
       'UserControl_training_request',
       PlaceHolder_content
       );
-//  TSSI_1:
+    UserControl_training_request_control.mode := NEW;
+    END;
+//  TSSI_INTERNAL_REQUISITION:
 //    p.content_id := AddIdentifiedControlToPlaceHolder
 //      (
 //      TWebUserControl2(LoadControl('~/usercontrol/app/UserControl2.ascx')).Fresh,
 //      'UserControl2',
 //      PlaceHolder_content
 //      );
-//  TSSI_2:
+//  TSSI_LATERAL_TANSFER_REQUEST:
 //    p.content_id := AddIdentifiedControlToPlaceHolder
 //      (
 //      TWebUserControl3(LoadControl('~/usercontrol/app/UserControl3.ascx')).Fresh,

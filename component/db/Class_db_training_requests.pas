@@ -58,7 +58,9 @@ type
       out payment_actual_amount: string;
       out payment_comments: string;
       out status_code: string;
-      out finalization_timestamp: datetime
+      out finalization_timestamp: datetime;
+      out member_id: string;
+      out submission_timestamp: datetime
       )
       : boolean;
     procedure &Set
@@ -99,7 +101,9 @@ type
       payment_actual_amount: string;
       payment_comments: string;
       status_code: string;
-      finalization_timestamp: datetime
+      finalization_timestamp: datetime;
+      member_id: string;
+      submission_timestamp: datetime
       );
   end;
 
@@ -179,43 +183,45 @@ end;
 
 function TClass_db_training_requests.Get
   (
-      id: string;
-      out nature: string;
-      out dates: string;
-      out conducting_agency: string;
-      out location: string;
-      out cost_of_enrollment: string;
-      out cost_of_lodging: string;
-      out cost_of_meals: string;
-      out cost_of_transportation: string;
-      out reason: string;
-      out disposition_training_timestamp: datetime;
-      out disposition_training_member_id: string;
-      out disposition_training_funding_source: string;
-      out disposition_training_comments: string;
-      out disposition_squad_timestamp: datetime;
-      out disposition_squad_member_id: string;
-      out disposition_squad_be_approved: boolean;
-      out disposition_squad_comments: string;
-      out disposition_unit_timestamp: datetime;
-      out disposition_unit_member_id: string;
-      out disposition_unit_be_approved: boolean;
-      out disposition_unit_comments: string;
-      out disposition_division_timestamp: datetime;
-      out disposition_division_member_id: string;
-      out disposition_division_be_approved: boolean;
-      out disposition_division_comments: string;
-      out disposition_assistant_chief_timestamp: datetime;
-      out disposition_assistant_chief_member_id: string;
-      out disposition_assistant_chief_be_approved: boolean;
-      out disposition_assistant_chief_comments: string;
-      out payment_timestamp: datetime;
-      out payment_member_id: string;
-      out payment_be_done: boolean;
-      out payment_actual_amount: string;
-      out payment_comments: string;
-      out status_code: string;
-      out finalization_timestamp: datetime
+  id: string;
+  out nature: string;
+  out dates: string;
+  out conducting_agency: string;
+  out location: string;
+  out cost_of_enrollment: string;
+  out cost_of_lodging: string;
+  out cost_of_meals: string;
+  out cost_of_transportation: string;
+  out reason: string;
+  out disposition_training_timestamp: datetime;
+  out disposition_training_member_id: string;
+  out disposition_training_funding_source: string;
+  out disposition_training_comments: string;
+  out disposition_squad_timestamp: datetime;
+  out disposition_squad_member_id: string;
+  out disposition_squad_be_approved: boolean;
+  out disposition_squad_comments: string;
+  out disposition_unit_timestamp: datetime;
+  out disposition_unit_member_id: string;
+  out disposition_unit_be_approved: boolean;
+  out disposition_unit_comments: string;
+  out disposition_division_timestamp: datetime;
+  out disposition_division_member_id: string;
+  out disposition_division_be_approved: boolean;
+  out disposition_division_comments: string;
+  out disposition_assistant_chief_timestamp: datetime;
+  out disposition_assistant_chief_member_id: string;
+  out disposition_assistant_chief_be_approved: boolean;
+  out disposition_assistant_chief_comments: string;
+  out payment_timestamp: datetime;
+  out payment_member_id: string;
+  out payment_be_done: boolean;
+  out payment_actual_amount: string;
+  out payment_comments: string;
+  out status_code: string;
+  out finalization_timestamp: datetime;
+  out member_id: string;
+  out submission_timestamp: datetime
   )
   : boolean;
 var
@@ -263,6 +269,8 @@ begin
     payment_comments := dr['payment_comments'].tostring;
     status_code := dr['status_code'].tostring;
     finalization_timestamp := datetime.Parse(dr['finalization_timestamp'].tostring);
+    member_id := dr['member_id'].tostring;
+    submission_timestamp := datetime.Parse(dr['submission_timestamp'].tostring);
     //
     Get := TRUE;
     //
@@ -273,43 +281,45 @@ end;
 
 procedure TClass_db_training_requests.&Set
   (
-      id: string;
-      nature: string;
-      dates: string;
-      conducting_agency: string;
-      location: string;
-      cost_of_enrollment: string;
-      cost_of_lodging: string;
-      cost_of_meals: string;
-      cost_of_transportation: string;
-      reason: string;
-      disposition_training_timestamp: datetime;
-      disposition_training_member_id: string;
-      disposition_training_funding_source: string;
-      disposition_training_comments: string;
-      disposition_squad_timestamp: datetime;
-      disposition_squad_member_id: string;
-      disposition_squad_be_approved: boolean;
-      disposition_squad_comments: string;
-      disposition_unit_timestamp: datetime;
-      disposition_unit_member_id: string;
-      disposition_unit_be_approved: boolean;
-      disposition_unit_comments: string;
-      disposition_division_timestamp: datetime;
-      disposition_division_member_id: string;
-      disposition_division_be_approved: boolean;
-      disposition_division_comments: string;
-      disposition_assistant_chief_timestamp: datetime;
-      disposition_assistant_chief_member_id: string;
-      disposition_assistant_chief_be_approved: boolean;
-      disposition_assistant_chief_comments: string;
-      payment_timestamp: datetime;
-      payment_member_id: string;
-      payment_be_done: boolean;
-      payment_actual_amount: string;
-      payment_comments: string;
-      status_code: string;
-      finalization_timestamp: datetime
+  id: string;
+  nature: string;
+  dates: string;
+  conducting_agency: string;
+  location: string;
+  cost_of_enrollment: string;
+  cost_of_lodging: string;
+  cost_of_meals: string;
+  cost_of_transportation: string;
+  reason: string;
+  disposition_training_timestamp: datetime;
+  disposition_training_member_id: string;
+  disposition_training_funding_source: string;
+  disposition_training_comments: string;
+  disposition_squad_timestamp: datetime;
+  disposition_squad_member_id: string;
+  disposition_squad_be_approved: boolean;
+  disposition_squad_comments: string;
+  disposition_unit_timestamp: datetime;
+  disposition_unit_member_id: string;
+  disposition_unit_be_approved: boolean;
+  disposition_unit_comments: string;
+  disposition_division_timestamp: datetime;
+  disposition_division_member_id: string;
+  disposition_division_be_approved: boolean;
+  disposition_division_comments: string;
+  disposition_assistant_chief_timestamp: datetime;
+  disposition_assistant_chief_member_id: string;
+  disposition_assistant_chief_be_approved: boolean;
+  disposition_assistant_chief_comments: string;
+  payment_timestamp: datetime;
+  payment_member_id: string;
+  payment_be_done: boolean;
+  payment_actual_amount: string;
+  payment_comments: string;
+  status_code: string;
+  finalization_timestamp: datetime;
+  member_id: string;
+  submission_timestamp: datetime
   );
 //
 // If any fields in this table are foreign keys for a subordinate table:
@@ -370,6 +380,8 @@ begin
       + ' , payment_comments = NULLIF("' + payment_comments + '","")'
       + ' , status_code = NULLIF("' + status_code + '","")'
       + ' , finalization_timestamp = ' + finalization_timestamp.tostring
+      + ' , member_id = NULLIF("' + member_id + '","")'
+      + ' , submission_timestamp = ' + submission_timestamp.tostring
       ),
     connection
     )

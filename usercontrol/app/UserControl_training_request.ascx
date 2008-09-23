@@ -6,13 +6,13 @@
   <tr>
     <td valign="top">
       <table cellspacing="0" cellpadding="5" border="0">
+<ASP:Panel id="Panel_detail" runat="server">
+ <ASP:Panel id="Panel_detail_origination" runat="server">
   <tr>
     <td valign="top"><font class="">ID:</font></td>
     <td valign="top"><font class="">
-      <ASP:TextBox id="TextBox_id" runat="server"  cssclass=""></ASP:TextBox>
-         
-      <ASP:LinkButton id="LinkButton_search" runat="server" causesvalidation="False">Lookup</ASP:LinkButton>
-         
+      <ASP:TextBox id="TextBox_id" runat="server"  cssclass=""></ASP:TextBox>&nbsp;&nbsp;&nbsp;&nbsp;
+      <ASP:LinkButton id="LinkButton_search" runat="server" causesvalidation="False">Lookup</ASP:LinkButton>&nbsp;&nbsp;&nbsp;&nbsp;
       <ASP:LinkButton id="LinkButton_reset" runat="server" causesvalidation="False">Reset</ASP:LinkButton><br>
       <ASP:DropDownList id="DropDownList_id" runat="server" visible="False" autopostback="True"></ASP:DropDownList><br>
     </font>
@@ -22,6 +22,25 @@
       <ASP:RegularExpressionValidator id="RegularExpressionValidator_id" runat="server" errormessage="Please enter a valid Id." font-bold="True" controltovalidate="TextBox_id" validationexpression="(-?\d+)?" display="Dynamic">!ERR!</ASP:RegularExpressionValidator>
     </td>
   </tr>
+  <tr>
+    <td><font class="">Submitted by:</font></td>
+    <td><font class="">
+      <ASP:TextBox id="TextBox_member_id" runat="server" cssclass="" enabled="False"></ASP:TextBox>
+    </font>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td><font class="">Submission timestamp:</font></td>
+    <td><font class="">
+      <ASP:TextBox id="TextBox_submission_timestamp" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
+    </font>
+    </td>
+    <td>
+    </td>
+  </tr>
+ </ASP:Panel>
   <tr>
     <td><font class="">Nature of training:</font></td>
     <td><font class="">
@@ -61,7 +80,7 @@
     </td>
   </tr>
   <tr>
-    <td><font class="">Cost of enrollment:</font></td>
+    <td><font class="">Anticipated cost of enrollment:</font></td>
     <td><font class="">
       $<ASP:TextBox id="TextBox_cost_of_enrollment" runat="server"  cssclass=""></ASP:TextBox>
     </font>
@@ -72,7 +91,7 @@
     </td>
   </tr>
   <tr>
-    <td><font class="">Cost of lodging:</font></td>
+    <td><font class="">Anticipated cost of lodging:</font></td>
     <td><font class="">
       $<ASP:TextBox id="TextBox_cost_of_lodging" runat="server"  cssclass=""></ASP:TextBox>
     </font>
@@ -83,7 +102,7 @@
     </td>
   </tr>
   <tr>
-    <td><font class="">Cost of meals:</font></td>
+    <td><font class="">Anticipated cost of meals:</font></td>
     <td><font class="">
       $<ASP:TextBox id="TextBox_cost_of_meals" runat="server"  cssclass=""></ASP:TextBox>
     </font>
@@ -94,7 +113,7 @@
     </td>
   </tr>
   <tr>
-    <td><font class="">Cost of transportation:</font></td>
+    <td><font class="">Anticipated cost of transportation:</font></td>
     <td><font class="">
       $<ASP:TextBox id="TextBox_cost_of_transportation" runat="server"  cssclass=""></ASP:TextBox>
     </font>
@@ -113,11 +132,12 @@
     <td>
     </td>
   </tr>
-<div id="Div_disposition_training" runat="server">
+</ASP:Panel>
+<ASP:Panel id="Panel_disposition_training" runat="server">
   <tr>
     <td><font class="">Disposition training timestamp:</font></td>
     <td><font class="">
-      <ASP:TextBox id="TextBox_disposition_training_timestamp" runat="server"  cssclass=""></ASP:TextBox>
+      <ASP:TextBox id="TextBox_disposition_training_timestamp" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
     </font>
     </td>
     <td>
@@ -127,7 +147,7 @@
   <tr>
     <td><font class="">Disposition training member id:</font></td>
     <td><font class="">
-      <ASP:TextBox id="TextBox_disposition_training_member_id" runat="server"  cssclass=""></ASP:TextBox>
+      <ASP:TextBox id="TextBox_disposition_training_member_id" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
     </font>
     </td>
     <td>
@@ -155,12 +175,12 @@
     <td>
     </td>
   </tr>
-</div>
-<div id="Div_disposition_squad" runat="server">
+</ASP:Panel>
+<ASP:Panel id="Panel_disposition_squad" runat="server">
   <tr>
     <td><font class="">Disposition squad timestamp:</font></td>
     <td><font class="">
-      <ASP:TextBox id="TextBox_disposition_squad_timestamp" runat="server"  cssclass=""></ASP:TextBox>
+      <ASP:TextBox id="TextBox_disposition_squad_timestamp" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
     </font>
     </td>
     <td>
@@ -170,7 +190,7 @@
   <tr>
     <td><font class="">Disposition squad member id:</font></td>
     <td><font class="">
-      <ASP:TextBox id="TextBox_disposition_squad_member_id" runat="server"  cssclass=""></ASP:TextBox>
+      <ASP:TextBox id="TextBox_disposition_squad_member_id" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
     </font>
     </td>
     <td>
@@ -196,12 +216,12 @@
     <td>
     </td>
   </tr>
-</div>
-<div id="Div_disposition_unit" runat="server">
+</ASP:Panel>
+<ASP:Panel id="Panel_disposition_unit" runat="server">
   <tr>
     <td><font class="">Disposition unit timestamp:</font></td>
     <td><font class="">
-      <ASP:TextBox id="TextBox_disposition_unit_timestamp" runat="server"  cssclass=""></ASP:TextBox>
+      <ASP:TextBox id="TextBox_disposition_unit_timestamp" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
     </font>
     </td>
     <td>
@@ -211,7 +231,7 @@
   <tr>
     <td><font class="">Disposition unit member id:</font></td>
     <td><font class="">
-      <ASP:TextBox id="TextBox_disposition_unit_member_id" runat="server"  cssclass=""></ASP:TextBox>
+      <ASP:TextBox id="TextBox_disposition_unit_member_id" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
     </font>
     </td>
     <td>
@@ -237,12 +257,12 @@
     <td>
     </td>
   </tr>
-</div>
-<div id="Div_disposition_division" runat="server">
+</ASP:Panel>
+<ASP:Panel id="Panel_disposition_division" runat="server">
   <tr>
     <td><font class="">Disposition division timestamp:</font></td>
     <td><font class="">
-      <ASP:TextBox id="TextBox_disposition_division_timestamp" runat="server"  cssclass=""></ASP:TextBox>
+      <ASP:TextBox id="TextBox_disposition_division_timestamp" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
     </font>
     </td>
     <td>
@@ -252,7 +272,7 @@
   <tr>
     <td><font class="">Disposition division member id:</font></td>
     <td><font class="">
-      <ASP:TextBox id="TextBox_disposition_division_member_id" runat="server"  cssclass=""></ASP:TextBox>
+      <ASP:TextBox id="TextBox_disposition_division_member_id" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
     </font>
     </td>
     <td>
@@ -278,12 +298,12 @@
     <td>
     </td>
   </tr>
-</div>
-<div id="Div_disposition_assistnat_chief" runat="server">
+</ASP:Panel>
+<ASP:Panel id="Panel_disposition_assistant_chief" runat="server">
   <tr>
     <td><font class="">Disposition assistant chief timestamp:</font></td>
     <td><font class="">
-      <ASP:TextBox id="TextBox_disposition_assistant_chief_timestamp" runat="server"  cssclass=""></ASP:TextBox>
+      <ASP:TextBox id="TextBox_disposition_assistant_chief_timestamp" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
     </font>
     </td>
     <td>
@@ -293,7 +313,7 @@
   <tr>
     <td><font class="">Disposition assistant chief member id:</font></td>
     <td><font class="">
-      <ASP:TextBox id="TextBox_disposition_assistant_chief_member_id" runat="server"  cssclass=""></ASP:TextBox>
+      <ASP:TextBox id="TextBox_disposition_assistant_chief_member_id" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
     </font>
     </td>
     <td>
@@ -319,12 +339,12 @@
     <td>
     </td>
   </tr>
-</div>
-<div id="Div_disposition_finance" runat="server">
+</ASP:Panel>
+<ASP:Panel id="Panel_disposition_finance" runat="server">
   <tr>
     <td><font class="">Payment timestamp:</font></td>
     <td><font class="">
-      <ASP:TextBox id="TextBox_payment_timestamp" runat="server"  cssclass=""></ASP:TextBox>
+      <ASP:TextBox id="TextBox_payment_timestamp" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
     </font>
     </td>
     <td>
@@ -334,7 +354,7 @@
   <tr>
     <td><font class="">Payment member id:</font></td>
     <td><font class="">
-      <ASP:TextBox id="TextBox_payment_member_id" runat="server"  cssclass=""></ASP:TextBox>
+      <ASP:TextBox id="TextBox_payment_member_id" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
     </font>
     </td>
     <td>
@@ -371,12 +391,12 @@
     <td>
     </td>
   </tr>
-</div>
-<div id="Div_disposition_status" runat="server">
+</ASP:Panel>
+<ASP:Panel id="Panel_disposition_status" runat="server">
   <tr>
     <td><font class="">Status code:</font></td>
     <td><font class="">
-      <ASP:TextBox id="TextBox_status_code" runat="server"  cssclass=""></ASP:TextBox>
+      <ASP:TextBox id="TextBox_status_code" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
     </font>
     </td>
     <td>
@@ -384,19 +404,19 @@
       <ASP:RegularExpressionValidator id="RegularExpressionValidator_status_code" runat="server" errormessage="Please enter a valid Status code." font-bold="True" controltovalidate="TextBox_status_code" validationexpression="(-?\d+)?" display="Dynamic">!ERR!</ASP:RegularExpressionValidator>
     </td>
   </tr>
-</div>
-<div id="Div_disposition_finalization" runat="server">
+</ASP:Panel>
+<ASP:Panel id="Panel_disposition_finalization" runat="server">
   <tr>
     <td><font class="">Finalization timestamp:</font></td>
     <td><font class="">
-      <ASP:TextBox id="TextBox_finalization_timestamp" runat="server"  cssclass=""></ASP:TextBox>
+      <ASP:TextBox id="TextBox_finalization_timestamp" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
     </font>
     </td>
     <td>
       <ASP:RequiredFieldValidator id="RequiredFieldValidator_finalization_timestamp" runat="server" errormessage="Please enter Finalization timestamp." font-bold="True" controltovalidate="TextBox_finalization_timestamp" display="Dynamic">!ERR!</ASP:RequiredFieldValidator>
     </td>
   </tr>
-</div>
+</ASP:Panel>
       </table>
     </td>
   </tr>
