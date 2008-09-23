@@ -14,11 +14,20 @@ uses
   UserControl_drop_down_date;
 
 type
+  //
+  // Support types
+  //
+  mode_type = (NONE,NEW,CURRENT,OLD);
   p_type =
     RECORD
     be_loaded: boolean;
     biz_training_requests: TClass_biz_training_requests;
+    id: string;
+    mode: mode_type;
     END;
+  //
+  // Unit class type
+  //
   TWebUserControl_training_request = class(ki_web_ui.usercontrol_class)
   {$REGION 'Designer Managed Code'}
   strict private
@@ -28,16 +37,18 @@ type
     procedure LinkButton_search_Click(sender: System.Object; e: System.EventArgs);
     procedure LinkButton_reset_Click(sender: System.Object; e: System.EventArgs);
     procedure Button_delete_Click(sender: System.Object; e: System.EventArgs);
-    procedure DropDownList_id_SelectedIndexChanged(sender: System.Object; 
+    procedure DropDownList_id_SelectedIndexChanged(sender: System.Object;
       e: System.EventArgs);
     procedure Button_submit_Click(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
   strict private
     p: p_type;
     procedure Clear;
+    function GetMode: mode_type;
     procedure InjectPersistentClientSideScript;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
     function PresentRecord(id: string): boolean;
+    procedure SetMode(mode: mode_type);
   strict protected
     Button_submit: System.Web.UI.WebControls.Button;
     Button_delete: System.Web.UI.WebControls.Button;
@@ -81,20 +92,22 @@ type
     TextBox_status_code: TextBox;
     TextBox_finalization_timestamp: TextBox;
     TextBox_id: TextBox;
-    Div_disposition_training: htmlgenericcontrol;
-    Div_disposition_squad: htmlgenericcontrol;
-    Div_disposition_unit: htmlgenericcontrol;
-    Div_disposition_division: htmlgenericcontrol;
-    Div_disposition_assistant_chief: htmlgenericcontrol;
-    Div_disposition_payment: htmlgenericcontrol;
-    Div_disposition_status: htmlgenericcontrol;
+    Panel_detail: panel;
+    Panel_detail_origination: panel;
+    Panel_disposition_training: panel;
+    Panel_disposition_squad: panel;
+    Panel_disposition_unit: panel;
+    Panel_disposition_division: panel;
+    Panel_disposition_assistant_chief: panel;
+    Panel_disposition_finance: panel;
+    Panel_disposition_status: panel;
+    Panel_disposition_finalization: panel;
+    TextBox_member_id: textbox;
+    TextBox_submission_timestamp: textbox;
   protected
     procedure OnInit(e: System.EventArgs); override;
-  private
-    { Private Declarations }
-  public
-    { Public Declarations }
   published
+    property mode: mode_type read GetMode write SetMode;
     function Fresh: TWebUserControl_training_request;
   end;
 
@@ -146,6 +159,8 @@ begin
   TextBox_status_code.text := EMPTY;
   TextBox_finalization_timestamp.text := EMPTY;
   TextBox_id.text := EMPTY;
+  TextBox_member_id.text := EMPTY;
+  TextBox_submission_timestamp.text := EMPTY;
   //
   Button_delete.enabled := FALSE;
   //
@@ -237,11 +252,10 @@ begin
   //
   if not p.be_loaded then begin
     //
-    Div_disposition_training.visible := FALSE;
     //
     RequireConfirmation(Button_delete,'Are you sure you want to delete this record?');
     //
-    Focus(TextBox_id,TRUE);
+    Focus(TextBox_nature,TRUE);
     //
     p.be_loaded := TRUE;
     //
@@ -289,6 +303,8 @@ var
   payment_comments: string;
   status_code: string;
   finalization_timestamp: datetime;
+  member_id: string;
+  submission_timestamp: datetime;
 begin
   PresentRecord := FALSE;
   if p.biz_training_requests.Get
@@ -329,7 +345,9 @@ begin
     payment_actual_amount,
     payment_comments,
     status_code,
-    finalization_timestamp
+    finalization_timestamp,
+    member_id,
+    submission_timestamp
     )
   then begin
     //
@@ -370,6 +388,8 @@ begin
     TextBox_payment_comments.text := payment_comments;
     TextBox_status_code.text := status_code;
     TextBox_finalization_timestamp.text := finalization_timestamp.tostring;
+    TextBox_member_id.text := member_id;
+    TextBox_submission_timestamp.text := submission_timestamp.tostring;
     //
     TextBox_id.enabled := FALSE;
     Button_delete.enabled := TRUE;
@@ -377,6 +397,21 @@ begin
     PresentRecord := TRUE;
     //
   end;
+end;
+
+procedure TWebUserControl_training_request.SetMode(mode: mode_type);
+begin
+  Panel_detail.enabled := (mode = NEW);
+  Panel_detail_origination.visible := (mode <> NEW);
+  Panel_disposition_training.visible := (mode <> NEW);
+  Panel_disposition_squad.visible := (mode <> NEW);
+  Panel_disposition_unit.visible := (mode <> NEW);
+  Panel_disposition_division.visible := (mode <> NEW);
+  Panel_disposition_assistant_chief.visible := (mode <> NEW);
+  Panel_disposition_finance.visible := (mode <> NEW);
+  Panel_disposition_status.visible := (mode <> NEW);
+  Panel_disposition_finalization.visible := (mode <> NEW);
+  mode := mode;
 end;
 
 procedure TWebUserControl_training_request.OnInit(e: System.EventArgs);
@@ -389,12 +424,14 @@ begin
   //
   if session['UserControl_training_request.p'] <> nil then begin
     p := p_type(session['UserControl_training_request.p']);
-    p.be_loaded := IsPostBack and (string(session['UserControl_member_binder_PlaceHolder_content']) = 'UserControl_training_request');
+    p.be_loaded := IsPostBack and (string(session['UserControl_member_binder_UserControl_new_binder_PlaceHolder_content']) = 'UserControl_training_request');
   end else begin
     //
     p.be_loaded := FALSE;
     //
     p.biz_training_requests := TClass_biz_training_requests.Create;
+    p.id := guid.NewGuid.tostring;
+    p.mode := NONE;
     //
   end;
   //
@@ -424,9 +461,17 @@ begin
 end;
 
 function TWebUserControl_training_request.Fresh: TWebUserControl_training_request;
+var
+  i: string;
 begin
+  i := p.id;
   session.Remove('UserControl_training_request.p');
   Fresh := self;
+end;
+
+function TWebUserControl_training_request.GetMode: mode_type;
+begin
+  GetMode := p.mode;
 end;
 
 procedure TWebUserControl_training_request.Button_submit_Click(sender: System.Object;
@@ -439,6 +484,7 @@ var
   disposition_assistant_chief_timestamp: datetime;
   payment_timestamp: datetime;
   finalization_timestamp: datetime;
+  submission_timestamp: datetime;
 begin
   if page.IsValid then begin
     //
@@ -462,6 +508,9 @@ begin
     end;
     if TextBox_finalization_timestamp.text <> EMPTY then begin
       finalization_timestamp := datetime.Parse(Safe(TextBox_finalization_timestamp.text,DATE_TIME));
+    end;
+    if TextBox_submission_timestamp.text <> EMPTY then begin
+      submission_timestamp := datetime.Parse(Safe(TextBox_submission_timestamp.text,DATE_TIME));
     end;
     //
     p.biz_training_requests.&Set
@@ -502,7 +551,9 @@ begin
       Safe(TextBox_payment_actual_amount.text,CURRENCY_USA).trim,
       Safe(TextBox_payment_comments.text,PUNCTUATED).trim,
       Safe(TextBox_status_code.text,NUM).trim,
-      finalization_timestamp
+      finalization_timestamp,
+      Safe(TextBox_member_id.text,NUM).trim,
+      submission_timestamp
       );
     Alert(USER,SUCCESS,'recsaved','Record saved.');
   end else begin
