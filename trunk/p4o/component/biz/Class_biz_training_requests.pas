@@ -104,6 +104,19 @@ type
       member_id: string;
       submission_timestamp: datetime
       );
+    procedure SetNew
+      (
+      nature: string;
+      dates: string;
+      conducting_agency: string;
+      location: string;
+      cost_of_enrollment: string;
+      cost_of_lodging: string;
+      cost_of_meals: string;
+      cost_of_transportation: string;
+      reason: string;
+      member_id: string
+      );
   end;
 
 implementation
@@ -312,6 +325,35 @@ begin
     submission_timestamp
     );
   //
+end;
+
+procedure TClass_biz_training_requests.SetNew
+  (
+  nature: string;
+  dates: string;
+  conducting_agency: string;
+  location: string;
+  cost_of_enrollment: string;
+  cost_of_lodging: string;
+  cost_of_meals: string;
+  cost_of_transportation: string;
+  reason: string;
+  member_id: string
+  );
+begin
+  db_training_requests.SetNew
+    (
+    nature,
+    dates,
+    conducting_agency,
+    location,
+    cost_of_enrollment,
+    cost_of_lodging,
+    cost_of_meals,
+    cost_of_transportation,
+    reason,
+    member_id
+    );
 end;
 
 end.

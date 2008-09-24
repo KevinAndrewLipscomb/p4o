@@ -194,6 +194,7 @@
     <DCCReference Include="component\db\Class_db_squads.pas" />
     <DCCReference Include="component\db\Class_db_trail.pas" />
     <DCCReference Include="component\db\Class_db_training_requests.pas" />
+    <DCCReference Include="component\db\Class_db_training_request_statuses.pas" />
     <DCCReference Include="component\db\Class_db_units.pas" />
     <DCCReference Include="component\db\Class_db_user.pas" />
     <DCCReference Include="component\db\Class_db_users.pas" />

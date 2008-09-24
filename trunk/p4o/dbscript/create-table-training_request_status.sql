@@ -1,0 +1,21 @@
+﻿START TRANSACTION;
+
+DROP TABLE IF EXISTS training_request_status;
+CREATE TABLE IF NOT EXISTS training_request_status (
+  id SERIAL,
+  description VARCHAR(63) NOT NULL,
+  PRIMARY KEY(id)
+)
+ENGINE = InnoDB;
+
+insert ignore training_request_status (description) values
+("NEEDS_TRAINING_UNIT_COMMENTS"),
+("NEEDS_SQUAD_APPROVAL"),
+("NEEDS_UNIT_APPROVAL"),
+("NEEDS_DIVISION_APPROVAL"),
+("NEEDS_ASSISTANT_CHIEF_APPROVAL"),
+("NEEDS_GRADUATION"),
+("NEEDS_PAYMENT"),
+("CANCELED");
+
+COMMIT

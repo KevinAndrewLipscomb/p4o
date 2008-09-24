@@ -4,12 +4,14 @@ interface
 
 uses
   Class_db,
-  Class_db_trail;
+  Class_db_trail,
+  Class_db_training_request_statuses;
 
 type
   TClass_db_training_requests = class(TClass_db)
   private
     db_trail: TClass_db_trail;
+    db_training_request_statuses: TClass_db_training_request_statuses;
   public
     constructor Create;
     function Bind
@@ -105,6 +107,19 @@ type
       member_id: string;
       submission_timestamp: datetime
       );
+    procedure SetNew
+      (
+      nature: string;
+      dates: string;
+      conducting_agency: string;
+      location: string;
+      cost_of_enrollment: string;
+      cost_of_lodging: string;
+      cost_of_meals: string;
+      cost_of_transportation: string;
+      reason: string;
+      member_id: string
+      );
   end;
 
 implementation
@@ -118,6 +133,7 @@ begin
   inherited Create;
   // TODO: Add any constructor code here
   db_trail := TClass_db_trail.Create;
+  db_training_request_statuses := TClass_db_training_request_statuses.Create;
 end;
 
 function TClass_db_training_requests.Bind
@@ -343,7 +359,73 @@ begin
 //1      + ' on duplicate key update '
 //1      + childless_field_assignments_clause
       'replace training_request'
-      + ' , id = NULLIF("' + id + '","")'
+      + ' set id = NULLIF("' + id + '","")'
+      + ' , nature = NULLIF("' + nature + '","")'
+      + ' , dates = NULLIF("' + dates + '","")'
+      + ' , conducting_agency = NULLIF("' + conducting_agency + '","")'
+      + ' , location = NULLIF("' + location + '","")'
+      + ' , cost_of_enrollment = NULLIF("' + cost_of_enrollment + '","")'
+      + ' , cost_of_lodging = NULLIF("' + cost_of_lodging + '","")'
+      + ' , cost_of_meals = NULLIF("' + cost_of_meals + '","")'
+      + ' , cost_of_transportation = NULLIF("' + cost_of_transportation + '","")'
+      + ' , reason = NULLIF("' + reason + '","")'
+      + ' , disposition_training_timestamp = "' + disposition_training_timestamp.tostring + '"'
+      + ' , disposition_training_member_id = NULLIF("' + disposition_training_member_id + '","")'
+      + ' , disposition_training_funding_source = NULLIF("' + disposition_training_funding_source + '","")'
+      + ' , disposition_training_comments = NULLIF("' + disposition_training_comments + '","")'
+      + ' , disposition_squad_timestamp = "' + disposition_squad_timestamp.tostring + '"'
+      + ' , disposition_squad_member_id = NULLIF("' + disposition_squad_member_id + '","")'
+      + ' , disposition_squad_be_approved = ' + disposition_squad_be_approved.tostring
+      + ' , disposition_squad_comments = NULLIF("' + disposition_squad_comments + '","")'
+      + ' , disposition_unit_timestamp = "' + disposition_unit_timestamp.tostring + '"'
+      + ' , disposition_unit_member_id = NULLIF("' + disposition_unit_member_id + '","")'
+      + ' , disposition_unit_be_approved = ' + disposition_unit_be_approved.tostring
+      + ' , disposition_unit_comments = NULLIF("' + disposition_unit_comments + '","")'
+      + ' , disposition_division_timestamp = "' + disposition_division_timestamp.tostring + '"'
+      + ' , disposition_division_member_id = NULLIF("' + disposition_division_member_id + '","")'
+      + ' , disposition_division_be_approved = ' + disposition_division_be_approved.tostring
+      + ' , disposition_division_comments = NULLIF("' + disposition_division_comments + '","")'
+      + ' , disposition_assistant_chief_timestamp = "' + disposition_assistant_chief_timestamp.tostring + '"'
+      + ' , disposition_assistant_chief_member_id = NULLIF("' + disposition_assistant_chief_member_id + '","")'
+      + ' , disposition_assistant_chief_be_approved = ' + disposition_assistant_chief_be_approved.tostring
+      + ' , disposition_assistant_chief_comments = NULLIF("' + disposition_assistant_chief_comments + '","")'
+      + ' , payment_timestamp = "' + payment_timestamp.tostring + '"'
+      + ' , payment_member_id = NULLIF("' + payment_member_id + '","")'
+      + ' , payment_be_done = ' + payment_be_done.tostring
+      + ' , payment_actual_amount = NULLIF("' + payment_actual_amount + '","")'
+      + ' , payment_comments = NULLIF("' + payment_comments + '","")'
+      + ' , status_code = NULLIF("' + status_code + '","")'
+      + ' , finalization_timestamp = "' + finalization_timestamp.tostring + '"'
+      + ' , member_id = NULLIF("' + member_id + '","")'
+      + ' , submission_timestamp = "' + submission_timestamp.tostring + '"'
+      ),
+    connection
+    )
+    .ExecuteNonquery;
+  self.Close;
+  //
+end;
+
+procedure TClass_db_training_requests.SetNew
+  (
+  nature: string;
+  dates: string;
+  conducting_agency: string;
+  location: string;
+  cost_of_enrollment: string;
+  cost_of_lodging: string;
+  cost_of_meals: string;
+  cost_of_transportation: string;
+  reason: string;
+  member_id: string
+  );
+begin
+  self.Open;
+  mysqlcommand.Create
+    (
+    db_trail.Saved
+      (
+      'insert training_request'
       + ' set nature = NULLIF("' + nature + '","")'
       + ' , dates = NULLIF("' + dates + '","")'
       + ' , conducting_agency = NULLIF("' + conducting_agency + '","")'
@@ -353,41 +435,14 @@ begin
       + ' , cost_of_meals = NULLIF("' + cost_of_meals + '","")'
       + ' , cost_of_transportation = NULLIF("' + cost_of_transportation + '","")'
       + ' , reason = NULLIF("' + reason + '","")'
-      + ' , disposition_training_timestamp = ' + disposition_training_timestamp.tostring
-      + ' , disposition_training_member_id = NULLIF("' + disposition_training_member_id + '","")'
-      + ' , disposition_training_funding_source = NULLIF("' + disposition_training_funding_source + '","")'
-      + ' , disposition_training_comments = NULLIF("' + disposition_training_comments + '","")'
-      + ' , disposition_squad_timestamp = ' + disposition_squad_timestamp.tostring
-      + ' , disposition_squad_member_id = NULLIF("' + disposition_squad_member_id + '","")'
-      + ' , disposition_squad_be_approved = ' + disposition_squad_be_approved.tostring
-      + ' , disposition_squad_comments = NULLIF("' + disposition_squad_comments + '","")'
-      + ' , disposition_unit_timestamp = ' + disposition_unit_timestamp.tostring
-      + ' , disposition_unit_member_id = NULLIF("' + disposition_unit_member_id + '","")'
-      + ' , disposition_unit_be_approved = ' + disposition_unit_be_approved.tostring
-      + ' , disposition_unit_comments = NULLIF("' + disposition_unit_comments + '","")'
-      + ' , disposition_division_timestamp = ' + disposition_division_timestamp.tostring
-      + ' , disposition_division_member_id = NULLIF("' + disposition_division_member_id + '","")'
-      + ' , disposition_division_be_approved = ' + disposition_division_be_approved.tostring
-      + ' , disposition_division_comments = NULLIF("' + disposition_division_comments + '","")'
-      + ' , disposition_assistant_chief_timestamp = ' + disposition_assistant_chief_timestamp.tostring
-      + ' , disposition_assistant_chief_member_id = NULLIF("' + disposition_assistant_chief_member_id + '","")'
-      + ' , disposition_assistant_chief_be_approved = ' + disposition_assistant_chief_be_approved.tostring
-      + ' , disposition_assistant_chief_comments = NULLIF("' + disposition_assistant_chief_comments + '","")'
-      + ' , payment_timestamp = ' + payment_timestamp.tostring
-      + ' , payment_member_id = NULLIF("' + payment_member_id + '","")'
-      + ' , payment_be_done = ' + payment_be_done.tostring
-      + ' , payment_actual_amount = NULLIF("' + payment_actual_amount + '","")'
-      + ' , payment_comments = NULLIF("' + payment_comments + '","")'
-      + ' , status_code = NULLIF("' + status_code + '","")'
-      + ' , finalization_timestamp = ' + finalization_timestamp.tostring
+      + ' , status_code = "' + db_training_request_statuses.IdOf('NEEDS_TRAINING_UNIT_COMMENTS') + '"'
       + ' , member_id = NULLIF("' + member_id + '","")'
-      + ' , submission_timestamp = ' + submission_timestamp.tostring
+      + ' , submission_timestamp = NOW()'
       ),
     connection
     )
     .ExecuteNonquery;
   self.Close;
-  //
 end;
 
 end.
