@@ -93,8 +93,8 @@ type
     TextBox_status_code: TextBox;
     TextBox_finalization_timestamp: TextBox;
     TextBox_id: TextBox;
-    Panel_detail: panel;
     Panel_detail_origination: panel;
+    Panel_detail: panel;
     Panel_disposition_training: panel;
     Panel_disposition_squad: panel;
     Panel_disposition_unit: panel;
@@ -402,8 +402,8 @@ end;
 
 procedure TWebUserControl_training_request.SetMode(mode: mode_type);
 begin
-  Panel_detail.enabled := (mode = NEW);
   Panel_detail_origination.visible := (mode <> NEW);
+  Panel_detail.enabled := (mode = NEW);
   Panel_disposition_training.visible := (mode <> NEW);
   Panel_disposition_squad.visible := (mode <> NEW);
   Panel_disposition_unit.visible := (mode <> NEW);
@@ -425,7 +425,23 @@ begin
   //
   if session['UserControl_training_request.p'] <> nil then begin
     p := p_type(session['UserControl_training_request.p']);
-    p.be_loaded := IsPostBack and (string(session['UserControl_member_binder_UserControl_new_binder_PlaceHolder_content']) = 'UserControl_training_request');
+    p.be_loaded :=
+        IsPostBack
+      and
+        (
+          (
+            (p.mode = NEW)
+          and
+            (string(session['UserControl_member_binder_UserControl_new_binder_PlaceHolder_content']) = 'UserControl_training_request')
+          )
+        or
+          (
+            (p.mode = CURRENT)
+          and
+            (string(session['UserControl_member_binder_UserControl_current_binder_PlaceHolder_content']) = 'UserControl_training_request')
+          )
+        )
+      ;
   end else begin
     //
     p.be_loaded := FALSE;

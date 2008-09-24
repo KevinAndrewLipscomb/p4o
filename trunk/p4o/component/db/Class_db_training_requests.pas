@@ -242,6 +242,7 @@ function TClass_db_training_requests.Get
   : boolean;
 var
   dr: mysqldatareader;
+  s: string;
 begin
   Get := FALSE;
   self.Open;
@@ -258,33 +259,55 @@ begin
     cost_of_meals := dr['cost_of_meals'].tostring;
     cost_of_transportation := dr['cost_of_transportation'].tostring;
     reason := dr['reason'].tostring;
-    disposition_training_timestamp := datetime.Parse(dr['disposition_training_timestamp'].tostring);
-    disposition_training_member_id := dr['disposition_training_member_id'].tostring;
-    disposition_training_funding_source := dr['disposition_training_funding_source'].tostring;
-    disposition_training_comments := dr['disposition_training_comments'].tostring;
-    disposition_squad_timestamp := datetime.Parse(dr['disposition_squad_timestamp'].tostring);
-    disposition_squad_member_id := dr['disposition_squad_member_id'].tostring;
-    disposition_squad_be_approved := (dr['disposition_squad_be_approved'].tostring = '1');
-    disposition_squad_comments := dr['disposition_squad_comments'].tostring;
-    disposition_unit_timestamp := datetime.Parse(dr['disposition_unit_timestamp'].tostring);
-    disposition_unit_member_id := dr['disposition_unit_member_id'].tostring;
-    disposition_unit_be_approved := (dr['disposition_unit_be_approved'].tostring = '1');
-    disposition_unit_comments := dr['disposition_unit_comments'].tostring;
-    disposition_division_timestamp := datetime.Parse(dr['disposition_division_timestamp'].tostring);
-    disposition_division_member_id := dr['disposition_division_member_id'].tostring;
-    disposition_division_be_approved := (dr['disposition_division_be_approved'].tostring = '1');
-    disposition_division_comments := dr['disposition_division_comments'].tostring;
-    disposition_assistant_chief_timestamp := datetime.Parse(dr['disposition_assistant_chief_timestamp'].tostring);
-    disposition_assistant_chief_member_id := dr['disposition_assistant_chief_member_id'].tostring;
-    disposition_assistant_chief_be_approved := (dr['disposition_assistant_chief_be_approved'].tostring = '1');
-    disposition_assistant_chief_comments := dr['disposition_assistant_chief_comments'].tostring;
-    payment_timestamp := datetime.Parse(dr['payment_timestamp'].tostring);
-    payment_member_id := dr['payment_member_id'].tostring;
-    payment_be_done := (dr['payment_be_done'].tostring = '1');
-    payment_actual_amount := dr['payment_actual_amount'].tostring;
-    payment_comments := dr['payment_comments'].tostring;
+    //
+    s := dr['disposition_training_timestamp'].tostring;
+    if s <> EMPTY then begin
+      disposition_training_timestamp := datetime.Parse(s);
+      disposition_training_member_id := dr['disposition_training_member_id'].tostring;
+      disposition_training_funding_source := dr['disposition_training_funding_source'].tostring;
+      disposition_training_comments := dr['disposition_training_comments'].tostring;
+      s := dr['disposition_squad_timestamp'].tostring;
+      if s <> EMPTY then begin
+        disposition_squad_timestamp := datetime.Parse(s);
+        disposition_squad_member_id := dr['disposition_squad_member_id'].tostring;
+        disposition_squad_be_approved := (dr['disposition_squad_be_approved'].tostring = '1');
+        disposition_squad_comments := dr['disposition_squad_comments'].tostring;
+        s := dr['disposition_unit_timestamp'].tostring;
+        if s <> EMPTY then begin
+          disposition_unit_timestamp := datetime.Parse(s);
+          disposition_unit_member_id := dr['disposition_unit_member_id'].tostring;
+          disposition_unit_be_approved := (dr['disposition_unit_be_approved'].tostring = '1');
+          disposition_unit_comments := dr['disposition_unit_comments'].tostring;
+          s := dr['disposition_division_timestamp'].tostring;
+          if s <> EMPTY then begin
+            disposition_division_timestamp := datetime.Parse(s);
+            disposition_division_member_id := dr['disposition_division_member_id'].tostring;
+            disposition_division_be_approved := (dr['disposition_division_be_approved'].tostring = '1');
+            disposition_division_comments := dr['disposition_division_comments'].tostring;
+            s := dr['disposition_assistant_chief_timestamp'].tostring;
+            if s <> EMPTY then begin
+              disposition_assistant_chief_timestamp := datetime.Parse(s);
+              disposition_assistant_chief_member_id := dr['disposition_assistant_chief_member_id'].tostring;
+              disposition_assistant_chief_be_approved := (dr['disposition_assistant_chief_be_approved'].tostring = '1');
+              disposition_assistant_chief_comments := dr['disposition_assistant_chief_comments'].tostring;
+              s := dr['payment_timestamp'].tostring;
+              if s <> EMPTY then begin
+                payment_timestamp := datetime.Parse(s);
+                payment_member_id := dr['payment_member_id'].tostring;
+                payment_be_done := (dr['payment_be_done'].tostring = '1');
+                payment_actual_amount := dr['payment_actual_amount'].tostring;
+                payment_comments := dr['payment_comments'].tostring;
+              end;
+            end;
+          end;
+        end;
+      end;
+    end;
+    s := dr['finalization_timestamp'].tostring;
+    if s <> EMPTY then begin
+      finalization_timestamp := datetime.Parse(s);
+    end;
     status_code := dr['status_code'].tostring;
-    finalization_timestamp := datetime.Parse(dr['finalization_timestamp'].tostring);
     member_id := dr['member_id'].tostring;
     submission_timestamp := datetime.Parse(dr['submission_timestamp'].tostring);
     //

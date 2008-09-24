@@ -53,6 +53,7 @@ uses
   system.configuration,
   UserControl_about,
   UserControl_config_binder,
+  UserControl_current_binder,
   UserControl_new_binder;
 
 const
@@ -101,6 +102,13 @@ begin
         (
         TWebUserControl_new_binder(LoadControl('~/usercontrol/app/UserControl_new_binder.ascx')),
         'UserControl_new_binder',
+        PlaceHolder_content
+        );
+    TSSI_CURRENT:
+      p.content_id := AddIdentifiedControlToPlaceHolder
+        (
+        TWebUserControl_current_binder(LoadControl('~/usercontrol/app/UserControl_current_binder.ascx')),
+        'UserControl_current_binder',
         PlaceHolder_content
         );
     TSSI_CONFIG:
@@ -181,6 +189,13 @@ begin
       (
       TWebUserControl_new_binder(LoadControl('~/usercontrol/app/UserControl_new_binder.ascx')).Fresh,
       'UserControl_new_binder',
+      PlaceHolder_content
+      );
+  TSSI_CURRENT:
+    p.content_id := AddIdentifiedControlToPlaceHolder
+      (
+      TWebUserControl_current_binder(LoadControl('~/usercontrol/app/UserControl_current_binder.ascx')).Fresh,
+      'UserControl_current_binder',
       PlaceHolder_content
       );
   TSSI_CONFIG:
