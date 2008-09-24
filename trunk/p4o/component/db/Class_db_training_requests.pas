@@ -125,6 +125,7 @@ type
 implementation
 
 uses
+  kix,
   mysql.data.mysqlclient,
   system.web.ui.webcontrols;
 
