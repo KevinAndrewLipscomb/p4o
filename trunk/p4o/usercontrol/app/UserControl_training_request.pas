@@ -3,6 +3,7 @@ unit UserControl_training_request;
 interface
 
 uses
+  Class_biz_training_request_statuses,
   Class_biz_training_requests,
   ki_web_ui,
   System.Data,
@@ -39,6 +40,7 @@ type
       p_type =
         RECORD
         be_loaded: boolean;
+        biz_training_request_statuses: TClass_biz_training_request_statuses;
         biz_training_requests: TClass_biz_training_requests;
         mode: mode_type;
         END;
@@ -395,6 +397,8 @@ begin
     TextBox_id.enabled := FALSE;
     Button_delete.enabled := TRUE;
     //
+    SetMode(p.mode);
+    //
     PresentRecord := TRUE;
     //
   end;
@@ -404,14 +408,21 @@ procedure TWebUserControl_training_request.SetMode(mode: mode_type);
 begin
   Panel_detail_origination.visible := (mode <> NEW);
   Panel_detail.enabled := (mode = NEW);
-  Panel_disposition_training.visible := (mode <> NEW);
-  Panel_disposition_squad.visible := (mode <> NEW);
-  Panel_disposition_unit.visible := (mode <> NEW);
-  Panel_disposition_division.visible := (mode <> NEW);
-  Panel_disposition_assistant_chief.visible := (mode <> NEW);
-  Panel_disposition_finance.visible := (mode <> NEW);
+  Panel_disposition_training.visible := (mode <> NEW) and (Safe(TextBox_status_code.text,NUM) = p.biz_training_request_statuses.IdOf('NEEDS_TRAINING_UNIT_COMMENTS'));
+  Panel_disposition_squad.visible := (mode <> NEW) and (Safe(TextBox_status_code.text,NUM) = p.biz_training_request_statuses.IdOf('NEEDS_SQUAD_APPROVAL'));
+  Panel_disposition_unit.visible := (mode <> NEW) and (Safe(TextBox_status_code.text,NUM) = p.biz_training_request_statuses.IdOf('NEEDS_UNIT_APPROVAL'));
+  Panel_disposition_division.visible := (mode <> NEW) and (Safe(TextBox_status_code.text,NUM) = p.biz_training_request_statuses.IdOf('NEEDS_DIVISION_APPROVAL'));
+  Panel_disposition_assistant_chief.visible := (mode <> NEW) and (Safe(TextBox_status_code.text,NUM) = p.biz_training_request_statuses.IdOf('NEEDS_ASSISTANT_CHIEF_APPROVAL'));
+  Panel_disposition_finance.visible := (mode <> NEW) and (Safe(TextBox_status_code.text,NUM) = p.biz_training_request_statuses.IdOf('NEEDS_PAYMENT'));
   Panel_disposition_status.visible := (mode <> NEW);
-  Panel_disposition_finalization.visible := (mode <> NEW);
+  Panel_disposition_finalization.visible := (mode <> NEW)
+    and
+      (
+        (Safe(TextBox_status_code.text,NUM) = p.biz_training_request_statuses.IdOf('NEEDS_GRADUATION'))
+      or
+        (Safe(TextBox_status_code.text,NUM) = p.biz_training_request_statuses.IdOf('CANCELED'))
+      )
+    ;
   p.mode := mode;
 end;
 
@@ -446,6 +457,7 @@ begin
     //
     p.be_loaded := FALSE;
     //
+    p.biz_training_request_statuses := TClass_biz_training_request_statuses.Create;
     p.biz_training_requests := TClass_biz_training_requests.Create;
     p.mode := NONE;
     //
