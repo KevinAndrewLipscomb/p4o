@@ -6,8 +6,7 @@
   <tr>
     <td valign="top">
       <table cellspacing="0" cellpadding="5" border="0">
-<ASP:Panel id="Panel_detail" runat="server">
- <ASP:Panel id="Panel_detail_origination" runat="server">
+<ASP:Panel id="Panel_detail_origination" runat="server">
   <tr>
     <td valign="top"><font class="">ID:</font></td>
     <td valign="top"><font class="">
@@ -40,7 +39,8 @@
     <td>
     </td>
   </tr>
- </ASP:Panel>
+</ASP:Panel>
+<ASP:Panel id="Panel_detail" runat="server">
   <tr>
     <td><font class="">Nature of training:</font></td>
     <td><font class="">

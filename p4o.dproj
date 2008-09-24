@@ -294,6 +294,11 @@
       <Form>UserControl_config_binder.TWebUserControl_config_binder</Form>
       <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_current_binder.pas">
+      <DependentUpon>usercontrol\app\UserControl_current_binder.ascx</DependentUpon>
+      <Form>UserControl_current_binder.TWebUserControl_current_binder</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
+    </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_division.pas">
       <DependentUpon>usercontrol\app\UserControl_division.ascx</DependentUpon>
       <Form>UserControl_division.TWebUserControl_division</Form>
@@ -466,6 +471,7 @@
     <None Include="usercontrol\app\UserControl_business_objects_binder.ascx" />
     <None Include="usercontrol\app\UserControl_common_header_bar.ascx" />
     <None Include="usercontrol\app\UserControl_config_binder.ascx" />
+    <None Include="usercontrol\app\UserControl_current_binder.ascx" />
     <None Include="usercontrol\app\UserControl_division.ascx" />
     <None Include="usercontrol\app\UserControl_establish_membership.ascx" />
     <None Include="usercontrol\app\UserControl_member.ascx" />

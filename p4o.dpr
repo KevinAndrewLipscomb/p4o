@@ -86,7 +86,8 @@ uses
   Class_db_training_requests in 'component\db\Class_db_training_requests.pas',
   UserControl_training_request in 'usercontrol\app\UserControl_training_request.pas' {UserControl_training_request.TWebUserControl_training_request: ki_web_ui.usercontrol_class},
   UserControl_new_binder in 'usercontrol\app\UserControl_new_binder.pas' {UserControl_new_binder.TWebUserControl_new_binder: ki_web_ui.usercontrol_class},
-  Class_db_training_request_statuses in 'component\db\Class_db_training_request_statuses.pas';
+  Class_db_training_request_statuses in 'component\db\Class_db_training_request_statuses.pas',
+  UserControl_current_binder in 'usercontrol\app\UserControl_current_binder.pas' {UserControl_current_binder.TWebUserControl_current_binder: ki_web_ui.usercontrol_class};
 
 //
 // General Information about an assembly is controlled through the following
