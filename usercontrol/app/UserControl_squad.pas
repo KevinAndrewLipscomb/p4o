@@ -265,9 +265,9 @@ begin
       Safe(TextBox_description.text,PUNCTUATED),
       Safe(DropDownList_unit.SelectedValue,NUM)
       );
-    Alert(USER,SUCCESS,'recsaved','Record saved.');
+    Alert(USER,SUCCESS,'recsaved','Record saved.',TRUE);
   end else begin
-    ValidationAlert;
+    ValidationAlert(TRUE);
   end;
 end;
 
@@ -283,7 +283,7 @@ begin
   if p.biz_squads.Delete(Safe(TextBox_id.text,ALPHANUM)) then begin
     Clear;
   end else begin
-    Alert(kix.APPDATA,kix.FAILURE,'dependency',' Cannot delete this record because another record depends on it.');
+    Alert(kix.APPDATA,kix.FAILURE,'dependency',' Cannot delete this record because another record depends on it.',TRUE);
   end;
 end;
 

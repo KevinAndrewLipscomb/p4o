@@ -289,9 +289,9 @@ begin
       Safe(TextBox_registration_code.text,ALPHANUM).trim,
       Safe(DropDownList_squad.selectedvalue,NUM).trim
       );
-    Alert(USER,SUCCESS,'recsaved','Record saved.');
+    Alert(USER,SUCCESS,'recsaved','Record saved.',TRUE);
   end else begin
-    ValidationAlert;
+    ValidationAlert(TRUE);
   end;
 end;
 
@@ -313,7 +313,7 @@ begin
   if p.biz_members.Delete(Safe(TextBox_registration_code.text,ALPHANUM)) then begin
     Clear;
   end else begin
-    Alert(kix.APPDATA,kix.FAILURE,'dependency',' Cannot delete this record because another record depends on it.');
+    Alert(kix.APPDATA,kix.FAILURE,'dependency',' Cannot delete this record because another record depends on it.',TRUE);
   end;
 end;
 
