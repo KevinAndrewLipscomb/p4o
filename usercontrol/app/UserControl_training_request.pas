@@ -18,13 +18,6 @@ type
   // Support types
   //
   mode_type = (NONE,NEW,CURRENT,OLD);
-  p_type =
-    RECORD
-    be_loaded: boolean;
-    biz_training_requests: TClass_biz_training_requests;
-    id: string;
-    mode: mode_type;
-    END;
   //
   // Unit class type
   //
@@ -41,6 +34,14 @@ type
       e: System.EventArgs);
     procedure Button_submit_Click(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
+  strict private
+    type
+      p_type =
+        RECORD
+        be_loaded: boolean;
+        biz_training_requests: TClass_biz_training_requests;
+        mode: mode_type;
+        END;
   strict private
     p: p_type;
     procedure Clear;
@@ -411,7 +412,7 @@ begin
   Panel_disposition_finance.visible := (mode <> NEW);
   Panel_disposition_status.visible := (mode <> NEW);
   Panel_disposition_finalization.visible := (mode <> NEW);
-  mode := mode;
+  p.mode := mode;
 end;
 
 procedure TWebUserControl_training_request.OnInit(e: System.EventArgs);
@@ -430,7 +431,6 @@ begin
     p.be_loaded := FALSE;
     //
     p.biz_training_requests := TClass_biz_training_requests.Create;
-    p.id := guid.NewGuid.tostring;
     p.mode := NONE;
     //
   end;
@@ -461,10 +461,7 @@ begin
 end;
 
 function TWebUserControl_training_request.Fresh: TWebUserControl_training_request;
-var
-  i: string;
 begin
-  i := p.id;
   session.Remove('UserControl_training_request.p');
   Fresh := self;
 end;
@@ -488,76 +485,95 @@ var
 begin
   if page.IsValid then begin
     //
-    if TextBox_disposition_training_timestamp.text <> EMPTY then begin
-      disposition_training_timestamp := datetime.Parse(Safe(TextBox_disposition_training_timestamp.text,DATE_TIME));
+    case p.mode of
+    NEW:
+      BEGIN
+      p.biz_training_requests.SetNew
+        (
+        Safe(TextBox_nature.text,PUNCTUATED).trim,
+        Safe(TextBox_dates.text,PUNCTUATED).trim,
+        Safe(TextBox_conducting_agency.text,ORG_NAME).trim,
+        Safe(TextBox_location.text,PUNCTUATED).trim,
+        Safe(TextBox_cost_of_enrollment.text,CURRENCY_USA).trim,
+        Safe(TextBox_cost_of_lodging.text,CURRENCY_USA).trim,
+        Safe(TextBox_cost_of_meals.text,CURRENCY_USA).trim,
+        Safe(TextBox_cost_of_transportation.text,CURRENCY_USA).trim,
+        Safe(TextBox_reason.text,PUNCTUATED).trim,
+        session['member_id'].tostring
+        );
+      END;
     end;
-    if TextBox_disposition_squad_timestamp.text <> EMPTY then begin
-      disposition_squad_timestamp := datetime.Parse(Safe(TextBox_disposition_squad_timestamp.text,DATE_TIME));
-    end;
-    if TextBox_disposition_unit_timestamp.text <> EMPTY then begin
-      disposition_unit_timestamp := datetime.Parse(Safe(TextBox_disposition_unit_timestamp.text,DATE_TIME));
-    end;
-    if TextBox_disposition_division_timestamp.text <> EMPTY then begin
-      disposition_division_timestamp := datetime.Parse(Safe(TextBox_disposition_division_timestamp.text,DATE_TIME));
-    end;
-    if TextBox_disposition_assistant_chief_timestamp.text <> EMPTY then begin
-      disposition_assistant_chief_timestamp := datetime.Parse(Safe(TextBox_disposition_assistant_chief_timestamp.text,DATE_TIME));
-    end;
-    if TextBox_payment_timestamp.text <> EMPTY then begin
-      payment_timestamp := datetime.Parse(Safe(TextBox_payment_timestamp.text,DATE_TIME));
-    end;
-    if TextBox_finalization_timestamp.text <> EMPTY then begin
-      finalization_timestamp := datetime.Parse(Safe(TextBox_finalization_timestamp.text,DATE_TIME));
-    end;
-    if TextBox_submission_timestamp.text <> EMPTY then begin
-      submission_timestamp := datetime.Parse(Safe(TextBox_submission_timestamp.text,DATE_TIME));
-    end;
+//    if TextBox_disposition_training_timestamp.text <> EMPTY then begin
+//      disposition_training_timestamp := datetime.Parse(Safe(TextBox_disposition_training_timestamp.text,DATE_TIME));
+//    end;
+//    if TextBox_disposition_squad_timestamp.text <> EMPTY then begin
+//      disposition_squad_timestamp := datetime.Parse(Safe(TextBox_disposition_squad_timestamp.text,DATE_TIME));
+//    end;
+//    if TextBox_disposition_unit_timestamp.text <> EMPTY then begin
+//      disposition_unit_timestamp := datetime.Parse(Safe(TextBox_disposition_unit_timestamp.text,DATE_TIME));
+//    end;
+//    if TextBox_disposition_division_timestamp.text <> EMPTY then begin
+//      disposition_division_timestamp := datetime.Parse(Safe(TextBox_disposition_division_timestamp.text,DATE_TIME));
+//    end;
+//    if TextBox_disposition_assistant_chief_timestamp.text <> EMPTY then begin
+//      disposition_assistant_chief_timestamp := datetime.Parse(Safe(TextBox_disposition_assistant_chief_timestamp.text,DATE_TIME));
+//    end;
+//    if TextBox_payment_timestamp.text <> EMPTY then begin
+//      payment_timestamp := datetime.Parse(Safe(TextBox_payment_timestamp.text,DATE_TIME));
+//    end;
+//    if TextBox_finalization_timestamp.text <> EMPTY then begin
+//      finalization_timestamp := datetime.Parse(Safe(TextBox_finalization_timestamp.text,DATE_TIME));
+//    end;
+//    if TextBox_submission_timestamp.text <> EMPTY then begin
+//      submission_timestamp := datetime.Parse(Safe(TextBox_submission_timestamp.text,DATE_TIME));
+//    end;
     //
-    p.biz_training_requests.&Set
-      (
-      Safe(TextBox_id.text,PUNCTUATED).trim,
-      Safe(TextBox_nature.text,PUNCTUATED).trim,
-      Safe(TextBox_dates.text,PUNCTUATED).trim,
-      Safe(TextBox_conducting_agency.text,ORG_NAME).trim,
-      Safe(TextBox_location.text,PUNCTUATED).trim,
-      Safe(TextBox_cost_of_enrollment.text,CURRENCY_USA).trim,
-      Safe(TextBox_cost_of_lodging.text,CURRENCY_USA).trim,
-      Safe(TextBox_cost_of_meals.text,CURRENCY_USA).trim,
-      Safe(TextBox_cost_of_transportation.text,CURRENCY_USA).trim,
-      Safe(TextBox_reason.text,PUNCTUATED).trim,
-      disposition_training_timestamp,
-      Safe(TextBox_disposition_training_member_id.text,NUM).trim,
-      Safe(TextBox_disposition_training_funding_source.text,NUM).trim,
-      Safe(TextBox_disposition_training_comments.text,PUNCTUATED).trim,
-      disposition_squad_timestamp,
-      Safe(TextBox_disposition_squad_member_id.text,NUM).trim,
-      CheckBox_disposition_squad_be_approved.checked,
-      Safe(TextBox_disposition_squad_comments.text,PUNCTUATED).trim,
-      disposition_unit_timestamp,
-      Safe(TextBox_disposition_unit_member_id.text,NUM).trim,
-      CheckBox_disposition_unit_be_approved.checked,
-      Safe(TextBox_disposition_unit_comments.text,PUNCTUATED).trim,
-      disposition_division_timestamp,
-      Safe(TextBox_disposition_division_member_id.text,NUM).trim,
-      CheckBox_disposition_division_be_approved.checked,
-      Safe(TextBox_disposition_division_comments.text,PUNCTUATED).trim,
-      disposition_assistant_chief_timestamp,
-      Safe(TextBox_disposition_assistant_chief_member_id.text,NUM).trim,
-      CheckBox_disposition_assistant_chief_be_approved.checked,
-      Safe(TextBox_disposition_assistant_chief_comments.text,PUNCTUATED).trim,
-      payment_timestamp,
-      Safe(TextBox_payment_member_id.text,NUM).trim,
-      CheckBox_payment_be_done.checked,
-      Safe(TextBox_payment_actual_amount.text,CURRENCY_USA).trim,
-      Safe(TextBox_payment_comments.text,PUNCTUATED).trim,
-      Safe(TextBox_status_code.text,NUM).trim,
-      finalization_timestamp,
-      Safe(TextBox_member_id.text,NUM).trim,
-      submission_timestamp
-      );
-    Alert(USER,SUCCESS,'recsaved','Record saved.');
+//    p.biz_training_requests.&Set
+//      (
+//      Safe(TextBox_id.text,PUNCTUATED).trim,
+//      Safe(TextBox_nature.text,PUNCTUATED).trim,
+//      Safe(TextBox_dates.text,PUNCTUATED).trim,
+//      Safe(TextBox_conducting_agency.text,ORG_NAME).trim,
+//      Safe(TextBox_location.text,PUNCTUATED).trim,
+//      Safe(TextBox_cost_of_enrollment.text,CURRENCY_USA).trim,
+//      Safe(TextBox_cost_of_lodging.text,CURRENCY_USA).trim,
+//      Safe(TextBox_cost_of_meals.text,CURRENCY_USA).trim,
+//      Safe(TextBox_cost_of_transportation.text,CURRENCY_USA).trim,
+//      Safe(TextBox_reason.text,PUNCTUATED).trim,
+//      disposition_training_timestamp,
+//      Safe(TextBox_disposition_training_member_id.text,NUM).trim,
+//      Safe(TextBox_disposition_training_funding_source.text,NUM).trim,
+//      Safe(TextBox_disposition_training_comments.text,PUNCTUATED).trim,
+//      disposition_squad_timestamp,
+//      Safe(TextBox_disposition_squad_member_id.text,NUM).trim,
+//      CheckBox_disposition_squad_be_approved.checked,
+//      Safe(TextBox_disposition_squad_comments.text,PUNCTUATED).trim,
+//      disposition_unit_timestamp,
+//      Safe(TextBox_disposition_unit_member_id.text,NUM).trim,
+//      CheckBox_disposition_unit_be_approved.checked,
+//      Safe(TextBox_disposition_unit_comments.text,PUNCTUATED).trim,
+//      disposition_division_timestamp,
+//      Safe(TextBox_disposition_division_member_id.text,NUM).trim,
+//      CheckBox_disposition_division_be_approved.checked,
+//      Safe(TextBox_disposition_division_comments.text,PUNCTUATED).trim,
+//      disposition_assistant_chief_timestamp,
+//      Safe(TextBox_disposition_assistant_chief_member_id.text,NUM).trim,
+//      CheckBox_disposition_assistant_chief_be_approved.checked,
+//      Safe(TextBox_disposition_assistant_chief_comments.text,PUNCTUATED).trim,
+//      payment_timestamp,
+//      Safe(TextBox_payment_member_id.text,NUM).trim,
+//      CheckBox_payment_be_done.checked,
+//      Safe(TextBox_payment_actual_amount.text,CURRENCY_USA).trim,
+//      Safe(TextBox_payment_comments.text,PUNCTUATED).trim,
+//      Safe(TextBox_status_code.text,NUM).trim,
+//      finalization_timestamp,
+//      Safe(TextBox_member_id.text,NUM).trim,
+//      submission_timestamp
+//      );
+    Alert(USER,SUCCESS,'recsaved','Record saved.',TRUE);
+    Clear;
   end else begin
-    ValidationAlert;
+    ValidationAlert(TRUE);
   end;
 end;
 
