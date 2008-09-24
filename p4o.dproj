@@ -176,6 +176,7 @@
     <DCCReference Include="component\biz\Class_biz_scheduled_tasks.pas" />
     <DCCReference Include="component\biz\Class_biz_squads.pas" />
     <DCCReference Include="component\biz\Class_biz_training_requests.pas" />
+    <DCCReference Include="component\biz\Class_biz_training_request_statuses.pas" />
     <DCCReference Include="component\biz\Class_biz_units.pas" />
     <DCCReference Include="component\biz\Class_biz_user.pas" />
     <DCCReference Include="component\biz\Class_biz_users.pas" />
