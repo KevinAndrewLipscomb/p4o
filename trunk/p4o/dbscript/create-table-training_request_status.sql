@@ -1,4 +1,4 @@
-﻿START TRANSACTION;
+START TRANSACTION;
 
 DROP TABLE IF EXISTS training_request_status;
 CREATE TABLE IF NOT EXISTS training_request_status (
