@@ -44,8 +44,10 @@ type
     p: p_type;
     procedure Clear;
     procedure InjectPersistentClientSideScript;
+    procedure ManageDependentFieldEnablements;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
     function PresentRecord(registration_code: string): boolean;
+    procedure SetLookupMode;
   strict protected
     Button_submit: System.Web.UI.WebControls.Button;
     Button_delete: System.Web.UI.WebControls.Button;
@@ -91,6 +93,13 @@ begin
   TextBox_registration_code.text := EMPTY;
   DropDownList_registration_code.visible := FALSE;
   DropDownList_squad.ClearSelection;
+  //
+  // Disable dependent fields.
+  //
+  TextBox_last_name.enabled := FALSE;
+  TextBox_first_name.enabled := FALSE;
+  TextBox_email_address.enabled := FALSE;
+  DropDownList_squad.enabled := FALSE;
   //
   Button_submit.enabled := FALSE;
   Button_delete.enabled := FALSE;
@@ -227,16 +236,25 @@ begin
     Label_lookup_arrow.enabled := FALSE;
     Label_lookup_hint.enabled := FALSE;
     LinkButton_reset.enabled := TRUE;
-    TextBox_last_name.enabled := p.be_ok_to_config_members;
-    TextBox_first_name.enabled := p.be_ok_to_config_members;
-    TextBox_email_address.enabled := p.be_ok_to_config_members;
-    DropDownList_squad.enabled := p.be_ok_to_config_members;
+    ManageDependentFieldEnablements;
     Button_submit.enabled := p.be_ok_to_config_members;
     Button_delete.enabled := p.be_ok_to_config_members;
     //
     PresentRecord := TRUE;
     //
   end;
+end;
+
+procedure TWebUserControl_member.SetLookupMode;
+begin
+  Clear;
+  TextBox_registration_code.enabled := TRUE;
+  Button_lookup.enabled := TRUE;
+  Label_lookup_arrow.enabled := TRUE;
+  Label_lookup_hint.enabled := TRUE;
+  LinkButton_reset.enabled := FALSE;
+  LinkButton_new_record.enabled := p.be_ok_to_config_members;
+  Focus(TextBox_registration_code,TRUE);
 end;
 
 procedure TWebUserControl_member.OnInit(e: System.EventArgs);
@@ -309,6 +327,7 @@ begin
       Safe(DropDownList_squad.selectedvalue,NUM).trim
       );
     Alert(USER,SUCCESS,'recsaved','Record saved.',TRUE);
+    SetLookupMode;
   end else begin
     ValidationAlert(TRUE);
   end;
@@ -330,7 +349,7 @@ procedure TWebUserControl_member.Button_delete_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   if p.biz_members.Delete(Safe(TextBox_registration_code.text,ALPHANUM)) then begin
-    Clear;
+    SetLookupMode;
   end else begin
     Alert(kix.APPDATA,kix.FAILURE,'dependency',' Cannot delete this record because another record depends on it.',TRUE);
   end;
@@ -345,10 +364,7 @@ begin
   Label_lookup_hint.enabled := FALSE;
   LinkButton_reset.enabled := TRUE;
   LinkButton_new_record.enabled := FALSE;
-  TextBox_last_name.enabled := p.be_ok_to_config_members;
-  TextBox_first_name.enabled := p.be_ok_to_config_members;
-  TextBox_email_address.enabled := p.be_ok_to_config_members;
-  DropDownList_squad.enabled := p.be_ok_to_config_members;
+  ManageDependentFieldEnablements;
   Button_submit.enabled := p.be_ok_to_config_members;
   Button_delete.enabled := FALSE;
   Focus(TextBox_registration_code,TRUE);
@@ -357,18 +373,15 @@ end;
 procedure TWebUserControl_member.LinkButton_reset_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  Clear;
-  TextBox_registration_code.enabled := TRUE;
-  Button_lookup.enabled := TRUE;
-  Label_lookup_arrow.enabled := TRUE;
-  Label_lookup_hint.enabled := TRUE;
-  LinkButton_reset.enabled := FALSE;
-  LinkButton_new_record.enabled := p.be_ok_to_config_members;
-  TextBox_last_name.enabled := FALSE;
-  TextBox_first_name.enabled := FALSE;
-  TextBox_email_address.enabled := FALSE;
-  DropDownList_squad.enabled := FALSE;
-  Focus(TextBox_registration_code,TRUE);
+  SetLookupMode;
+end;
+
+procedure TWebUserControl_member.ManageDependentFieldEnablements;
+begin
+  TextBox_last_name.enabled := p.be_ok_to_config_members;
+  TextBox_first_name.enabled := p.be_ok_to_config_members;
+  TextBox_email_address.enabled := p.be_ok_to_config_members;
+  DropDownList_squad.enabled := p.be_ok_to_config_members;
 end;
 
 procedure TWebUserControl_member.Button_lookup_Click(sender: System.Object;
