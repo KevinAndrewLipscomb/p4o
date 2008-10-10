@@ -42,8 +42,10 @@ type
     p: p_type;
     procedure Clear;
     procedure InjectPersistentClientSideScript;
+    procedure ManageDependentFieldEnablements;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
     function PresentRecord(id: string): boolean;
+    procedure SetLookupMode;
   strict protected
     Label_application_name: System.Web.UI.WebControls.Label;
     Button_submit: System.Web.UI.WebControls.Button;
@@ -78,6 +80,11 @@ begin
   DropDownList_spec.visible := FALSE;
   TextBox_description.text := EMPTY;
   DropDownList_unit.ClearSelection;
+  //
+  // Disable dependent fields.
+  //
+  TextBox_description.enabled := FALSE;
+  DropDownList_unit.enabled := FALSE;
   //
   Button_submit.enabled := FALSE;
   Button_delete.enabled := FALSE;
@@ -206,14 +213,25 @@ begin
     Label_lookup_arrow.enabled := FALSE;
     Label_lookup_hint.enabled := FALSE;
     LinkButton_reset.enabled := TRUE;
-    TextBox_description.enabled := p.be_ok_to_config_squads;
-    DropDownList_unit.enabled := p.be_ok_to_config_squads;
+    ManageDependentFieldEnablements;
     Button_submit.enabled := p.be_ok_to_config_squads;
     Button_delete.enabled := p.be_ok_to_config_squads;
     //
     PresentRecord := TRUE;
     //
   end;
+end;
+
+procedure TWebUserControl_squad.SetLookupMode;
+begin
+  Clear;
+  TextBox_id.enabled := TRUE;
+  Button_lookup.enabled := TRUE;
+  Label_lookup_arrow.enabled := TRUE;
+  Label_lookup_hint.enabled := TRUE;
+  LinkButton_reset.enabled := FALSE;
+  LinkButton_new_record.enabled := p.be_ok_to_config_squads;
+  Focus(TextBox_id,TRUE);
 end;
 
 procedure TWebUserControl_squad.OnInit(e: System.EventArgs);
@@ -283,6 +301,7 @@ begin
       Safe(DropDownList_unit.SelectedValue,NUM)
       );
     Alert(USER,SUCCESS,'recsaved','Record saved.',TRUE);
+    SetLookupMode;
   end else begin
     ValidationAlert(TRUE);
   end;
@@ -298,7 +317,7 @@ procedure TWebUserControl_squad.Button_delete_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   if p.biz_squads.Delete(Safe(TextBox_id.text,ALPHANUM)) then begin
-    Clear;
+    SetLookupMode;
   end else begin
     Alert(kix.APPDATA,kix.FAILURE,'dependency',' Cannot delete this record because another record depends on it.',TRUE);
   end;
@@ -315,8 +334,7 @@ begin
   Label_lookup_hint.enabled := FALSE;
   LinkButton_reset.enabled := TRUE;
   LinkButton_new_record.enabled := FALSE;
-  TextBox_description.enabled := p.be_ok_to_config_squads;
-  DropDownList_unit.enabled := p.be_ok_to_config_squads;
+  ManageDependentFieldEnablements;
   Button_submit.enabled := p.be_ok_to_config_squads;
   Button_delete.enabled := FALSE;
   Focus(TextBox_id,TRUE);
@@ -325,16 +343,13 @@ end;
 procedure TWebUserControl_squad.LinkButton_reset_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  Clear;
-  TextBox_id.enabled := TRUE;
-  Button_lookup.enabled := TRUE;
-  Label_lookup_arrow.enabled := TRUE;
-  Label_lookup_hint.enabled := TRUE;
-  LinkButton_reset.enabled := FALSE;
-  LinkButton_new_record.enabled := p.be_ok_to_config_squads;
-  TextBox_description.enabled := FALSE;
-  DropDownList_unit.enabled := FALSE;
-  Focus(TextBox_id,TRUE);
+  SetLookupMode;
+end;
+
+procedure TWebUserControl_squad.ManageDependentFieldEnablements;
+begin
+  TextBox_description.enabled := p.be_ok_to_config_squads;
+  DropDownList_unit.enabled := p.be_ok_to_config_squads;
 end;
 
 procedure TWebUserControl_squad.Button_lookup_Click(sender: System.Object;
