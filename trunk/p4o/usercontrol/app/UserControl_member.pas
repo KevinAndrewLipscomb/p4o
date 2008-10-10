@@ -16,14 +16,43 @@ uses
 
 type
   TWebUserControl_member = class(ki_web_ui.usercontrol_class)
-  published
-    function Fresh: TWebUserControl_member;
-  protected
-    procedure OnInit(e: System.EventArgs); override;
+  {$REGION 'Designer Managed Code'}
+  strict private
+    procedure InitializeComponent;
+    procedure TWebUserControl_member_PreRender(sender: System.Object;
+      e: System.EventArgs);
+    procedure Button_lookup_Click(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_reset_Click(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_new_record_Click(sender: System.Object; e: System.EventArgs);
+    procedure Button_delete_Click(sender: System.Object; e: System.EventArgs);
+    procedure DropDownList_registration_code_SelectedIndexChanged(sender: System.Object;
+      e: System.EventArgs);
+    procedure Button_submit_Click(sender: System.Object; e: System.EventArgs);
+    procedure CustomValidator_email_address_ServerValidate(source: System.Object;
+      args: System.Web.UI.WebControls.ServerValidateEventArgs);
+  {$ENDREGION}
+  strict private
+    type
+      p_type =
+        RECORD
+        be_loaded: boolean;
+        be_ok_to_config_members: boolean;
+        biz_members: TClass_biz_members;
+        biz_squads: TClass_biz_squads;
+        END;
+  strict private
+    p: p_type;
+    procedure Clear;
+    procedure InjectPersistentClientSideScript;
+    procedure Page_Load(sender: System.Object; e: System.EventArgs);
+    function PresentRecord(registration_code: string): boolean;
   strict protected
     Button_submit: System.Web.UI.WebControls.Button;
     Button_delete: System.Web.UI.WebControls.Button;
-    LinkButton_search: System.Web.UI.WebControls.LinkButton;
+    Button_lookup: System.Web.UI.WebControls.Button;
+    LinkButton_new_record: System.Web.UI.WebControls.LinkButton;
+    Label_lookup_arrow: &label;
+    Label_lookup_hint: &label;
     LinkButton_reset: System.Web.UI.WebControls.LinkButton;
     TextBox_last_name: System.Web.UI.WebControls.TextBox;
     TextBox_first_name: System.Web.UI.WebControls.TextBox;
@@ -40,34 +69,10 @@ type
     RegularExpressionValidator_email_address: System.Web.UI.WebControls.RegularExpressionValidator;
     CustomValidator_email_address: System.Web.UI.WebControls.CustomValidator;
     RegularExpressionValidator_squad: System.Web.UI.WebControls.RegularExpressionValidator;
-  strict private
-    type
-      p_type =
-        RECORD
-        be_loaded: boolean;
-        biz_members: TClass_biz_members;
-        biz_squads: TClass_biz_squads;
-        END;
-  strict private
-    p: p_type;
-    procedure Clear;
-    procedure InjectPersistentClientSideScript;
-    procedure Page_Load(sender: System.Object; e: System.EventArgs);
-    function PresentRecord(registration_code: string): boolean;
-  {$REGION 'Designer Managed Code'}
-  strict private
-    procedure InitializeComponent;
-    procedure TWebUserControl_member_PreRender(sender: System.Object;
-      e: System.EventArgs);
-    procedure LinkButton_search_Click(sender: System.Object; e: System.EventArgs);
-    procedure LinkButton_reset_Click(sender: System.Object; e: System.EventArgs);
-    procedure Button_delete_Click(sender: System.Object; e: System.EventArgs);
-    procedure DropDownList_registration_code_SelectedIndexChanged(sender: System.Object;
-      e: System.EventArgs);
-    procedure Button_submit_Click(sender: System.Object; e: System.EventArgs);
-    procedure CustomValidator_email_address_ServerValidate(source: System.Object;
-      args: System.Web.UI.WebControls.ServerValidateEventArgs);
-  {$ENDREGION}
+  protected
+    procedure OnInit(e: System.EventArgs); override;
+  published
+    function Fresh: TWebUserControl_member;
   end;
 
 implementation
@@ -87,6 +92,7 @@ begin
   DropDownList_registration_code.visible := FALSE;
   DropDownList_squad.ClearSelection;
   //
+  Button_submit.enabled := FALSE;
   Button_delete.enabled := FALSE;
   //
 end;
@@ -177,6 +183,7 @@ begin
   //
   if not p.be_loaded then begin
     //
+    LinkButton_new_record.visible := p.be_ok_to_config_members;
     p.biz_squads.BindDirectToListControl(DropDownList_squad);
     //
     RequireConfirmation(Button_delete,'Are you sure you want to delete this record?');
@@ -216,7 +223,16 @@ begin
     DropDownList_squad.selectedvalue := squad_id;
     //
     TextBox_registration_code.enabled := FALSE;
-    Button_delete.enabled := TRUE;
+    Button_lookup.enabled := FALSE;
+    Label_lookup_arrow.enabled := FALSE;
+    Label_lookup_hint.enabled := FALSE;
+    LinkButton_reset.enabled := TRUE;
+    TextBox_last_name.enabled := p.be_ok_to_config_members;
+    TextBox_first_name.enabled := p.be_ok_to_config_members;
+    TextBox_email_address.enabled := p.be_ok_to_config_members;
+    DropDownList_squad.enabled := p.be_ok_to_config_members;
+    Button_submit.enabled := p.be_ok_to_config_members;
+    Button_delete.enabled := p.be_ok_to_config_members;
     //
     PresentRecord := TRUE;
     //
@@ -241,6 +257,8 @@ begin
     p.biz_members := TClass_biz_members.Create;
     p.biz_squads := TClass_biz_squads.Create;
     //
+    p.be_ok_to_config_members := Has(string_array(session['privilege_array']),'config-members');
+    //
   end;
   //
 end;
@@ -252,8 +270,9 @@ end;
 /// </summary>
 procedure TWebUserControl_member.InitializeComponent;
 begin
-  Include(Self.LinkButton_search.Click, Self.LinkButton_search_Click);
+  Include(Self.Button_lookup.Click, Self.Button_lookup_Click);
   Include(Self.LinkButton_reset.Click, Self.LinkButton_reset_Click);
+  Include(Self.LinkButton_new_record.Click, Self.LinkButton_new_record_Click);
   Include(Self.DropDownList_registration_code.SelectedIndexChanged, Self.DropDownList_registration_code_SelectedIndexChanged);
   Include(Self.Button_submit.Click, Self.Button_submit_Click);
   Include(Self.Button_delete.Click, Self.Button_delete_Click);
@@ -317,15 +336,42 @@ begin
   end;
 end;
 
+procedure TWebUserControl_member.LinkButton_new_record_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  Clear;
+  Button_lookup.enabled := FALSE;
+  Label_lookup_arrow.enabled := FALSE;
+  Label_lookup_hint.enabled := FALSE;
+  LinkButton_reset.enabled := TRUE;
+  LinkButton_new_record.enabled := FALSE;
+  TextBox_last_name.enabled := p.be_ok_to_config_members;
+  TextBox_first_name.enabled := p.be_ok_to_config_members;
+  TextBox_email_address.enabled := p.be_ok_to_config_members;
+  DropDownList_squad.enabled := p.be_ok_to_config_members;
+  Button_submit.enabled := p.be_ok_to_config_members;
+  Button_delete.enabled := FALSE;
+  Focus(TextBox_registration_code,TRUE);
+end;
+
 procedure TWebUserControl_member.LinkButton_reset_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   Clear;
   TextBox_registration_code.enabled := TRUE;
+  Button_lookup.enabled := TRUE;
+  Label_lookup_arrow.enabled := TRUE;
+  Label_lookup_hint.enabled := TRUE;
+  LinkButton_reset.enabled := FALSE;
+  LinkButton_new_record.enabled := p.be_ok_to_config_members;
+  TextBox_last_name.enabled := FALSE;
+  TextBox_first_name.enabled := FALSE;
+  TextBox_email_address.enabled := FALSE;
+  DropDownList_squad.enabled := FALSE;
   Focus(TextBox_registration_code,TRUE);
 end;
 
-procedure TWebUserControl_member.LinkButton_search_Click(sender: System.Object;
+procedure TWebUserControl_member.Button_lookup_Click(sender: System.Object;
   e: System.EventArgs);
 var
   num_matches: cardinal;

@@ -16,28 +16,15 @@ uses
   System.Web.UI.HtmlControls;
 
 type
-  p_type =
-    RECORD
-    be_gridview_empty: boolean;
-    be_loaded: boolean;
-    be_sort_order_ascending: boolean;
-    biz_members: TClass_biz_members;
-    biz_role_member_map: TClass_biz_role_member_map;
-    biz_roles: TClass_biz_roles;
-    biz_user: TClass_biz_user;
-    distribution_list: string;
-    num_gridview_rows: cardinal;
-    role_name: string;
-    sort_order: string;
-    END;
   TWebUserControl_role = class(ki_web_ui.usercontrol_class)
   {$REGION 'Designer Managed Code'}
   strict private
     procedure InitializeComponent;
     procedure TWebUserControl_role_PreRender(sender: System.Object;
       e: System.EventArgs);
-    procedure LinkButton_search_Click(sender: System.Object; e: System.EventArgs);
+    procedure Button_lookup_Click(sender: System.Object; e: System.EventArgs);
     procedure LinkButton_reset_Click(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_new_record_Click(sender: System.Object; e: System.EventArgs);
     procedure Button_delete_Click(sender: System.Object; e: System.EventArgs);
     procedure DropDownList_name_SelectedIndexChanged(sender: System.Object; 
       e: System.EventArgs);
@@ -48,6 +35,23 @@ type
     procedure GridView_holders_Sorting(sender: System.Object; e: System.Web.UI.WebControls.GridViewSortEventArgs);
   {$ENDREGION}
   strict private
+    type
+      p_type =
+        RECORD
+        be_gridview_empty: boolean;
+        be_loaded: boolean;
+        be_ok_to_config_roles: boolean;
+        be_sort_order_ascending: boolean;
+        biz_members: TClass_biz_members;
+        biz_role_member_map: TClass_biz_role_member_map;
+        biz_roles: TClass_biz_roles;
+        biz_user: TClass_biz_user;
+        distribution_list: string;
+        num_gridview_rows: cardinal;
+        role_name: string;
+        sort_order: string;
+        END;
+  strict private
     p: p_type;
     procedure BindHolders(role_name: string);
     procedure Clear;
@@ -57,7 +61,10 @@ type
   strict protected
     Button_submit: System.Web.UI.WebControls.Button;
     Button_delete: System.Web.UI.WebControls.Button;
-    LinkButton_search: System.Web.UI.WebControls.LinkButton;
+    Button_lookup: System.Web.UI.WebControls.Button;
+    LinkButton_new_record: System.Web.UI.WebControls.LinkButton;
+    Label_lookup_arrow: &label;
+    Label_lookup_hint: &label;
     LinkButton_reset: System.Web.UI.WebControls.LinkButton;
     TextBox_name: System.Web.UI.WebControls.TextBox;
     DropDownList_name: System.Web.UI.WebControls.DropDownList;
@@ -82,10 +89,6 @@ type
     RequiredFieldValidator_pecking_order: System.Web.UI.WebControls.RequiredFieldValidator;
   protected
     procedure OnInit(e: System.EventArgs); override;
-  private
-    { Private Declarations }
-  public
-    { Public Declarations }
   published
     function Fresh: TWebUserControl_role;
   end;
@@ -106,6 +109,7 @@ begin
   TextBox_pecking_order.text := EMPTY;
   TextBox_soft_hyphenation_text.text := EMPTY;
   //
+  Button_submit.enabled := FALSE;
   Button_delete.enabled := FALSE;
   Anchor_quick_message_shortcut.visible := FALSE;
   //
@@ -205,9 +209,9 @@ begin
     if not assigned(session['mode:report']) then begin
       Label_author_email_address.text := p.biz_user.EmailAddress;
       if Has(string_array(session['privilege_array']),'config-roles-and-matrices') then begin
+        LinkButton_new_record.visible := p.be_ok_to_config_roles;
         TableRow_pecking_order.visible := TRUE;
         TableRow_soft_hyphenation_text.visible := TRUE;
-        Button_submit.enabled := TRUE;
       end;
     end else begin
       TextBox_quick_message_subject.enabled := FALSE;
@@ -247,7 +251,14 @@ begin
     TextBox_pecking_order.text := pecking_order;
     //
     TextBox_name.enabled := FALSE;
-    Button_delete.enabled := Has(string_array(session['privilege_array']),'config-roles-and-matrices');
+    Button_lookup.enabled := FALSE;
+    Label_lookup_arrow.enabled := FALSE;
+    Label_lookup_hint.enabled := FALSE;
+    LinkButton_reset.enabled := TRUE;
+    TextBox_pecking_order.enabled := p.be_ok_to_config_roles;
+    TextBox_soft_hyphenation_text.enabled := p.be_ok_to_config_roles;
+    Button_delete.enabled := p.be_ok_to_config_roles;
+    Button_delete.enabled := p.be_ok_to_config_roles;
     //
     BindHolders(name);
     //
@@ -269,18 +280,20 @@ begin
     p.be_loaded := IsPostBack and (string(session['UserControl_member_binder_UserControl_config_UserControl_roles_and_matrices_binder_PlaceHolder_content']) = 'UserControl_role');
   end else begin
     //
-    p.be_gridview_empty := TRUE;
     p.be_loaded := FALSE;
-    p.be_sort_order_ascending := TRUE;
-    p.distribution_list := EMPTY;
-    p.num_gridview_rows := 0;
-    p.role_name := EMPTY;
-    p.sort_order := 'member_name%';
     //
     p.biz_members := TClass_biz_members.Create;
     p.biz_role_member_map := TClass_biz_role_member_map.Create;
     p.biz_roles := TClass_biz_roles.Create;
     p.biz_user := TClass_biz_user.Create;
+    //
+    p.be_gridview_empty := TRUE;
+    p.be_ok_to_config_roles := Has(string_array(session['privilege_array']),'config-roles-and-matrices');
+    p.be_sort_order_ascending := TRUE;
+    p.distribution_list := EMPTY;
+    p.num_gridview_rows := 0;
+    p.role_name := EMPTY;
+    p.sort_order := 'member_name%';
     //
   end;
   //
@@ -301,7 +314,8 @@ begin
   Include(Self.Button_submit.Click, Self.Button_submit_Click);
   Include(Self.DropDownList_name.SelectedIndexChanged, Self.DropDownList_name_SelectedIndexChanged);
   Include(Self.LinkButton_reset.Click, Self.LinkButton_reset_Click);
-  Include(Self.LinkButton_search.Click, Self.LinkButton_search_Click);
+  Include(Self.LinkButton_new_record.Click, Self.LinkButton_new_record_Click);
+  Include(Self.Button_lookup.Click, Self.Button_lookup_Click);
   Include(Self.PreRender, Self.TWebUserControl_role_PreRender);
   Include(Self.Load, Self.Page_Load);
 end;
@@ -414,15 +428,38 @@ begin
   end;
 end;
 
+procedure TWebUserControl_role.LinkButton_new_record_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  Clear;
+  Button_lookup.enabled := FALSE;
+  Label_lookup_arrow.enabled := FALSE;
+  Label_lookup_hint.enabled := FALSE;
+  LinkButton_reset.enabled := TRUE;
+  LinkButton_new_record.enabled := FALSE;
+  TextBox_pecking_order.enabled := p.be_ok_to_config_roles;
+  TextBox_soft_hyphenation_text.enabled := p.be_ok_to_config_roles;
+  Button_submit.enabled := p.be_ok_to_config_roles;
+  Button_delete.enabled := FALSE;
+  Focus(TextBox_name,TRUE);
+end;
+
 procedure TWebUserControl_role.LinkButton_reset_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   Clear;
   TextBox_name.enabled := TRUE;
+  Button_lookup.enabled := TRUE;
+  Label_lookup_arrow.enabled := TRUE;
+  Label_lookup_hint.enabled := TRUE;
+  LinkButton_reset.enabled := FALSE;
+  LinkButton_new_record.enabled := p.be_ok_to_config_roles;
+  TextBox_pecking_order.enabled := FALSE;
+  TextBox_soft_hyphenation_text.enabled := FALSE;
   Focus(TextBox_name,TRUE);
 end;
 
-procedure TWebUserControl_role.LinkButton_search_Click(sender: System.Object;
+procedure TWebUserControl_role.Button_lookup_Click(sender: System.Object;
   e: System.EventArgs);
 var
   num_matches: cardinal;
