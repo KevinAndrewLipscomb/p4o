@@ -28,8 +28,9 @@ type
     procedure InitializeComponent;
     procedure TWebUserControl_training_request_PreRender(sender: System.Object;
       e: System.EventArgs);
-    procedure LinkButton_search_Click(sender: System.Object; e: System.EventArgs);
+    procedure Button_lookup_Click(sender: System.Object; e: System.EventArgs);
     procedure LinkButton_reset_Click(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_new_record_Click(sender: System.Object; e: System.EventArgs);
     procedure Button_delete_Click(sender: System.Object; e: System.EventArgs);
     procedure DropDownList_id_SelectedIndexChanged(sender: System.Object;
       e: System.EventArgs);
@@ -40,6 +41,7 @@ type
       p_type =
         RECORD
         be_loaded: boolean;
+        be_ok_to_config_training_requests: boolean;
         biz_training_request_statuses: TClass_biz_training_request_statuses;
         biz_training_requests: TClass_biz_training_requests;
         mode: mode_type;
@@ -55,7 +57,10 @@ type
   strict protected
     Button_submit: System.Web.UI.WebControls.Button;
     Button_delete: System.Web.UI.WebControls.Button;
-    LinkButton_search: System.Web.UI.WebControls.LinkButton;
+    Button_lookup: System.Web.UI.WebControls.Button;
+    LinkButton_new_record: System.Web.UI.WebControls.LinkButton;
+    Label_lookup_arrow: &label;
+    Label_lookup_hint: &label;
     LinkButton_reset: System.Web.UI.WebControls.LinkButton;
     DropDownList_id: DropDownList;
     TextBox_nature: TextBox;
@@ -165,6 +170,7 @@ begin
   TextBox_member_id.text := EMPTY;
   TextBox_submission_timestamp.text := EMPTY;
   //
+  Button_submit.enabled := FALSE;
   Button_delete.enabled := FALSE;
   //
 end;
@@ -255,6 +261,7 @@ begin
   //
   if not p.be_loaded then begin
     //
+    LinkButton_new_record.visible := p.be_ok_to_config_training_requests;
     //
     RequireConfirmation(Button_delete,'Are you sure you want to delete this record?');
     //
@@ -395,6 +402,33 @@ begin
     TextBox_submission_timestamp.text := submission_timestamp.tostring;
     //
     TextBox_id.enabled := FALSE;
+    Button_lookup.enabled := FALSE;
+    Label_lookup_arrow.enabled := FALSE;
+    Label_lookup_hint.enabled := FALSE;
+    LinkButton_reset.enabled := TRUE;
+    TextBox_nature.enabled := p.be_ok_to_config_training_requests;
+    TextBox_dates.enabled := p.be_ok_to_config_training_requests;
+    TextBox_conducting_agency.enabled := p.be_ok_to_config_training_requests;
+    TextBox_location.enabled := p.be_ok_to_config_training_requests;
+    TextBox_cost_of_enrollment.enabled := p.be_ok_to_config_training_requests;
+    TextBox_cost_of_lodging.enabled := p.be_ok_to_config_training_requests;
+    TextBox_cost_of_meals.enabled := p.be_ok_to_config_training_requests;
+    TextBox_cost_of_transportation.enabled := p.be_ok_to_config_training_requests;
+    TextBox_reason.enabled := p.be_ok_to_config_training_requests;
+    TextBox_disposition_training_funding_source.enabled := p.be_ok_to_config_training_requests;
+    TextBox_disposition_training_comments.enabled := p.be_ok_to_config_training_requests;
+    CheckBox_disposition_squad_be_approved.enabled := p.be_ok_to_config_training_requests;
+    TextBox_disposition_squad_comments.enabled := p.be_ok_to_config_training_requests;
+    CheckBox_disposition_unit_be_approved.enabled := p.be_ok_to_config_training_requests;
+    TextBox_disposition_unit_comments.enabled := p.be_ok_to_config_training_requests;
+    CheckBox_disposition_division_be_approved.enabled := p.be_ok_to_config_training_requests;
+    TextBox_disposition_division_comments.enabled := p.be_ok_to_config_training_requests;
+    CheckBox_disposition_assistant_chief_be_approved.enabled := p.be_ok_to_config_training_requests;
+    TextBox_disposition_assistant_chief_comments.enabled := p.be_ok_to_config_training_requests;
+    CheckBox_payment_be_done.enabled := p.be_ok_to_config_training_requests;
+    TextBox_payment_actual_amount.enabled := p.be_ok_to_config_training_requests;
+    TextBox_payment_comments.enabled := p.be_ok_to_config_training_requests;
+    Button_submit.enabled := p.be_ok_to_config_training_requests;
     Button_delete.enabled := TRUE;
     //
     SetMode(p.mode);
@@ -459,6 +493,8 @@ begin
     //
     p.biz_training_request_statuses := TClass_biz_training_request_statuses.Create;
     p.biz_training_requests := TClass_biz_training_requests.Create;
+    //
+    p.be_ok_to_config_training_requests := Has(string_array(session['privilege_array']),'config-training-requests');
     p.mode := NONE;
     //
   end;
@@ -472,8 +508,9 @@ end;
 /// </summary>
 procedure TWebUserControl_training_request.InitializeComponent;
 begin
-  Include(Self.LinkButton_search.Click, Self.LinkButton_search_Click);
+  Include(Self.Button_lookup.Click, Self.Button_lookup_Click);
   Include(Self.LinkButton_reset.Click, Self.LinkButton_reset_Click);
+  Include(Self.LinkButton_new_record.Click, Self.LinkButton_new_record_Click);
   Include(Self.DropDownList_id.SelectedIndexChanged, Self.DropDownList_id_SelectedIndexChanged);
   Include(Self.Button_submit.Click, Self.Button_submit_Click);
   Include(Self.Button_delete.Click, Self.Button_delete_Click);
@@ -621,15 +658,80 @@ begin
   end;
 end;
 
+procedure TWebUserControl_training_request.LinkButton_new_record_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  Clear;
+  TextBox_id.text := '*';
+  TextBox_id.enabled := False;
+  Button_lookup.enabled := FALSE;
+  Label_lookup_arrow.enabled := FALSE;
+  Label_lookup_hint.enabled := FALSE;
+  LinkButton_reset.enabled := TRUE;
+  LinkButton_new_record.enabled := FALSE;
+  TextBox_nature.enabled := p.be_ok_to_config_training_requests;
+  TextBox_dates.enabled := p.be_ok_to_config_training_requests;
+  TextBox_conducting_agency.enabled := p.be_ok_to_config_training_requests;
+  TextBox_location.enabled := p.be_ok_to_config_training_requests;
+  TextBox_cost_of_enrollment.enabled := p.be_ok_to_config_training_requests;
+  TextBox_cost_of_lodging.enabled := p.be_ok_to_config_training_requests;
+  TextBox_cost_of_meals.enabled := p.be_ok_to_config_training_requests;
+  TextBox_cost_of_transportation.enabled := p.be_ok_to_config_training_requests;
+  TextBox_reason.enabled := p.be_ok_to_config_training_requests;
+  TextBox_disposition_training_funding_source.enabled := p.be_ok_to_config_training_requests;
+  TextBox_disposition_training_comments.enabled := p.be_ok_to_config_training_requests;
+  CheckBox_disposition_squad_be_approved.enabled := p.be_ok_to_config_training_requests;
+  TextBox_disposition_squad_comments.enabled := p.be_ok_to_config_training_requests;
+  CheckBox_disposition_unit_be_approved.enabled := p.be_ok_to_config_training_requests;
+  TextBox_disposition_unit_comments.enabled := p.be_ok_to_config_training_requests;
+  CheckBox_disposition_division_be_approved.enabled := p.be_ok_to_config_training_requests;
+  TextBox_disposition_division_comments.enabled := p.be_ok_to_config_training_requests;
+  CheckBox_disposition_assistant_chief_be_approved.enabled := p.be_ok_to_config_training_requests;
+  TextBox_disposition_assistant_chief_comments.enabled := p.be_ok_to_config_training_requests;
+  CheckBox_payment_be_done.enabled := p.be_ok_to_config_training_requests;
+  TextBox_payment_actual_amount.enabled := p.be_ok_to_config_training_requests;
+  TextBox_payment_comments.enabled := p.be_ok_to_config_training_requests;
+  Button_submit.enabled := p.be_ok_to_config_training_requests;
+  Button_delete.enabled := FALSE;
+  Focus(TextBox_id,TRUE);
+end;
+
 procedure TWebUserControl_training_request.LinkButton_reset_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   Clear;
   TextBox_id.enabled := TRUE;
+  Button_lookup.enabled := TRUE;
+  Label_lookup_arrow.enabled := TRUE;
+  Label_lookup_hint.enabled := TRUE;
+  LinkButton_reset.enabled := FALSE;
+  LinkButton_new_record.enabled := p.be_ok_to_config_training_requests;
+  TextBox_nature.enabled := FALSE;
+  TextBox_dates.enabled := FALSE;
+  TextBox_conducting_agency.enabled := FALSE;
+  TextBox_location.enabled := FALSE;
+  TextBox_cost_of_enrollment.enabled := FALSE;
+  TextBox_cost_of_lodging.enabled := FALSE;
+  TextBox_cost_of_meals.enabled := FALSE;
+  TextBox_cost_of_transportation.enabled := FALSE;
+  TextBox_reason.enabled := FALSE;
+  TextBox_disposition_training_funding_source.enabled := FALSE;
+  TextBox_disposition_training_comments.enabled := FALSE;
+  CheckBox_disposition_squad_be_approved.enabled := FALSE;
+  TextBox_disposition_squad_comments.enabled := FALSE;
+  CheckBox_disposition_unit_be_approved.enabled := FALSE;
+  TextBox_disposition_unit_comments.enabled := FALSE;
+  CheckBox_disposition_division_be_approved.enabled := FALSE;
+  TextBox_disposition_division_comments.enabled := FALSE;
+  CheckBox_disposition_assistant_chief_be_approved.enabled := FALSE;
+  TextBox_disposition_assistant_chief_comments.enabled := FALSE;
+  CheckBox_payment_be_done.enabled := FALSE;
+  TextBox_payment_actual_amount.enabled := FALSE;
+  TextBox_payment_comments.enabled := FALSE;
   Focus(TextBox_id,TRUE);
 end;
 
-procedure TWebUserControl_training_request.LinkButton_search_Click(sender: System.Object;
+procedure TWebUserControl_training_request.Button_lookup_Click(sender: System.Object;
   e: System.EventArgs);
 var
   num_matches: cardinal;

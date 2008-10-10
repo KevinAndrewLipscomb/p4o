@@ -14,24 +14,28 @@ uses
   UserControl_drop_down_date;
 
 type
-  p_type =
-    RECORD
-    be_loaded: boolean;
-    biz_training_request_statuses: TClass_biz_training_request_statuses;
-    END;
   TWebUserControl_training_request_status = class(ki_web_ui.usercontrol_class)
   {$REGION 'Designer Managed Code'}
   strict private
     procedure InitializeComponent;
     procedure TWebUserControl_training_request_status_PreRender(sender: System.Object;
       e: System.EventArgs);
-    procedure LinkButton_search_Click(sender: System.Object; e: System.EventArgs);
+    procedure Button_lookup_Click(sender: System.Object; e: System.EventArgs);
     procedure LinkButton_reset_Click(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_new_record_Click(sender: System.Object; e: System.EventArgs);
     procedure Button_delete_Click(sender: System.Object; e: System.EventArgs);
     procedure DropDownList_code_SelectedIndexChanged(sender: System.Object; 
       e: System.EventArgs);
     procedure Button_submit_Click(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
+  strict private
+    type
+      p_type =
+        RECORD
+        be_loaded: boolean;
+        be_ok_to_config_training_request_statuses: boolean;
+        biz_training_request_statuses: TClass_biz_training_request_statuses;
+        END;
   strict private
     p: p_type;
     procedure Clear;
@@ -42,7 +46,10 @@ type
     Label_application_name: System.Web.UI.WebControls.Label;
     Button_submit: System.Web.UI.WebControls.Button;
     Button_delete: System.Web.UI.WebControls.Button;
-    LinkButton_search: System.Web.UI.WebControls.LinkButton;
+    Button_lookup: System.Web.UI.WebControls.Button;
+    LinkButton_new_record: System.Web.UI.WebControls.LinkButton;
+    Label_lookup_arrow: &label;
+    Label_lookup_hint: &label;
     LinkButton_reset: System.Web.UI.WebControls.LinkButton;
     TextBox_id: System.Web.UI.WebControls.TextBox;
     DropDownList_spec: System.Web.UI.WebControls.DropDownList;
@@ -50,10 +57,6 @@ type
     RequiredFieldValidator_description: System.Web.UI.WebControls.RequiredFieldValidator;
   protected
     procedure OnInit(e: System.EventArgs); override;
-  private
-    { Private Declarations }
-  public
-    { Public Declarations }
   published
     function Fresh: TWebUserControl_training_request_status;
   end;
@@ -72,6 +75,7 @@ begin
   DropDownList_spec.visible := FALSE;
   TextBox_description.text := EMPTY;
   //
+  Button_submit.enabled := FALSE;
   Button_delete.enabled := FALSE;
   //
 end;
@@ -160,6 +164,7 @@ begin
   //
   if not p.be_loaded then begin
     //
+    LinkButton_new_record.visible := p.be_ok_to_config_training_request_statuses;
     //
     RequireConfirmation(Button_delete,'Are you sure you want to delete this record?');
     //
@@ -189,7 +194,13 @@ begin
     TextBox_description.text := description;
     //
     TextBox_id.enabled := FALSE;
-    Button_delete.enabled := TRUE;
+    Button_lookup.enabled := FALSE;
+    Label_lookup_arrow.enabled := FALSE;
+    Label_lookup_hint.enabled := FALSE;
+    LinkButton_reset.enabled := TRUE;
+    TextBox_description.enabled := p.be_ok_to_config_training_request_statuses;
+    Button_submit.enabled := p.be_ok_to_config_training_request_statuses;
+    Button_delete.enabled := p.be_ok_to_config_training_request_statuses;
     //
     PresentRecord := TRUE;
     //
@@ -213,6 +224,8 @@ begin
     //
     p.biz_training_request_statuses := TClass_biz_training_request_statuses.Create;
     //
+    p.be_ok_to_config_training_request_statuses := Has(string_array(session['privilege_array']),'config-training-request-statuses');
+    //
   end;
   //
 end;
@@ -224,8 +237,9 @@ end;
 /// </summary>
 procedure TWebUserControl_training_request_status.InitializeComponent;
 begin
-  Include(Self.LinkButton_search.Click, Self.LinkButton_search_Click);
+  Include(Self.Button_lookup.Click, Self.Button_lookup_Click);
   Include(Self.LinkButton_reset.Click, Self.LinkButton_reset_Click);
+  Include(Self.LinkButton_new_record.Click, Self.LinkButton_new_record_Click);
   Include(Self.DropDownList_spec.SelectedIndexChanged, Self.DropDownList_code_SelectedIndexChanged);
   Include(Self.Button_submit.Click, Self.Button_submit_Click);
   Include(Self.Button_delete.Click, Self.Button_delete_Click);
@@ -279,15 +293,38 @@ begin
   end;
 end;
 
+procedure TWebUserControl_.LinkButton_new_record_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  Clear;
+  TextBox_id.text := '*';
+  TextBox_id.enabled := False;
+  Button_lookup.enabled := FALSE;
+  Label_lookup_arrow.enabled := FALSE;
+  Label_lookup_hint.enabled := FALSE;
+  LinkButton_reset.enabled := TRUE;
+  LinkButton_new_record.enabled := FALSE;
+  TextBox_description.enabled := p.be_ok_to_config_training_request_statuses;
+  Button_submit.enabled := p.be_ok_to_config_training_request_statuses;
+  Button_delete.enabled := FALSE;
+  Focus(TextBox_id,TRUE);
+end;
+
 procedure TWebUserControl_training_request_status.LinkButton_reset_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   Clear;
   TextBox_id.enabled := TRUE;
+  Button_lookup.enabled := TRUE;
+  Label_lookup_arrow.enabled := TRUE;
+  Label_lookup_hint.enabled := TRUE;
+  LinkButton_reset.enabled := FALSE;
+  LinkButton_new_record.enabled := p.be_ok_to_config_training_request_statuses;
+  TextBox_description.enabled := FALSE;
   Focus(TextBox_id,TRUE);
 end;
 
-procedure TWebUserControl_training_request_status.LinkButton_search_Click(sender: System.Object;
+procedure TWebUserControl_training_request_status.Button_lookup_Click(sender: System.Object;
   e: System.EventArgs);
 var
   num_matches: cardinal;
