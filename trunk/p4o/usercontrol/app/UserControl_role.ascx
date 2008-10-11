@@ -59,8 +59,8 @@
       </table></td>
   </tr>
 </table>
-<ASP:Button id="Button_submit" runat="server" enabled="False" text="Submit" enabled="False"></ASP:Button>&nbsp;&nbsp;
-<ASP:Button id="Button_delete" runat="server" enabled="False" text="Delete" enabled="False"></ASP:Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<ASP:Button id="Button_submit" runat="server" enabled="False" text="Submit"></ASP:Button>&nbsp;&nbsp;
+<ASP:Button id="Button_delete" runat="server" enabled="False" text="Delete"></ASP:Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <a id="Anchor_quick_message_shortcut" runat="server" visible="False">QuickMessage</a>
 <p>
   <table id="Table_holders" bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1" runat="server" visible="False">
