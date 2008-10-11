@@ -51,7 +51,7 @@ type
     procedure Clear;
     function GetMode: mode_type;
     procedure InjectPersistentClientSideScript;
-    procedure ManageDependentFieldEnablements;
+    procedure SetDependentFieldAblements(ablement: boolean);
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
     function PresentRecord(id: string): boolean;
     procedure SetLookupMode;
@@ -172,31 +172,7 @@ begin
   TextBox_member_id.text := EMPTY;
   TextBox_submission_timestamp.text := EMPTY;
   //
-  // Disable dependent fields.
-  //
-  TextBox_nature.enabled := FALSE;
-  TextBox_dates.enabled := FALSE;
-  TextBox_conducting_agency.enabled := FALSE;
-  TextBox_location.enabled := FALSE;
-  TextBox_cost_of_enrollment.enabled := FALSE;
-  TextBox_cost_of_lodging.enabled := FALSE;
-  TextBox_cost_of_meals.enabled := FALSE;
-  TextBox_cost_of_transportation.enabled := FALSE;
-  TextBox_reason.enabled := FALSE;
-  TextBox_disposition_training_funding_source.enabled := FALSE;
-  TextBox_disposition_training_comments.enabled := FALSE;
-  CheckBox_disposition_squad_be_approved.enabled := FALSE;
-  TextBox_disposition_squad_comments.enabled := FALSE;
-  CheckBox_disposition_unit_be_approved.enabled := FALSE;
-  TextBox_disposition_unit_comments.enabled := FALSE;
-  CheckBox_disposition_division_be_approved.enabled := FALSE;
-  TextBox_disposition_division_comments.enabled := FALSE;
-  CheckBox_disposition_assistant_chief_be_approved.enabled := FALSE;
-  TextBox_disposition_assistant_chief_comments.enabled := FALSE;
-  CheckBox_payment_be_done.enabled := FALSE;
-  TextBox_payment_actual_amount.enabled := FALSE;
-  TextBox_payment_comments.enabled := FALSE;
-  //
+  SetDependentFieldAblements(FALSE);
   Button_submit.enabled := FALSE;
   Button_delete.enabled := FALSE;
   //
@@ -433,7 +409,7 @@ begin
     Label_lookup_arrow.enabled := FALSE;
     Label_lookup_hint.enabled := FALSE;
     LinkButton_reset.enabled := TRUE;
-    ManageDependentFieldEnablements;
+    SetDependentFieldAblements(p.be_ok_to_config_training_requests);
     Button_submit.enabled := p.be_ok_to_config_training_requests;
     Button_delete.enabled := p.be_ok_to_config_training_requests;
     //
@@ -687,7 +663,7 @@ begin
   Label_lookup_hint.enabled := FALSE;
   LinkButton_reset.enabled := TRUE;
   LinkButton_new_record.enabled := FALSE;
-  ManageDependentFieldEnablements;
+  SetDependentFieldAblements(p.be_ok_to_config_training_requests);
   Button_submit.enabled := p.be_ok_to_config_training_requests;
   Button_delete.enabled := FALSE;
   Focus(TextBox_id,TRUE);
@@ -699,30 +675,30 @@ begin
   SetLookupMode;
 end;
 
-procedure TWebUserControl_training_request.ManageDependentFieldEnablements;
+procedure TWebUserControl_training_request.SetDependentFieldAblements(ablement: boolean);
 begin
-  TextBox_nature.enabled := p.be_ok_to_config_training_requests;
-  TextBox_dates.enabled := p.be_ok_to_config_training_requests;
-  TextBox_conducting_agency.enabled := p.be_ok_to_config_training_requests;
-  TextBox_location.enabled := p.be_ok_to_config_training_requests;
-  TextBox_cost_of_enrollment.enabled := p.be_ok_to_config_training_requests;
-  TextBox_cost_of_lodging.enabled := p.be_ok_to_config_training_requests;
-  TextBox_cost_of_meals.enabled := p.be_ok_to_config_training_requests;
-  TextBox_cost_of_transportation.enabled := p.be_ok_to_config_training_requests;
-  TextBox_reason.enabled := p.be_ok_to_config_training_requests;
-  TextBox_disposition_training_funding_source.enabled := p.be_ok_to_config_training_requests;
-  TextBox_disposition_training_comments.enabled := p.be_ok_to_config_training_requests;
-  CheckBox_disposition_squad_be_approved.enabled := p.be_ok_to_config_training_requests;
-  TextBox_disposition_squad_comments.enabled := p.be_ok_to_config_training_requests;
-  CheckBox_disposition_unit_be_approved.enabled := p.be_ok_to_config_training_requests;
-  TextBox_disposition_unit_comments.enabled := p.be_ok_to_config_training_requests;
-  CheckBox_disposition_division_be_approved.enabled := p.be_ok_to_config_training_requests;
-  TextBox_disposition_division_comments.enabled := p.be_ok_to_config_training_requests;
-  CheckBox_disposition_assistant_chief_be_approved.enabled := p.be_ok_to_config_training_requests;
-  TextBox_disposition_assistant_chief_comments.enabled := p.be_ok_to_config_training_requests;
-  CheckBox_payment_be_done.enabled := p.be_ok_to_config_training_requests;
-  TextBox_payment_actual_amount.enabled := p.be_ok_to_config_training_requests;
-  TextBox_payment_comments.enabled := p.be_ok_to_config_training_requests;
+  TextBox_nature.enabled := ablement;
+  TextBox_dates.enabled := ablement;
+  TextBox_conducting_agency.enabled := ablement;
+  TextBox_location.enabled := ablement;
+  TextBox_cost_of_enrollment.enabled := ablement;
+  TextBox_cost_of_lodging.enabled := ablement;
+  TextBox_cost_of_meals.enabled := ablement;
+  TextBox_cost_of_transportation.enabled := ablement;
+  TextBox_reason.enabled := ablement;
+  TextBox_disposition_training_funding_source.enabled := ablement;
+  TextBox_disposition_training_comments.enabled := ablement;
+  CheckBox_disposition_squad_be_approved.enabled := ablement;
+  TextBox_disposition_squad_comments.enabled := ablement;
+  CheckBox_disposition_unit_be_approved.enabled := ablement;
+  TextBox_disposition_unit_comments.enabled := ablement;
+  CheckBox_disposition_division_be_approved.enabled := ablement;
+  TextBox_disposition_division_comments.enabled := ablement;
+  CheckBox_disposition_assistant_chief_be_approved.enabled := ablement;
+  TextBox_disposition_assistant_chief_comments.enabled := ablement;
+  CheckBox_payment_be_done.enabled := ablement;
+  TextBox_payment_actual_amount.enabled := ablement;
+  TextBox_payment_comments.enabled := ablement;
 end;
 
 procedure TWebUserControl_training_request.Button_lookup_Click(sender: System.Object;

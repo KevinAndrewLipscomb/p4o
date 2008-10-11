@@ -42,7 +42,7 @@ type
     p: p_type;
     procedure Clear;
     procedure InjectPersistentClientSideScript;
-    procedure ManageDependentFieldEnablements;
+    procedure SetDependentFieldAblements(ablement: boolean);
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
     function PresentRecord(id: string): boolean;
     procedure SetLookupMode;
@@ -81,11 +81,7 @@ begin
   TextBox_description.text := EMPTY;
   DropDownList_division.ClearSelection;
   //
-  // Disable dependent fields.
-  //
-  TextBox_description.enabled := FALSE;
-  DropDownList_division.enabled := FALSE;
-  //
+  SetDependentFieldAblements(FALSE);
   Button_submit.enabled := FALSE;
   Button_delete.enabled := FALSE;
   //
@@ -213,7 +209,7 @@ begin
     Label_lookup_arrow.enabled := FALSE;
     Label_lookup_hint.enabled := FALSE;
     LinkButton_reset.enabled := TRUE;
-    ManageDependentFieldEnablements;
+    SetDependentFieldAblements(p.be_ok_to_config_units);
     Button_submit.enabled := p.be_ok_to_config_units;
     Button_delete.enabled := p.be_ok_to_config_units;
     //
@@ -334,7 +330,7 @@ begin
   Label_lookup_hint.enabled := FALSE;
   LinkButton_reset.enabled := TRUE;
   LinkButton_new_record.enabled := FALSE;
-  ManageDependentFieldEnablements;
+  SetDependentFieldAblements(p.be_ok_to_config_units);
   Button_submit.enabled := p.be_ok_to_config_units;
   Button_delete.enabled := FALSE;
   Focus(TextBox_id,TRUE);
@@ -346,10 +342,10 @@ begin
   SetLookupMode;
 end;
 
-procedure TWebUserControl_unit.ManageDependentFieldEnablements;
+procedure TWebUserControl_unit.SetDependentFieldAblements(ablement: boolean);
 begin
-  TextBox_description.enabled := p.be_ok_to_config_units;
-  DropDownList_division.enabled := p.be_ok_to_config_units;
+  TextBox_description.enabled := ablement;
+  DropDownList_division.enabled := ablement;
 end;
 
 procedure TWebUserControl_unit.Button_lookup_Click(sender: System.Object;
