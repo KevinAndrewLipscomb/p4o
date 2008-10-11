@@ -44,7 +44,7 @@ type
     p: p_type;
     procedure Clear;
     procedure InjectPersistentClientSideScript;
-    procedure ManageDependentFieldEnablements;
+    procedure SetDependentFieldAblements(ablement: boolean);
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
     function PresentRecord(registration_code: string): boolean;
     procedure SetLookupMode;
@@ -94,13 +94,7 @@ begin
   DropDownList_registration_code.visible := FALSE;
   DropDownList_squad.ClearSelection;
   //
-  // Disable dependent fields.
-  //
-  TextBox_last_name.enabled := FALSE;
-  TextBox_first_name.enabled := FALSE;
-  TextBox_email_address.enabled := FALSE;
-  DropDownList_squad.enabled := FALSE;
-  //
+  SetDependentFieldAblements(FALSE);
   Button_submit.enabled := FALSE;
   Button_delete.enabled := FALSE;
   //
@@ -236,7 +230,7 @@ begin
     Label_lookup_arrow.enabled := FALSE;
     Label_lookup_hint.enabled := FALSE;
     LinkButton_reset.enabled := TRUE;
-    ManageDependentFieldEnablements;
+    SetDependentFieldAblements(p.be_ok_to_config_members);
     Button_submit.enabled := p.be_ok_to_config_members;
     Button_delete.enabled := p.be_ok_to_config_members;
     //
@@ -364,7 +358,7 @@ begin
   Label_lookup_hint.enabled := FALSE;
   LinkButton_reset.enabled := TRUE;
   LinkButton_new_record.enabled := FALSE;
-  ManageDependentFieldEnablements;
+  SetDependentFieldAblements(p.be_ok_to_config_members);
   Button_submit.enabled := p.be_ok_to_config_members;
   Button_delete.enabled := FALSE;
   Focus(TextBox_registration_code,TRUE);
@@ -376,12 +370,12 @@ begin
   SetLookupMode;
 end;
 
-procedure TWebUserControl_member.ManageDependentFieldEnablements;
+procedure TWebUserControl_member.SetDependentFieldAblements(ablement: boolean);
 begin
-  TextBox_last_name.enabled := p.be_ok_to_config_members;
-  TextBox_first_name.enabled := p.be_ok_to_config_members;
-  TextBox_email_address.enabled := p.be_ok_to_config_members;
-  DropDownList_squad.enabled := p.be_ok_to_config_members;
+  TextBox_last_name.enabled := ablement;
+  TextBox_first_name.enabled := ablement;
+  TextBox_email_address.enabled := ablement;
+  DropDownList_squad.enabled := ablement;
 end;
 
 procedure TWebUserControl_member.Button_lookup_Click(sender: System.Object;
