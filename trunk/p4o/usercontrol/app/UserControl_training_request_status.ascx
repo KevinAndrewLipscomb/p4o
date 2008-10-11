@@ -29,7 +29,7 @@
                   <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                   <td valign="middle">
                     <small>
-                      <ASP:LinkButton id="LinkButton_new_record" runat="server" causesvalidation="False" visible="False">Enter&nbsp;brand&nbsp;new&nbsp;Training&nbsp;request&nbsp;status</ASP:LinkButton>
+                      <ASP:LinkButton id="LinkButton_new_record" runat="server" causesvalidation="False" visible="False">Enter brand new Training request status</ASP:LinkButton>
                     </small>
                   </td>
                 </tr>
