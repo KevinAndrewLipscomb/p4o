@@ -420,6 +420,8 @@ begin
     // cc
     EMPTY,
     // bcc
+    p.biz_user.EmailAddress,
+    // reply_to
     p.biz_user.EmailAddress
     );
   TextBox_quick_message_subject.text := EMPTY;
