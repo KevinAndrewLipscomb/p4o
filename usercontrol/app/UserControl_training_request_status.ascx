@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_training_request_status.pas" Inherits="UserControl_training_request_status.TWebUserControl_training_request_status"%>
+<%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_training_request_status.ascx.cs" Inherits="UserControl_training_request_status.TWebUserControl_training_request_status"%>
 <table cellspacing="0" cellpadding="5" width="100%" border="0">
   <tr>
     <td valign="top">

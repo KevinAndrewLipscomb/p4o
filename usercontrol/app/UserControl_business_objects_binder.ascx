@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_business_objects_binder.pas" Inherits="UserControl_business_objects_binder.TWebUserControl_business_objects_binder"%>
+<%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_business_objects_binder.ascx.cs" Inherits="UserControl_business_objects_binder.TWebUserControl_business_objects_binder"%>
 <%@ Register TagPrefix="cc1" Namespace="AjaxControlToolkit" Assembly="AjaxControlToolkit" %>
 <asp:UpdatePanel id="UpdatePanel_control" runat="server" updatemode="Conditional">
   <ContentTemplate>
