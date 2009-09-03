@@ -1,0 +1,43 @@
+using Class_db;
+using MySql.Data.MySqlClient;
+using System;
+using System.Configuration;
+using System.Text.RegularExpressions;
+using System.Web;
+
+namespace Class_db_trail
+{
+    public class TClass_db_trail: TClass_db
+    {
+        //Constructor  Create()
+        public TClass_db_trail() : base()
+        {
+            // TODO: Add any constructor code here
+
+        }
+        public string Saved(string action)
+        {
+            string result;
+            // Make a local journal entry for convenient review.
+            this.Open();
+            new MySqlCommand("insert into journal" + " set timestamp = null" + " , actor = \"" + HttpContext.Current.User.Identity.Name + "\"" + " , action = \"" + Regex.Replace(action, kix.Units.kix.QUOTE.ToString(), kix.Units.kix.DOUBLE_QUOTE) + "\"", this.connection).ExecuteNonQuery();
+            this.Close();
+            // Send a representation of the action offsite as a contingency.
+           kix.Units.kix.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], ConfigurationManager.AppSettings["failsafe_recipient_email_address"], "DB action by " + HttpContext.Current.User.Identity.Name, action);
+            result = action;
+
+            return result;
+        }
+
+    } // end TClass_db_trail
+
+}
+
+namespace Class_db_trail.Units
+{
+    public class Class_db_trail
+    {
+    } // end Class_db_trail
+
+}
+
