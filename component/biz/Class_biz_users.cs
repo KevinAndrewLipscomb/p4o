@@ -3,6 +3,7 @@ using Class_db_users;
 using Class_biz_notifications;
 using Class_biz_user;
 using System;
+using System.Collections.Specialized;
 using System.Configuration;
 
 namespace Class_biz_users

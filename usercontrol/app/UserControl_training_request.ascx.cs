@@ -1,13 +1,9 @@
 using System;
-using System.Web;
+using System.Collections.Specialized;
 using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using System.Collections;
-
 using Class_biz_training_request_statuses;
 using Class_biz_training_requests;
-using UserControl_drop_down_date;
 namespace UserControl_training_request
 {
     // Unit class type
@@ -21,16 +17,16 @@ namespace UserControl_training_request
             return result;
           }
           set {
-            Panel_detail_origination.Visible = (value != mode_type.__NEW);
-            Panel_detail.Enabled = (value == mode_type.__NEW);
-            Panel_disposition_training.Visible = (value != mode_type.__NEW) && (kix.Units.kix.Safe(TextBox_status_code.Text, kix.safe_hint_type.NUM) == p.biz_training_request_statuses.IdOf("NEEDS_TRAINING_UNIT_COMMENTS"));
-            Panel_disposition_squad.Visible = (value != mode_type.__NEW) && (kix.Units.kix.Safe(TextBox_status_code.Text, kix.safe_hint_type.NUM) == p.biz_training_request_statuses.IdOf("NEEDS_SQUAD_APPROVAL"));
-            Panel_disposition_unit.Visible = (value != mode_type.__NEW) && (kix.Units.kix.Safe(TextBox_status_code.Text, kix.safe_hint_type.NUM) == p.biz_training_request_statuses.IdOf("NEEDS_UNIT_APPROVAL"));
-            Panel_disposition_division.Visible = (value != mode_type.__NEW) && (kix.Units.kix.Safe(TextBox_status_code.Text, kix.safe_hint_type.NUM) == p.biz_training_request_statuses.IdOf("NEEDS_DIVISION_APPROVAL"));
-            Panel_disposition_assistant_chief.Visible = (value != mode_type.__NEW) && (kix.Units.kix.Safe(TextBox_status_code.Text, kix.safe_hint_type.NUM) == p.biz_training_request_statuses.IdOf("NEEDS_ASSISTANT_CHIEF_APPROVAL"));
-            Panel_disposition_finance.Visible = (value != mode_type.__NEW) && (kix.Units.kix.Safe(TextBox_status_code.Text, kix.safe_hint_type.NUM) == p.biz_training_request_statuses.IdOf("NEEDS_PAYMENT"));
-            Panel_disposition_status.Visible = (value != mode_type.__NEW);
-            Panel_disposition_finalization.Visible = (value != mode_type.__NEW) && ((kix.Units.kix.Safe(TextBox_status_code.Text, kix.safe_hint_type.NUM) == p.biz_training_request_statuses.IdOf("NEEDS_GRADUATION")) || (kix.Units.kix.Safe(TextBox_status_code.Text, kix.safe_hint_type.NUM) == p.biz_training_request_statuses.IdOf("CANCELED")));
+            Panel_detail_origination.Visible = (value != mode_type.@NEW);
+            Panel_detail.Enabled = (value == mode_type.@NEW);
+            Panel_disposition_training.Visible = (value != mode_type.@NEW) && (kix.Units.kix.Safe(TextBox_status_code.Text, kix.safe_hint_type.NUM) == p.biz_training_request_statuses.IdOf("NEEDS_TRAINING_UNIT_COMMENTS"));
+            Panel_disposition_squad.Visible = (value != mode_type.@NEW) && (kix.Units.kix.Safe(TextBox_status_code.Text, kix.safe_hint_type.NUM) == p.biz_training_request_statuses.IdOf("NEEDS_SQUAD_APPROVAL"));
+            Panel_disposition_unit.Visible = (value != mode_type.@NEW) && (kix.Units.kix.Safe(TextBox_status_code.Text, kix.safe_hint_type.NUM) == p.biz_training_request_statuses.IdOf("NEEDS_UNIT_APPROVAL"));
+            Panel_disposition_division.Visible = (value != mode_type.@NEW) && (kix.Units.kix.Safe(TextBox_status_code.Text, kix.safe_hint_type.NUM) == p.biz_training_request_statuses.IdOf("NEEDS_DIVISION_APPROVAL"));
+            Panel_disposition_assistant_chief.Visible = (value != mode_type.@NEW) && (kix.Units.kix.Safe(TextBox_status_code.Text, kix.safe_hint_type.NUM) == p.biz_training_request_statuses.IdOf("NEEDS_ASSISTANT_CHIEF_APPROVAL"));
+            Panel_disposition_finance.Visible = (value != mode_type.@NEW) && (kix.Units.kix.Safe(TextBox_status_code.Text, kix.safe_hint_type.NUM) == p.biz_training_request_statuses.IdOf("NEEDS_PAYMENT"));
+            Panel_disposition_status.Visible = (value != mode_type.@NEW);
+            Panel_disposition_finalization.Visible = (value != mode_type.@NEW) && ((kix.Units.kix.Safe(TextBox_status_code.Text, kix.safe_hint_type.NUM) == p.biz_training_request_statuses.IdOf("NEEDS_GRADUATION")) || (kix.Units.kix.Safe(TextBox_status_code.Text, kix.safe_hint_type.NUM) == p.biz_training_request_statuses.IdOf("CANCELED")));
             p.mode = value;
           }
         }
@@ -301,7 +297,7 @@ namespace UserControl_training_request
             if (Session["UserControl_training_request.p"] != null)
             {
                 p = (p_type)(Session["UserControl_training_request.p"]);
-                p.be_loaded = IsPostBack && (((p.mode == mode_type.__NEW) && ((Session["UserControl_member_binder_UserControl_new_binder_PlaceHolder_content"] as string) == "UserControl_training_request")) || ((p.mode == mode_type.CURRENT) && ((Session["UserControl_member_binder_UserControl_current_binder_PlaceHolder_content"] as string) == "UserControl_training_request")));
+                p.be_loaded = IsPostBack && (((p.mode == mode_type.@NEW) && ((Session["UserControl_member_binder_UserControl_new_binder_PlaceHolder_content"] as string) == "UserControl_training_request")) || ((p.mode == mode_type.CURRENT) && ((Session["UserControl_member_binder_UserControl_current_binder_PlaceHolder_content"] as string) == "UserControl_training_request")));
             }
             else
             {
@@ -351,7 +347,7 @@ namespace UserControl_training_request
             {
                 switch(p.mode)
                 {
-                    case mode_type.__NEW:
+                    case mode_type.@NEW:
                         p.biz_training_requests.SetNew(kix.Units.kix.Safe(TextBox_nature.Text, kix.safe_hint_type.PUNCTUATED).Trim(), kix.Units.kix.Safe(TextBox_dates.Text, kix.safe_hint_type.PUNCTUATED).Trim(), kix.Units.kix.Safe(TextBox_conducting_agency.Text, kix.safe_hint_type.ORG_NAME).Trim(), kix.Units.kix.Safe(TextBox_location.Text, kix.safe_hint_type.PUNCTUATED).Trim(), kix.Units.kix.Safe(TextBox_cost_of_enrollment.Text, kix.safe_hint_type.CURRENCY_USA).Trim(), kix.Units.kix.Safe(TextBox_cost_of_lodging.Text, kix.safe_hint_type.CURRENCY_USA).Trim(), kix.Units.kix.Safe(TextBox_cost_of_meals.Text, kix.safe_hint_type.CURRENCY_USA).Trim(), kix.Units.kix.Safe(TextBox_cost_of_transportation.Text, kix.safe_hint_type.CURRENCY_USA).Trim(), kix.Units.kix.Safe(TextBox_reason.Text, kix.safe_hint_type.PUNCTUATED).Trim(), Session["member_id"].ToString());
                         break;
                 }
@@ -563,7 +559,7 @@ namespace UserControl_training_request
     public enum mode_type
     {
         NONE,
-        __NEW,
+        @NEW,
         CURRENT,
         OLD,
     } // end mode_type

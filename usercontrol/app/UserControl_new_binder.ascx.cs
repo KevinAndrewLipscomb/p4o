@@ -53,7 +53,7 @@ namespace UserControl_new_binder
                     case Units.UserControl_new_binder.TSSI_TRAINING_REQUEST:
                         // Dynamic controls must be re-added on each postback.
                         p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_training_request_control, "UserControl_training_request", PlaceHolder_content);
-                        UserControl_training_request_control.mode = UserControl_training_request.mode_type.__NEW;
+                        UserControl_training_request_control.mode = UserControl_training_request.mode_type.@NEW;
                         break;
                 // TSSI_INTERNAL_REQUISITION:
                 // p.content_id := AddIdentifiedControlToPlaceHolder
@@ -76,7 +76,7 @@ namespace UserControl_new_binder
                 p.be_loaded = false;
                 p.tab_index = Units.UserControl_new_binder.TSSI_TRAINING_REQUEST;
                 p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_training_request_control.Fresh(), "UserControl_training_request", PlaceHolder_content);
-                UserControl_training_request_control.mode = UserControl_training_request.mode_type.__NEW;
+                UserControl_training_request_control.mode = UserControl_training_request.mode_type.@NEW;
             }
 
         }
@@ -89,7 +89,7 @@ namespace UserControl_new_binder
             {
                 case Units.UserControl_new_binder.TSSI_TRAINING_REQUEST:
                     p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_training_request_control, "UserControl_training_request", PlaceHolder_content);
-                    UserControl_training_request_control.mode = UserControl_training_request.mode_type.__NEW;
+                    UserControl_training_request_control.mode = UserControl_training_request.mode_type.@NEW;
                     break;
             // TSSI_INTERNAL_REQUISITION:
             // p.content_id := AddIdentifiedControlToPlaceHolder

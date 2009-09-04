@@ -3,7 +3,9 @@ using Class_db_trail;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
+using System.Collections.Specialized;
 using System.Web.UI.WebControls;
+
 
 namespace Class_db_users
 {
@@ -131,8 +133,9 @@ namespace Class_db_users
         {
             bool result;
             MySqlDataReader dr;
+            string
+              s;
 
-            username = kix.Units.kix.EMPTY;
             encoded_password = kix.Units.kix.EMPTY;
             be_stale_password = true;
             password_reset_email_address = kix.Units.kix.EMPTY;
@@ -141,7 +144,7 @@ namespace Class_db_users
             last_login = kix.Units.kix.EMPTY;
             result = false;
             this.Open();
-            dr = new MySqlCommand("select username" + " , IFNULL(encoded_password,\"\") as encoded_password" + " , be_stale_password" + " , password_reset_email_address" + " , be_active" + " , num_unsuccessful_login_attempts" + " , IFNULL(last_login,\"\") as last_login" + " from user" + " where username = \"" + username + "\"", this.connection).ExecuteReader();
+            dr = new MySqlCommand(s = "select username" + " , IFNULL(encoded_password,\"\") as encoded_password" + " , be_stale_password" + " , password_reset_email_address" + " , be_active" + " , num_unsuccessful_login_attempts" + " , IFNULL(last_login,\"\") as last_login" + " from user" + " where username = \"" + username + "\"", this.connection).ExecuteReader();
             if (dr.Read())
             {
                 username = dr["username"].ToString();
@@ -197,16 +200,18 @@ namespace Class_db_users
         public string[] PrivilegesOf(string id)
         {
             MySqlDataReader dr;
-            ArrayList privileges_of = new ArrayList();
+            StringCollection privileges_of_string_collection = new StringCollection();
             this.Open();
             dr = new MySqlCommand("select distinct name" + " from user_member_map" + " join role_member_map using (member_id)" + " join role_privilege_map using (role_id)" + " join privilege on (privilege.id=role_privilege_map.privilege_id)" + " where user_id = " + id, this.connection).ExecuteReader();
             while (dr.Read())
             {
-                privileges_of.Add(dr["name"].ToString());
+                privileges_of_string_collection.Add(dr["name"].ToString());
             }
             dr.Close();
             this.Close();
-            return (string[])(privileges_of.ToArray());
+            string[] privileges_of = new string[privileges_of_string_collection.Count];
+            privileges_of_string_collection.CopyTo(privileges_of, 0);
+            return privileges_of;
         }
 
         public void RecordSuccessfulLogin(string id)

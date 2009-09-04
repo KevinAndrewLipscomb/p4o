@@ -4,11 +4,12 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Collections;
-
+using System.Collections.Specialized;
 using UserControl_about;
 using UserControl_config_binder;
 using UserControl_current_binder;
 using UserControl_new_binder;
+
 namespace UserControl_member_binder
 {
     public class TWebUserControl_member_binder: ki_web_ui.usercontrol_class

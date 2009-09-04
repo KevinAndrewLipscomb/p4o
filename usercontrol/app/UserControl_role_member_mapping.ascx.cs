@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using Class_biz_members;
 using Class_biz_role_member_map;
 using Class_biz_roles;
+using System.Collections.Specialized;
 namespace UserControl_role_member_mapping
 {
     public struct p_type
