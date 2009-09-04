@@ -8,6 +8,7 @@ using System.Collections;
 using Class_biz_members;
 using Class_biz_squads;
 using UserControl_drop_down_date;
+using System.Collections.Specialized;
 namespace UserControl_member
 {
     public partial class TWebUserControl_member: ki_web_ui.usercontrol_class
