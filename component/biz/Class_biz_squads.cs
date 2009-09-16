@@ -1,3 +1,4 @@
+using kix;
 using System;
 using Class_db_squads;
 namespace Class_biz_squads
@@ -30,7 +31,7 @@ namespace Class_biz_squads
 
         public void BindDirectToListControl(object target, string unselected_literal)
         {
-            BindDirectToListControl(target, unselected_literal, kix.Units.kix.EMPTY);
+            BindDirectToListControl(target, unselected_literal, k.EMPTY);
         }
 
         public bool Delete(string code)

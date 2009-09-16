@@ -95,7 +95,7 @@ namespace UserControl_business_objects_binder
         private void InitializeComponent()
         {
             this.TabContainer_control.ActiveTabChanged += this.TabContainer_control_ActiveTabChanged;
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
             this.PreRender += this.TWebUserControl_business_objects_binder_PreRender;
         }
 

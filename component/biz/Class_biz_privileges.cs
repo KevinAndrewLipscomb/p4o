@@ -1,3 +1,4 @@
+using kix;
 using System;
 using Class_db_privileges;
 namespace Class_biz_privileges
@@ -30,7 +31,7 @@ namespace Class_biz_privileges
 
         public void BindDirectToListControl(object target, string unselected_literal)
         {
-            BindDirectToListControl(target, unselected_literal, kix.Units.kix.EMPTY);
+            BindDirectToListControl(target, unselected_literal, k.EMPTY);
         }
 
         public bool Get(string name, out string soft_hyphenation_text)

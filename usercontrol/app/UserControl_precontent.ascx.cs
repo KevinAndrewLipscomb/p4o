@@ -1,3 +1,5 @@
+using kix;
+
 using System;
 using System.Configuration;
 using System.Web;
@@ -37,25 +39,25 @@ namespace UserControl_precontent
 
         private void ScriptManager_control_AsyncPostBackError(object sender, System.Web.UI.AsyncPostBackErrorEventArgs e)
         {
-            kix.Units.kix.EscalatedException(e.Exception, HttpContext.Current.User.Identity.Name, Session);
-            ScriptManager_control.AsyncPostBackErrorMessage = AlertMessage(kix.alert_cause_type.LOGIC, kix.alert_state_type.FAILURE, "xparposbac", "OOPS!" + kix.Units.kix.NEW_LINE + kix.Units.kix.NEW_LINE + "The application encountered an unexpected error." + kix.Units.kix.NEW_LINE + kix.Units.kix.NEW_LINE + "The Application Administrator has been notified by pager and email.");
+            k.EscalatedException(e.Exception, HttpContext.Current.User.Identity.Name, Session);
+            ScriptManager_control.AsyncPostBackErrorMessage = AlertMessage(k.alert_cause_type.LOGIC, k.alert_state_type.FAILURE, "xparposbac", "OOPS!" + k.NEW_LINE + k.NEW_LINE + "The application encountered an unexpected error." + k.NEW_LINE + k.NEW_LINE + "The Application Administrator has been notified by pager and email.");
         }
 
         protected void LinkButton_change_email_address_Click(object sender, System.EventArgs e)
         {
-            DropCrumbAndTransferTo(kix.Units.kix.ExpandTildePath("~/protected/change_email_address.aspx"));
+            DropCrumbAndTransferTo(k.ExpandTildePath("~/protected/change_email_address.aspx"));
         }
 
         protected void LinkButton_change_password_Click(object sender, System.EventArgs e)
         {
-            DropCrumbAndTransferTo(kix.Units.kix.ExpandTildePath("~/protected/change_password.aspx"));
+            DropCrumbAndTransferTo(k.ExpandTildePath("~/protected/change_password.aspx"));
         }
 
         protected void LinkButton_logout_Click(object sender, System.EventArgs e)
         {
             FormsAuthentication.SignOut();
             Session.Clear();
-            Server.Transfer(kix.Units.kix.ExpandTildePath("~/Default.aspx"));
+            Server.Transfer(k.ExpandTildePath("~/Default.aspx"));
         }
 
         // / <summary>
@@ -65,7 +67,7 @@ namespace UserControl_precontent
         private void InitializeComponent()
         {
             this.ScriptManager_control.AsyncPostBackError += this.ScriptManager_control_AsyncPostBackError;
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
         }
 
     } // end TWebUserControl_precontent

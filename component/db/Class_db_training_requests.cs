@@ -1,3 +1,4 @@
+using kix;
 using Class_db;
 using Class_db_trail;
 using Class_db_training_request_statuses;
@@ -77,43 +78,43 @@ namespace Class_db_training_requests
             MySqlDataReader dr;
             string s;
 
-            nature = kix.Units.kix.EMPTY;
-            dates = kix.Units.kix.EMPTY;
-            conducting_agency = kix.Units.kix.EMPTY;
-            location = kix.Units.kix.EMPTY;
-            cost_of_enrollment = kix.Units.kix.EMPTY;
-            cost_of_lodging = kix.Units.kix.EMPTY;
-            cost_of_meals = kix.Units.kix.EMPTY;
-            cost_of_transportation = kix.Units.kix.EMPTY;
-            reason = kix.Units.kix.EMPTY;
+            nature = k.EMPTY;
+            dates = k.EMPTY;
+            conducting_agency = k.EMPTY;
+            location = k.EMPTY;
+            cost_of_enrollment = k.EMPTY;
+            cost_of_lodging = k.EMPTY;
+            cost_of_meals = k.EMPTY;
+            cost_of_transportation = k.EMPTY;
+            reason = k.EMPTY;
             disposition_training_timestamp = DateTime.MinValue;
-            disposition_training_member_id = kix.Units.kix.EMPTY;
-            disposition_training_funding_source = kix.Units.kix.EMPTY;
-            disposition_training_comments = kix.Units.kix.EMPTY;
+            disposition_training_member_id = k.EMPTY;
+            disposition_training_funding_source = k.EMPTY;
+            disposition_training_comments = k.EMPTY;
             disposition_squad_timestamp = DateTime.MinValue;
-            disposition_squad_member_id = kix.Units.kix.EMPTY;
+            disposition_squad_member_id = k.EMPTY;
             disposition_squad_be_approved = false;
-            disposition_squad_comments = kix.Units.kix.EMPTY;
+            disposition_squad_comments = k.EMPTY;
             disposition_unit_timestamp = DateTime.MinValue;
-            disposition_unit_member_id = kix.Units.kix.EMPTY;
+            disposition_unit_member_id = k.EMPTY;
             disposition_unit_be_approved = false;
-            disposition_unit_comments = kix.Units.kix.EMPTY;
+            disposition_unit_comments = k.EMPTY;
             disposition_division_timestamp = DateTime.MinValue;
-            disposition_division_member_id = kix.Units.kix.EMPTY;
+            disposition_division_member_id = k.EMPTY;
             disposition_division_be_approved = false;
-            disposition_division_comments = kix.Units.kix.EMPTY;
+            disposition_division_comments = k.EMPTY;
             disposition_assistant_chief_timestamp = DateTime.MinValue;
-            disposition_assistant_chief_member_id = kix.Units.kix.EMPTY;
+            disposition_assistant_chief_member_id = k.EMPTY;
             disposition_assistant_chief_be_approved = false;
-            disposition_assistant_chief_comments = kix.Units.kix.EMPTY;
+            disposition_assistant_chief_comments = k.EMPTY;
             payment_timestamp = DateTime.MinValue;
-            payment_member_id = kix.Units.kix.EMPTY;
+            payment_member_id = k.EMPTY;
             payment_be_done = false;
-            payment_actual_amount = kix.Units.kix.EMPTY;
-            payment_comments = kix.Units.kix.EMPTY;
-            status_code = kix.Units.kix.EMPTY;
+            payment_actual_amount = k.EMPTY;
+            payment_comments = k.EMPTY;
+            status_code = k.EMPTY;
             finalization_timestamp = DateTime.MinValue;
-            member_id = kix.Units.kix.EMPTY;
+            member_id = k.EMPTY;
             submission_timestamp = DateTime.MinValue;
             result = false;
             this.Open();
@@ -131,42 +132,42 @@ namespace Class_db_training_requests
                 cost_of_transportation = dr["cost_of_transportation"].ToString();
                 reason = dr["reason"].ToString();
                 s = dr["disposition_training_timestamp"].ToString();
-                if (s != kix.Units.kix.EMPTY)
+                if (s != k.EMPTY)
                 {
                     disposition_training_timestamp = DateTime.Parse(s);
                     disposition_training_member_id = dr["disposition_training_member_id"].ToString();
                     disposition_training_funding_source = dr["disposition_training_funding_source"].ToString();
                     disposition_training_comments = dr["disposition_training_comments"].ToString();
                     s = dr["disposition_squad_timestamp"].ToString();
-                    if (s != kix.Units.kix.EMPTY)
+                    if (s != k.EMPTY)
                     {
                         disposition_squad_timestamp = DateTime.Parse(s);
                         disposition_squad_member_id = dr["disposition_squad_member_id"].ToString();
                         disposition_squad_be_approved = (dr["disposition_squad_be_approved"].ToString() == "1");
                         disposition_squad_comments = dr["disposition_squad_comments"].ToString();
                         s = dr["disposition_unit_timestamp"].ToString();
-                        if (s != kix.Units.kix.EMPTY)
+                        if (s != k.EMPTY)
                         {
                             disposition_unit_timestamp = DateTime.Parse(s);
                             disposition_unit_member_id = dr["disposition_unit_member_id"].ToString();
                             disposition_unit_be_approved = (dr["disposition_unit_be_approved"].ToString() == "1");
                             disposition_unit_comments = dr["disposition_unit_comments"].ToString();
                             s = dr["disposition_division_timestamp"].ToString();
-                            if (s != kix.Units.kix.EMPTY)
+                            if (s != k.EMPTY)
                             {
                                 disposition_division_timestamp = DateTime.Parse(s);
                                 disposition_division_member_id = dr["disposition_division_member_id"].ToString();
                                 disposition_division_be_approved = (dr["disposition_division_be_approved"].ToString() == "1");
                                 disposition_division_comments = dr["disposition_division_comments"].ToString();
                                 s = dr["disposition_assistant_chief_timestamp"].ToString();
-                                if (s != kix.Units.kix.EMPTY)
+                                if (s != k.EMPTY)
                                 {
                                     disposition_assistant_chief_timestamp = DateTime.Parse(s);
                                     disposition_assistant_chief_member_id = dr["disposition_assistant_chief_member_id"].ToString();
                                     disposition_assistant_chief_be_approved = (dr["disposition_assistant_chief_be_approved"].ToString() == "1");
                                     disposition_assistant_chief_comments = dr["disposition_assistant_chief_comments"].ToString();
                                     s = dr["payment_timestamp"].ToString();
-                                    if (s != kix.Units.kix.EMPTY)
+                                    if (s != k.EMPTY)
                                     {
                                         payment_timestamp = DateTime.Parse(s);
                                         payment_member_id = dr["payment_member_id"].ToString();
@@ -180,7 +181,7 @@ namespace Class_db_training_requests
                     }
                 }
                 s = dr["finalization_timestamp"].ToString();
-                if (s != kix.Units.kix.EMPTY)
+                if (s != k.EMPTY)
                 {
                     finalization_timestamp = DateTime.Parse(s);
                 }

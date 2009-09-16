@@ -1,3 +1,5 @@
+using kix;
+
 using System;
 using System.Web;
 using System.Web.UI;
@@ -25,7 +27,7 @@ namespace UserControl_member_binder
         {
             if (!p.be_loaded)
             {
-                if (kix.Units.kix.Has((string[])(Session["privilege_array"]), "config-users") || kix.Units.kix.Has((string[])(Session["privilege_array"]), "config-roles-and-matrices"))
+                if (k.Has((string[])(Session["privilege_array"]), "config-users") || k.Has((string[])(Session["privilege_array"]), "config-roles-and-matrices"))
                 {
                     TabPanel_config.Enabled = true;
                 }
@@ -76,7 +78,7 @@ namespace UserControl_member_binder
         {
             this.TabContainer_control.ActiveTabChanged += this.TabContainer_control_ActiveTabChanged;
             this.PreRender += this.TWebUserControl_member_binder_PreRender;
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
         }
 
         private void TWebUserControl_member_binder_PreRender(object sender, System.EventArgs e)

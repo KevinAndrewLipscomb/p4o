@@ -48,7 +48,7 @@ namespace Global
 
     protected void Application_Error(object sender, EventArgs e)
       {
-    //this.Server.Transfer("~/exception.aspx");
+    this.Server.Transfer("~/exception.aspx");
       }
 
     protected void Session_End(object sender, EventArgs e)

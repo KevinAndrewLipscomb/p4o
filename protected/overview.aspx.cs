@@ -1,3 +1,4 @@
+using kix;
 using Class_biz_members;
 using Class_biz_user;
 using Class_biz_users;
@@ -27,7 +28,7 @@ namespace overview
         private void InitializeComponent()
         {
             this.PreRender += this.TWebForm_overview_PreRender;
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
         }
 
         protected void Page_Load(object sender, System.EventArgs e)
@@ -64,7 +65,7 @@ namespace overview
                     p = (p_type)(Session["overview.p"]);
                     break;
             }
-            if (p.biz_members.IdOfUserId(p.biz_user.IdNum()) == kix.Units.kix.EMPTY)
+            if (p.biz_members.IdOfUserId(p.biz_user.IdNum()) == k.EMPTY)
             {
                 // Display controls appropriate ONLY to nonmembers.
                 AddIdentifiedControlToPlaceHolder(((TWebUserControl_establish_membership)(LoadControl("~/usercontrol/app/UserControl_establish_membership.ascx"))), "UserControl_establish_membership", PlaceHolder_establish_membership);

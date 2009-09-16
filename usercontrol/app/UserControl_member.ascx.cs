@@ -1,3 +1,5 @@
+using kix;
+
 using System;
 using System.Web;
 using System.Web.UI;
@@ -17,10 +19,10 @@ namespace UserControl_member
         protected System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator_squad = null;
         private void Clear()
         {
-            TextBox_last_name.Text = kix.Units.kix.EMPTY;
-            TextBox_first_name.Text = kix.Units.kix.EMPTY;
-            TextBox_email_address.Text = kix.Units.kix.EMPTY;
-            TextBox_registration_code.Text = kix.Units.kix.EMPTY;
+            TextBox_last_name.Text = k.EMPTY;
+            TextBox_first_name.Text = k.EMPTY;
+            TextBox_email_address.Text = k.EMPTY;
+            TextBox_registration_code.Text = k.EMPTY;
             DropDownList_registration_code.Visible = false;
             DropDownList_squad.ClearSelection();
             LinkButton_go_to_match_prior.Visible = false;
@@ -41,34 +43,34 @@ namespace UserControl_member
             // EstablishClientSideFunction
             // (
             // 'RecalculateDependentValues()',
-            // kix.Units.kix.EMPTY
+            // k.EMPTY
             // + 'El("' + TextBox_gain_or_loss_in_lbs.clientid + '").value ='
             // +  ' El("' + TextBox_gross_landed_weight_in_pounds.clientid + '").value - El("' + TextBox_gross_invoiced_weight_in_lbs.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_gain_or_loss_in_kgs.clientid + '").value ='
             // +  ' El("' + TextBox_gross_landed_weight_in_kgs.clientid + '").value - El("' + TextBox_gross_invoiced_weight_in_kgs.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_gain_or_loss_per_bale_in_lbs.clientid + '").value ='
             // +  ' El("' + TextBox_gain_or_loss_in_lbs.clientid + '").value/El("' + TextBox_bales.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_gain_or_loss_per_bale_in_kgs.clientid + '").value ='
             // +  ' El("' + TextBox_gain_or_loss_in_kgs.clientid + '").value/El("' + TextBox_bales.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_actual_gain_or_loss_in_lbs.clientid + '").value ='
             // +  ' El("' + TextBox_gain_or_loss_in_lbs.clientid + '").value - El("' + TextBox_franchise_in_lbs.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_actual_gain_or_loss_in_kgs.clientid + '").value ='
             // +  ' El("' + TextBox_gain_or_loss_in_kgs.clientid + '").value - El("' + TextBox_franchise_in_kgs.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_actual_gain_or_loss_per_bale_in_lbs.clientid + '").value ='
             // +  ' El("' + TextBox_actual_gain_or_loss_in_lbs.clientid + '").value/El("' + TextBox_bales.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_actual_gain_or_loss_per_bale_in_kgs.clientid + '").value ='
             // +  ' El("' + TextBox_actual_gain_or_loss_in_kgs.clientid + '").value/El("' + TextBox_bales.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_percent_gain_or_loss.clientid + '").value ='
             // +  ' Math.round(El("' + TextBox_actual_gain_or_loss_in_lbs.clientid + '").value/El("' + TextBox_net_invoiced_in_lbs.clientid + '").value*100*100)/100;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_monetary_gain_or_loss.clientid + '").value ='
             // +  ' El("' + TextBox_actual_gain_or_loss_in_lbs.clientid + '").value*El("' + TextBox_unit_price_in_cents_per_pound.clientid + '").value;'
             // );
@@ -119,10 +121,10 @@ namespace UserControl_member
             {
                 LinkButton_new_record.Visible = p.be_ok_to_config_members;
                 p.biz_squads.BindDirectToListControl(DropDownList_squad);
-                LinkButton_go_to_match_first.Text = kix.Units.kix.ExpandTildePath(LinkButton_go_to_match_first.Text);
-                LinkButton_go_to_match_prior.Text = kix.Units.kix.ExpandTildePath(LinkButton_go_to_match_prior.Text);
-                LinkButton_go_to_match_next.Text = kix.Units.kix.ExpandTildePath(LinkButton_go_to_match_next.Text);
-                LinkButton_go_to_match_last.Text = kix.Units.kix.ExpandTildePath(LinkButton_go_to_match_last.Text);
+                LinkButton_go_to_match_first.Text = k.ExpandTildePath(LinkButton_go_to_match_first.Text);
+                LinkButton_go_to_match_prior.Text = k.ExpandTildePath(LinkButton_go_to_match_prior.Text);
+                LinkButton_go_to_match_next.Text = k.ExpandTildePath(LinkButton_go_to_match_next.Text);
+                LinkButton_go_to_match_last.Text = k.ExpandTildePath(LinkButton_go_to_match_last.Text);
                 RequireConfirmation(Button_delete, "Are you sure you want to delete this record?");
                 Focus(TextBox_registration_code, true);
                 p.be_loaded = true;
@@ -186,7 +188,7 @@ namespace UserControl_member
                 p.be_loaded = false;
                 p.biz_members = new TClass_biz_members();
                 p.biz_squads = new TClass_biz_squads();
-                p.be_ok_to_config_members = kix.Units.kix.Has((string[])(Session["privilege_array"]), "config-members");
+                p.be_ok_to_config_members = k.Has((string[])(Session["privilege_array"]), "config-members");
             }
 
         }
@@ -197,7 +199,7 @@ namespace UserControl_member
         // / </summary>
         private void InitializeComponent()
         {
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
             this.PreRender += this.TWebUserControl_member_PreRender;
         }
 
@@ -218,8 +220,8 @@ namespace UserControl_member
         {
             if (Page.IsValid)
             {
-                p.biz_members.Set(kix.Units.kix.Safe(TextBox_last_name.Text, kix.safe_hint_type.HUMAN_NAME).Trim(), kix.Units.kix.Safe(TextBox_first_name.Text, kix.safe_hint_type.HUMAN_NAME).Trim(), kix.Units.kix.Safe(TextBox_email_address.Text, kix.safe_hint_type.EMAIL_ADDRESS).Trim(), kix.Units.kix.Safe(TextBox_registration_code.Text, kix.safe_hint_type.ALPHANUM).Trim(), kix.Units.kix.Safe(DropDownList_squad.SelectedValue, kix.safe_hint_type.NUM).Trim());
-                Alert(kix.alert_cause_type.USER, kix.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
+                p.biz_members.Set(k.Safe(TextBox_last_name.Text, k.safe_hint_type.HUMAN_NAME).Trim(), k.Safe(TextBox_first_name.Text, k.safe_hint_type.HUMAN_NAME).Trim(), k.Safe(TextBox_email_address.Text, k.safe_hint_type.EMAIL_ADDRESS).Trim(), k.Safe(TextBox_registration_code.Text, k.safe_hint_type.ALPHANUM).Trim(), k.Safe(DropDownList_squad.SelectedValue, k.safe_hint_type.NUM).Trim());
+                Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
                 SetLookupMode();
             }
             else
@@ -230,47 +232,47 @@ namespace UserControl_member
 
         protected void CustomValidator_email_address_ServerValidate(object source, System.Web.UI.WebControls.ServerValidateEventArgs args)
         {
-            args.IsValid = kix.Units.kix.BeValidDomainPartOfEmailAddress(kix.Units.kix.Safe(TextBox_email_address.Text, kix.safe_hint_type.EMAIL_ADDRESS));
+            args.IsValid = k.BeValidDomainPartOfEmailAddress(k.Safe(TextBox_email_address.Text, k.safe_hint_type.EMAIL_ADDRESS));
         }
 
         protected void DropDownList_registration_code_SelectedIndexChanged(object sender, System.EventArgs e)
         {
-            PresentRecord(kix.Units.kix.Safe(DropDownList_registration_code.SelectedValue, kix.safe_hint_type.ALPHANUM));
+            PresentRecord(k.Safe(DropDownList_registration_code.SelectedValue, k.safe_hint_type.ALPHANUM));
         }
 
         protected void LinkButton_go_to_match_first_Click(object sender, System.EventArgs e)
         {
             DropDownList_registration_code.SelectedIndex = 1;
-            PresentRecord(kix.Units.kix.Safe(DropDownList_registration_code.SelectedValue, kix.safe_hint_type.ALPHANUM));
+            PresentRecord(k.Safe(DropDownList_registration_code.SelectedValue, k.safe_hint_type.ALPHANUM));
         }
 
         protected void LinkButton_go_to_match_prior_Click(object sender, System.EventArgs e)
         {
             DropDownList_registration_code.SelectedIndex = Math.Max(1, (DropDownList_registration_code.SelectedIndex - 1));
-            PresentRecord(kix.Units.kix.Safe(DropDownList_registration_code.SelectedValue, kix.safe_hint_type.ALPHANUM));
+            PresentRecord(k.Safe(DropDownList_registration_code.SelectedValue, k.safe_hint_type.ALPHANUM));
         }
 
         protected void LinkButton_go_to_match_next_Click(object sender, System.EventArgs e)
         {
             DropDownList_registration_code.SelectedIndex = Math.Min((DropDownList_registration_code.SelectedIndex + 1), (DropDownList_registration_code.Items.Count - 1));
-            PresentRecord(kix.Units.kix.Safe(DropDownList_registration_code.SelectedValue, kix.safe_hint_type.ALPHANUM));
+            PresentRecord(k.Safe(DropDownList_registration_code.SelectedValue, k.safe_hint_type.ALPHANUM));
         }
 
         protected void LinkButton_go_to_match_last_Click(object sender, System.EventArgs e)
         {
             DropDownList_registration_code.SelectedIndex = DropDownList_registration_code.Items.Count - 1;
-            PresentRecord(kix.Units.kix.Safe(DropDownList_registration_code.SelectedValue, kix.safe_hint_type.ALPHANUM));
+            PresentRecord(k.Safe(DropDownList_registration_code.SelectedValue, k.safe_hint_type.ALPHANUM));
         }
 
         protected void Button_delete_Click(object sender, System.EventArgs e)
         {
-            if (p.biz_members.Delete(kix.Units.kix.Safe(TextBox_registration_code.Text, kix.safe_hint_type.ALPHANUM)))
+            if (p.biz_members.Delete(k.Safe(TextBox_registration_code.Text, k.safe_hint_type.ALPHANUM)))
             {
                 SetLookupMode();
             }
             else
             {
-                Alert(kix.alert_cause_type.APPDATA, kix.alert_state_type.FAILURE, "dependency", " Cannot delete this record because another record depends on it.", true);
+                Alert(k.alert_cause_type.APPDATA, k.alert_state_type.FAILURE, "dependency", " Cannot delete this record because another record depends on it.", true);
             }
         }
 
@@ -321,11 +323,11 @@ namespace UserControl_member
                     DropDownList_registration_code.Visible = true;
                     if (num_matches == 1)
                     {
-                        PresentRecord(kix.Units.kix.Safe(DropDownList_registration_code.SelectedValue, kix.safe_hint_type.ALPHANUM));
+                        PresentRecord(k.Safe(DropDownList_registration_code.SelectedValue, k.safe_hint_type.ALPHANUM));
                     }
                     else
                     {
-                        DropDownList_registration_code.Items.Insert(0, new ListItem("-- Select --", kix.Units.kix.EMPTY));
+                        DropDownList_registration_code.Items.Insert(0, new ListItem("-- Select --", k.EMPTY));
                     }
                 }
             }

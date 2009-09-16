@@ -1,3 +1,4 @@
+using kix;
 using Class_biz_user;
 using Class_biz_users;
 using System;
@@ -28,7 +29,7 @@ namespace change_email_address
         private void InitializeComponent()
         {
             this.PreRender += this.TWebForm_change_email_address_PreRender;
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
         }
 
         protected void Page_Load(object sender, System.EventArgs e)
@@ -76,14 +77,14 @@ namespace change_email_address
 
         protected void CustomValidator_nominal_email_address_ServerValidate(object source, System.Web.UI.WebControls.ServerValidateEventArgs args)
         {
-            args.IsValid = kix.Units.kix.BeValidDomainPartOfEmailAddress(args.Value);
+            args.IsValid = k.BeValidDomainPartOfEmailAddress(args.Value);
         }
 
         protected void Button_submit_Click(object sender, System.EventArgs e)
         {
             if (Page.IsValid)
             {
-                p.biz_users.SetEmailAddress(p.biz_user.IdNum(), kix.Units.kix.Safe(TextBox_nominal_email_address.Text.Trim(), kix.safe_hint_type.EMAIL_ADDRESS));
+                p.biz_users.SetEmailAddress(p.biz_user.IdNum(), k.Safe(TextBox_nominal_email_address.Text.Trim(), k.safe_hint_type.EMAIL_ADDRESS));
                 BackTrack();
             }
             else

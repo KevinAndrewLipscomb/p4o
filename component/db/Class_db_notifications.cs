@@ -1,3 +1,4 @@
+using kix;
 using Class_db;
 using MySql.Data.MySqlClient;
 using System;
@@ -21,9 +22,9 @@ namespace Class_db_notifications
         {
             MySqlDataReader dr;
             ((target) as ListControl).Items.Clear();
-            if (unselected_literal != kix.Units.kix.EMPTY)
+            if (unselected_literal != k.EMPTY)
             {
-                ((target) as ListControl).Items.Add(new ListItem(unselected_literal, kix.Units.kix.EMPTY));
+                ((target) as ListControl).Items.Add(new ListItem(unselected_literal, k.EMPTY));
             }
             this.Open();
             dr = new MySqlCommand("select notification.id as notification_id" + " , name as notification_name" + " from notification" + " order by notification_name", this.connection).ExecuteReader();
@@ -33,7 +34,7 @@ namespace Class_db_notifications
             }
             dr.Close();
             this.Close();
-            if (selected_value != kix.Units.kix.EMPTY)
+            if (selected_value != k.EMPTY)
             {
                 ((target) as ListControl).SelectedValue = selected_value;
             }
@@ -47,7 +48,7 @@ namespace Class_db_notifications
 
         public void BindDirectToListControl(object target, string unselected_literal)
         {
-            BindDirectToListControl(target, unselected_literal, kix.Units.kix.EMPTY);
+            BindDirectToListControl(target, unselected_literal, k.EMPTY);
         }
 
         public string TargetOf(string name, string member_id)
@@ -57,13 +58,13 @@ namespace Class_db_notifications
             string target_of;
             // tier_2_match_value: string;
             // tier_3_match_value: string;
-            target_of = kix.Units.kix.EMPTY;
+            target_of = k.EMPTY;
             this.Open();
             // //
             // // Get tier 2 and 3 associations of target member.
             // //
             // dr := MySqlCommand.Create
-            // ('select ' + tier_2_match_field + kix.Units.kix.COMMA + tier_3_match_field + ' from member where id = "' + member_id + '"',connection).ExecuteReader();
+            // ('select ' + tier_2_match_field + k.COMMA + tier_3_match_field + ' from member where id = "' + member_id + '"',connection).ExecuteReader();
             // dr.Read();
             // tier_2_match_value := dr[tier_2_match_field].ToString();
             // tier_3_match_value := dr[tier_3_match_field].ToString();
@@ -75,7 +76,7 @@ namespace Class_db_notifications
             {
                 while (dr.Read())
                 {
-                    target_of = target_of + dr["email_address"].ToString() + kix.Units.kix.COMMA;
+                    target_of = target_of + dr["email_address"].ToString() + k.COMMA;
                 }
             }
             dr.Close();
@@ -98,7 +99,7 @@ namespace Class_db_notifications
             // .ExecuteReader();
             // if dr <> nil then begin
             // while dr.Read do begin
-            // target_of := target_of + dr['email_address'].ToString() + kix.Units.kix.COMMA;
+            // target_of := target_of + dr['email_address'].ToString() + k.COMMA;
             // end;
             // end;
             // dr.Close();
@@ -122,18 +123,18 @@ namespace Class_db_notifications
             // .ExecuteReader();
             // if dr <> nil then begin
             // while dr.Read do begin
-            // target_of := target_of + dr['email_address'].ToString() + kix.Units.kix.COMMA;
+            // target_of := target_of + dr['email_address'].ToString() + k.COMMA;
             // end;
             // end;
             // dr.Close();
             this.Close();
-            if (target_of != kix.Units.kix.EMPTY)
+            if (target_of != k.EMPTY)
             {
                 result = target_of.Substring(0, target_of.Length - 1);
             }
             else
             {
-                result = kix.Units.kix.EMPTY;
+                result = k.EMPTY;
             }
             return result;
         }

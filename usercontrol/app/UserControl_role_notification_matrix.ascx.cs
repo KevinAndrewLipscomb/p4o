@@ -1,3 +1,5 @@
+using kix;
+
 using System;
 using System.Collections;
 using System.Collections.Specialized;
@@ -40,8 +42,8 @@ namespace UserControl_role_notification_matrix
                         check_box = new CheckBox();
                         check_box.AutoPostBack = true;
                         check_box.Checked = (row.Cells[i].Text == "1");
-                        check_box.Enabled = kix.Units.kix.Has((string[])(Session["privilege_array"]), "config-roles-and-matrices");
-                        check_box.ID = kix.Units.kix.EMPTY + Units.UserControl_role_notification_matrix.CHECKBOX_ID_PREFIX_NOTIFICATION_ID + row.Cells[Class_db_role_notification_map.Units.Class_db_role_notification_map.CI_NOTIFICATION_ID].Text + Units.UserControl_role_notification_matrix.CHECKBOX_ID_PREFIX_ROLE_ID + crosstab_metadata_rec.id;
+                        check_box.Enabled = k.Has((string[])(Session["privilege_array"]), "config-roles-and-matrices");
+                        check_box.ID = k.EMPTY + Units.UserControl_role_notification_matrix.CHECKBOX_ID_PREFIX_NOTIFICATION_ID + row.Cells[Class_db_role_notification_map.Units.Class_db_role_notification_map.CI_NOTIFICATION_ID].Text + Units.UserControl_role_notification_matrix.CHECKBOX_ID_PREFIX_ROLE_ID + crosstab_metadata_rec.id;
                         check_box.ToolTip = crosstab_metadata_rec.natural_text;
                         check_box.CheckedChanged += new System.EventHandler(Changed);
                         row.Cells[i].Controls.Add(check_box);
@@ -62,34 +64,34 @@ namespace UserControl_role_notification_matrix
             // EstablishClientSideFunction
             // (
             // 'RecalculateDependentValues()',
-            // kix.Units.kix.EMPTY
+            // k.EMPTY
             // + 'El("' + TextBox_gain_or_loss_in_lbs.clientid + '").value ='
             // +  ' El("' + TextBox_gross_landed_weight_in_pounds.clientid + '").value - El("' + TextBox_gross_invoiced_weight_in_lbs.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_gain_or_loss_in_kgs.clientid + '").value ='
             // +  ' El("' + TextBox_gross_landed_weight_in_kgs.clientid + '").value - El("' + TextBox_gross_invoiced_weight_in_kgs.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_gain_or_loss_per_bale_in_lbs.clientid + '").value ='
             // +  ' El("' + TextBox_gain_or_loss_in_lbs.clientid + '").value/El("' + TextBox_bales.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_gain_or_loss_per_bale_in_kgs.clientid + '").value ='
             // +  ' El("' + TextBox_gain_or_loss_in_kgs.clientid + '").value/El("' + TextBox_bales.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_actual_gain_or_loss_in_lbs.clientid + '").value ='
             // +  ' El("' + TextBox_gain_or_loss_in_lbs.clientid + '").value - El("' + TextBox_franchise_in_lbs.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_actual_gain_or_loss_in_kgs.clientid + '").value ='
             // +  ' El("' + TextBox_gain_or_loss_in_kgs.clientid + '").value - El("' + TextBox_franchise_in_kgs.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_actual_gain_or_loss_per_bale_in_lbs.clientid + '").value ='
             // +  ' El("' + TextBox_actual_gain_or_loss_in_lbs.clientid + '").value/El("' + TextBox_bales.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_actual_gain_or_loss_per_bale_in_kgs.clientid + '").value ='
             // +  ' El("' + TextBox_actual_gain_or_loss_in_kgs.clientid + '").value/El("' + TextBox_bales.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_percent_gain_or_loss.clientid + '").value ='
             // +  ' Math.round(El("' + TextBox_actual_gain_or_loss_in_lbs.clientid + '").value/El("' + TextBox_net_invoiced_in_lbs.clientid + '").value*100*100)/100;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_monetary_gain_or_loss.clientid + '").value ='
             // +  ' El("' + TextBox_actual_gain_or_loss_in_lbs.clientid + '").value*El("' + TextBox_unit_price_in_cents_per_pound.clientid + '").value;'
             // );
@@ -191,7 +193,7 @@ namespace UserControl_role_notification_matrix
             this.GridView_control.Sorting += new System.Web.UI.WebControls.GridViewSortEventHandler(this.GridView_control_Sorting);
             this.GridView_control.RowDataBound += new System.Web.UI.WebControls.GridViewRowEventHandler(this.GridView_control_RowDataBound);
             this.PreRender += this.TWebUserControl_role_notification_matrix_PreRender;
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
         }
 
         private void TWebUserControl_role_notification_matrix_PreRender(object sender, System.EventArgs e)
@@ -215,7 +217,7 @@ namespace UserControl_role_notification_matrix
             string[] tuple;
             check_box = ((sender) as CheckBox);
             tuple = check_box.ID.Split(new string[] {Units.UserControl_role_notification_matrix.CHECKBOX_ID_PREFIX_NOTIFICATION_ID, Units.UserControl_role_notification_matrix.CHECKBOX_ID_PREFIX_ROLE_ID}, StringSplitOptions.RemoveEmptyEntries);
-            p.biz_role_notification_map.Save(kix.Units.kix.Safe(tuple[TUPLE_INDEX_NOTIFICATION_ID], kix.safe_hint_type.NUM), kix.Units.kix.Safe(tuple[TUPLE_INDEX_ROLE_ID], kix.safe_hint_type.NUM), check_box.Checked);
+            p.biz_role_notification_map.Save(k.Safe(tuple[TUPLE_INDEX_NOTIFICATION_ID], k.safe_hint_type.NUM), k.Safe(tuple[TUPLE_INDEX_ROLE_ID], k.safe_hint_type.NUM), check_box.Checked);
         }
 
         private void GridView_control_RowDataBound(object sender, System.Web.UI.WebControls.GridViewRowEventArgs e)

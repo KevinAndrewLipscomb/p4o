@@ -1,3 +1,4 @@
+using kix;
 using Class_db_members;
 using Class_db_users;
 using Class_biz_notifications;
@@ -82,7 +83,7 @@ namespace Class_biz_users
 
         public void BindDirectToListControl(object target, string unselected_literal)
         {
-            BindDirectToListControl(target, unselected_literal, kix.Units.kix.EMPTY);
+            BindDirectToListControl(target, unselected_literal, k.EMPTY);
         }
 
         public void Delete(string username)
@@ -111,7 +112,7 @@ namespace Class_biz_users
             // Build a suitably-random password string.
             temporary_password = System.Guid.NewGuid().ToString().Substring(0, int.Parse(ConfigurationManager.AppSettings["temp_password_len"]));
             // Make the password string the user's new temporary password, and set the stale flag to force an immediate password change.
-            db_users.SetTemporaryPassword(username, kix.Units.kix.Digest(temporary_password));
+            db_users.SetTemporaryPassword(username, k.Digest(temporary_password));
             // Send the new password to the user's email address of record.
             biz_notifications.IssueForTemporaryPassword(username, client_host_name, temporary_password);
         }

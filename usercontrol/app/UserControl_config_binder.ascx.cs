@@ -1,3 +1,4 @@
+using kix;
 using System;
 using System.Web;
 using System.Web.UI;
@@ -24,9 +25,9 @@ namespace UserControl_config_binder
         {
             if (!p.be_loaded)
             {
-                TabPanel_business_objects.Enabled = kix.Units.kix.Has((string[])(Session["privilege_array"]), "config-business-objects");
-                TabPanel_members.Enabled = kix.Units.kix.Has((string[])(Session["privilege_array"]), "config-members");
-                TabPanel_users_and_mappings.Enabled = kix.Units.kix.Has((string[])(Session["privilege_array"]), "config-users");
+                TabPanel_business_objects.Enabled = k.Has((string[])(Session["privilege_array"]), "config-business-objects");
+                TabPanel_members.Enabled = k.Has((string[])(Session["privilege_array"]), "config-members");
+                TabPanel_users_and_mappings.Enabled = k.Has((string[])(Session["privilege_array"]), "config-users");
                 p.be_loaded = true;
             }
 
@@ -75,7 +76,7 @@ namespace UserControl_config_binder
         {
             this.TabContainer_control.ActiveTabChanged += this.TabContainer_control_ActiveTabChanged;
             this.PreRender += this.TWebUserControl_config_binder_PreRender;
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
         }
 
         private void TWebUserControl_config_binder_PreRender(object sender, System.EventArgs e)

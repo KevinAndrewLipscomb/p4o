@@ -1,3 +1,5 @@
+using kix;
+
 using System;
 using System.Collections;
 using System.Web;
@@ -34,34 +36,34 @@ namespace UserControl_role_member_mapping
             // EstablishClientSideFunction
             // (
             // 'RecalculateDependentValues()',
-            // kix.Units.kix.EMPTY
+            // k.EMPTY
             // + 'El("' + TextBox_gain_or_loss_in_lbs.clientid + '").value ='
             // +  ' El("' + TextBox_gross_landed_weight_in_pounds.clientid + '").value - El("' + TextBox_gross_invoiced_weight_in_lbs.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_gain_or_loss_in_kgs.clientid + '").value ='
             // +  ' El("' + TextBox_gross_landed_weight_in_kgs.clientid + '").value - El("' + TextBox_gross_invoiced_weight_in_kgs.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_gain_or_loss_per_bale_in_lbs.clientid + '").value ='
             // +  ' El("' + TextBox_gain_or_loss_in_lbs.clientid + '").value/El("' + TextBox_bales.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_gain_or_loss_per_bale_in_kgs.clientid + '").value ='
             // +  ' El("' + TextBox_gain_or_loss_in_kgs.clientid + '").value/El("' + TextBox_bales.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_actual_gain_or_loss_in_lbs.clientid + '").value ='
             // +  ' El("' + TextBox_gain_or_loss_in_lbs.clientid + '").value - El("' + TextBox_franchise_in_lbs.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_actual_gain_or_loss_in_kgs.clientid + '").value ='
             // +  ' El("' + TextBox_gain_or_loss_in_kgs.clientid + '").value - El("' + TextBox_franchise_in_kgs.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_actual_gain_or_loss_per_bale_in_lbs.clientid + '").value ='
             // +  ' El("' + TextBox_actual_gain_or_loss_in_lbs.clientid + '").value/El("' + TextBox_bales.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_actual_gain_or_loss_per_bale_in_kgs.clientid + '").value ='
             // +  ' El("' + TextBox_actual_gain_or_loss_in_kgs.clientid + '").value/El("' + TextBox_bales.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_percent_gain_or_loss.clientid + '").value ='
             // +  ' Math.round(El("' + TextBox_actual_gain_or_loss_in_lbs.clientid + '").value/El("' + TextBox_net_invoiced_in_lbs.clientid + '").value*100*100)/100;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_monetary_gain_or_loss.clientid + '").value ='
             // +  ' El("' + TextBox_actual_gain_or_loss_in_lbs.clientid + '").value*El("' + TextBox_unit_price_in_cents_per_pound.clientid + '").value;'
             // );
@@ -142,7 +144,7 @@ namespace UserControl_role_member_mapping
                 p.be_interactive = !(Session["mode:report"] != null);
                 p.be_loaded = false;
                 p.be_sort_order_ascending = true;
-                p.may_add_mappings = kix.Units.kix.Has((string[])(Session["privilege_array"]), "config-roles-and-matrices") || kix.Units.kix.Has((string[])(Session["privilege_array"]), "assign-department-roles-to-members") || kix.Units.kix.Has((string[])(Session["privilege_array"]), "assign-squad-roles-to-members");
+                p.may_add_mappings = k.Has((string[])(Session["privilege_array"]), "config-roles-and-matrices") || k.Has((string[])(Session["privilege_array"]), "assign-department-roles-to-members") || k.Has((string[])(Session["privilege_array"]), "assign-squad-roles-to-members");
                 p.sort_order = Units.UserControl_role_member_mapping.INITIAL_SORT_ORDER;
             }
 
@@ -158,7 +160,7 @@ namespace UserControl_role_member_mapping
             this.GridView_control.RowDataBound += new System.Web.UI.WebControls.GridViewRowEventHandler(this.GridView_control_RowDataBound);
             this.GridView_control.RowDeleting += new System.Web.UI.WebControls.GridViewDeleteEventHandler(this.GridView_control_RowDeleting);
             this.PreRender += this.TWebUserControl_role_member_mapping_PreRender;
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
         }
 
         private void TWebUserControl_role_member_mapping_PreRender(object sender, System.EventArgs e)
@@ -176,7 +178,7 @@ namespace UserControl_role_member_mapping
 
         private void GridView_control_RowDeleting(object sender, System.Web.UI.WebControls.GridViewDeleteEventArgs e)
         {
-            p.biz_role_member_map.Save(kix.Units.kix.Safe(GridView_control.Rows[e.RowIndex].Cells[Units.UserControl_role_member_mapping.CI_MEMBER_ID].Text, kix.safe_hint_type.NUM), kix.Units.kix.Safe(GridView_control.Rows[e.RowIndex].Cells[Units.UserControl_role_member_mapping.CI_ROLE_ID].Text, kix.safe_hint_type.NUM), false);
+            p.biz_role_member_map.Save(k.Safe(GridView_control.Rows[e.RowIndex].Cells[Units.UserControl_role_member_mapping.CI_MEMBER_ID].Text, k.safe_hint_type.NUM), k.Safe(GridView_control.Rows[e.RowIndex].Cells[Units.UserControl_role_member_mapping.CI_ROLE_ID].Text, k.safe_hint_type.NUM), false);
             Bind();
         }
 
@@ -185,7 +187,7 @@ namespace UserControl_role_member_mapping
             bool be_ok_to_delete;
             if (e.Row.RowType != DataControlRowType.EmptyDataRow)
             {
-                be_ok_to_delete = p.be_interactive && p.biz_role_member_map.BePrivilegedToModifyTuple(kix.Units.kix.Has((string[])(Session["privilege_array"]), "config-roles-and-matrices"), kix.Units.kix.Has((string[])(Session["privilege_array"]), "assign-roles-to-members"), e.Row.Cells[Units.UserControl_role_member_mapping.CI_ROLE_NAME].Text);
+                be_ok_to_delete = p.be_interactive && p.biz_role_member_map.BePrivilegedToModifyTuple(k.Has((string[])(Session["privilege_array"]), "config-roles-and-matrices"), k.Has((string[])(Session["privilege_array"]), "assign-roles-to-members"), e.Row.Cells[Units.UserControl_role_member_mapping.CI_ROLE_NAME].Text);
                 if (be_ok_to_delete)
                 {
                 // Appears to clobber a necessary ASP.NET onclick event.  Should probably use AJAX instead.
@@ -193,8 +195,8 @@ namespace UserControl_role_member_mapping
                 // (
                 // ImageButton(e.row.Cells[CI_UNMAP].controls[0]),
                 // 'Are you sure you want to unmap the ' + e.row.Cells[CI_ROLE_NAME].Text + ' role from member '
-                // + e.row.Cells[CI_MEMBER_DESIGNATOR].Text + '?' + kix.Units.kix.NEW_LINE
-                // + kix.Units.kix.NEW_LINE
+                // + e.row.Cells[CI_MEMBER_DESIGNATOR].Text + '?' + k.NEW_LINE
+                // + k.NEW_LINE
                 // + 'Clicking Ok may prevent the member from using certain ' + ConfigurationManager.AppSettings['application_name']
                 // + ' features and receiving certain notifications and reports.'
                 // );
@@ -202,7 +204,7 @@ namespace UserControl_role_member_mapping
                 else
                 {
                     e.Row.Cells[Units.UserControl_role_member_mapping.CI_UNMAP].Enabled = false;
-                    e.Row.Cells[Units.UserControl_role_member_mapping.CI_UNMAP].Text = kix.Units.kix.EMPTY;
+                    e.Row.Cells[Units.UserControl_role_member_mapping.CI_UNMAP].Text = k.EMPTY;
                 }
                 e.Row.Cells[Units.UserControl_role_member_mapping.CI_ROLE_ID].Visible = false;
                 e.Row.Cells[Units.UserControl_role_member_mapping.CI_ROLE_PECKING_ORDER].Visible = false;
@@ -212,7 +214,7 @@ namespace UserControl_role_member_mapping
 
         protected void Button_add_Click(object sender, System.EventArgs e)
         {
-            p.biz_role_member_map.Save(kix.Units.kix.Safe(DropDownList_member.SelectedValue, kix.safe_hint_type.NUM), kix.Units.kix.Safe(DropDownList_role.SelectedValue, kix.safe_hint_type.NUM), true);
+            p.biz_role_member_map.Save(k.Safe(DropDownList_member.SelectedValue, k.safe_hint_type.NUM), k.Safe(DropDownList_role.SelectedValue, k.safe_hint_type.NUM), true);
             Bind();
         }
 
@@ -237,7 +239,7 @@ namespace UserControl_role_member_mapping
             TableCell_add_mapping.Visible = p.may_add_mappings;
             if (TableCell_add_mapping.Visible)
             {
-                p.biz_roles.BindDirectToListControl(DropDownList_role, kix.Units.kix.Has((string[])(Session["privilege_array"]), "config-roles-and-matrices"));
+                p.biz_roles.BindDirectToListControl(DropDownList_role, k.Has((string[])(Session["privilege_array"]), "config-roles-and-matrices"));
                 p.biz_members.BindDirectToListControl(DropDownList_member);
             }
 

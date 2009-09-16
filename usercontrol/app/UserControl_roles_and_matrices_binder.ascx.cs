@@ -1,3 +1,4 @@
+using kix;
 using System;
 using System.Collections;
 using System.Collections.Specialized;
@@ -30,7 +31,7 @@ namespace UserControl_roles_and_matrices_binder
             if (!p.be_loaded)
             {
                 TabContainer_control.ActiveTabIndex = (int)(p.tab_index);
-                if (kix.Units.kix.Has((string[])(Session["privilege_array"]), "config-roles-and-matrices"))
+                if (k.Has((string[])(Session["privilege_array"]), "config-roles-and-matrices"))
                 {
                     TabPanel_roles.Enabled = true;
                 }
@@ -87,7 +88,7 @@ namespace UserControl_roles_and_matrices_binder
         {
             this.TabContainer_control.ActiveTabChanged += this.TabContainer_control_ActiveTabChanged;
             this.PreRender += this.TWebUserControl_roles_and_matrices_binder_PreRender;
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
         }
 
         private void TWebUserControl_roles_and_matrices_binder_PreRender(object sender, System.EventArgs e)
