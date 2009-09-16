@@ -1,3 +1,5 @@
+using kix;
+
 using System;
 using System.Collections.Specialized;
 using System.Web.UI;
@@ -19,14 +21,14 @@ namespace UserControl_training_request
           set {
             Panel_detail_origination.Visible = (value != mode_type.@NEW);
             Panel_detail.Enabled = (value == mode_type.@NEW);
-            Panel_disposition_training.Visible = (value != mode_type.@NEW) && (kix.Units.kix.Safe(TextBox_status_code.Text, kix.safe_hint_type.NUM) == p.biz_training_request_statuses.IdOf("NEEDS_TRAINING_UNIT_COMMENTS"));
-            Panel_disposition_squad.Visible = (value != mode_type.@NEW) && (kix.Units.kix.Safe(TextBox_status_code.Text, kix.safe_hint_type.NUM) == p.biz_training_request_statuses.IdOf("NEEDS_SQUAD_APPROVAL"));
-            Panel_disposition_unit.Visible = (value != mode_type.@NEW) && (kix.Units.kix.Safe(TextBox_status_code.Text, kix.safe_hint_type.NUM) == p.biz_training_request_statuses.IdOf("NEEDS_UNIT_APPROVAL"));
-            Panel_disposition_division.Visible = (value != mode_type.@NEW) && (kix.Units.kix.Safe(TextBox_status_code.Text, kix.safe_hint_type.NUM) == p.biz_training_request_statuses.IdOf("NEEDS_DIVISION_APPROVAL"));
-            Panel_disposition_assistant_chief.Visible = (value != mode_type.@NEW) && (kix.Units.kix.Safe(TextBox_status_code.Text, kix.safe_hint_type.NUM) == p.biz_training_request_statuses.IdOf("NEEDS_ASSISTANT_CHIEF_APPROVAL"));
-            Panel_disposition_finance.Visible = (value != mode_type.@NEW) && (kix.Units.kix.Safe(TextBox_status_code.Text, kix.safe_hint_type.NUM) == p.biz_training_request_statuses.IdOf("NEEDS_PAYMENT"));
+            Panel_disposition_training.Visible = (value != mode_type.@NEW) && (k.Safe(TextBox_status_code.Text, k.safe_hint_type.NUM) == p.biz_training_request_statuses.IdOf("NEEDS_TRAINING_UNIT_COMMENTS"));
+            Panel_disposition_squad.Visible = (value != mode_type.@NEW) && (k.Safe(TextBox_status_code.Text, k.safe_hint_type.NUM) == p.biz_training_request_statuses.IdOf("NEEDS_SQUAD_APPROVAL"));
+            Panel_disposition_unit.Visible = (value != mode_type.@NEW) && (k.Safe(TextBox_status_code.Text, k.safe_hint_type.NUM) == p.biz_training_request_statuses.IdOf("NEEDS_UNIT_APPROVAL"));
+            Panel_disposition_division.Visible = (value != mode_type.@NEW) && (k.Safe(TextBox_status_code.Text, k.safe_hint_type.NUM) == p.biz_training_request_statuses.IdOf("NEEDS_DIVISION_APPROVAL"));
+            Panel_disposition_assistant_chief.Visible = (value != mode_type.@NEW) && (k.Safe(TextBox_status_code.Text, k.safe_hint_type.NUM) == p.biz_training_request_statuses.IdOf("NEEDS_ASSISTANT_CHIEF_APPROVAL"));
+            Panel_disposition_finance.Visible = (value != mode_type.@NEW) && (k.Safe(TextBox_status_code.Text, k.safe_hint_type.NUM) == p.biz_training_request_statuses.IdOf("NEEDS_PAYMENT"));
             Panel_disposition_status.Visible = (value != mode_type.@NEW);
-            Panel_disposition_finalization.Visible = (value != mode_type.@NEW) && ((kix.Units.kix.Safe(TextBox_status_code.Text, kix.safe_hint_type.NUM) == p.biz_training_request_statuses.IdOf("NEEDS_GRADUATION")) || (kix.Units.kix.Safe(TextBox_status_code.Text, kix.safe_hint_type.NUM) == p.biz_training_request_statuses.IdOf("CANCELED")));
+            Panel_disposition_finalization.Visible = (value != mode_type.@NEW) && ((k.Safe(TextBox_status_code.Text, k.safe_hint_type.NUM) == p.biz_training_request_statuses.IdOf("NEEDS_GRADUATION")) || (k.Safe(TextBox_status_code.Text, k.safe_hint_type.NUM) == p.biz_training_request_statuses.IdOf("CANCELED")));
             p.mode = value;
           }
         }
@@ -34,45 +36,45 @@ namespace UserControl_training_request
         private void Clear()
         {
             DropDownList_id.Visible = false;
-            TextBox_nature.Text = kix.Units.kix.EMPTY;
-            TextBox_dates.Text = kix.Units.kix.EMPTY;
-            TextBox_conducting_agency.Text = kix.Units.kix.EMPTY;
-            TextBox_location.Text = kix.Units.kix.EMPTY;
-            TextBox_cost_of_enrollment.Text = kix.Units.kix.EMPTY;
-            TextBox_cost_of_lodging.Text = kix.Units.kix.EMPTY;
-            TextBox_cost_of_meals.Text = kix.Units.kix.EMPTY;
-            TextBox_cost_of_transportation.Text = kix.Units.kix.EMPTY;
-            TextBox_reason.Text = kix.Units.kix.EMPTY;
-            TextBox_disposition_training_timestamp.Text = kix.Units.kix.EMPTY;
-            TextBox_disposition_training_member_id.Text = kix.Units.kix.EMPTY;
-            TextBox_disposition_training_funding_source.Text = kix.Units.kix.EMPTY;
-            TextBox_disposition_training_comments.Text = kix.Units.kix.EMPTY;
-            TextBox_disposition_squad_timestamp.Text = kix.Units.kix.EMPTY;
-            TextBox_disposition_squad_member_id.Text = kix.Units.kix.EMPTY;
+            TextBox_nature.Text = k.EMPTY;
+            TextBox_dates.Text = k.EMPTY;
+            TextBox_conducting_agency.Text = k.EMPTY;
+            TextBox_location.Text = k.EMPTY;
+            TextBox_cost_of_enrollment.Text = k.EMPTY;
+            TextBox_cost_of_lodging.Text = k.EMPTY;
+            TextBox_cost_of_meals.Text = k.EMPTY;
+            TextBox_cost_of_transportation.Text = k.EMPTY;
+            TextBox_reason.Text = k.EMPTY;
+            TextBox_disposition_training_timestamp.Text = k.EMPTY;
+            TextBox_disposition_training_member_id.Text = k.EMPTY;
+            TextBox_disposition_training_funding_source.Text = k.EMPTY;
+            TextBox_disposition_training_comments.Text = k.EMPTY;
+            TextBox_disposition_squad_timestamp.Text = k.EMPTY;
+            TextBox_disposition_squad_member_id.Text = k.EMPTY;
             CheckBox_disposition_squad_be_approved.Checked = false;
-            TextBox_disposition_squad_comments.Text = kix.Units.kix.EMPTY;
-            TextBox_disposition_unit_timestamp.Text = kix.Units.kix.EMPTY;
-            TextBox_disposition_unit_member_id.Text = kix.Units.kix.EMPTY;
+            TextBox_disposition_squad_comments.Text = k.EMPTY;
+            TextBox_disposition_unit_timestamp.Text = k.EMPTY;
+            TextBox_disposition_unit_member_id.Text = k.EMPTY;
             CheckBox_disposition_unit_be_approved.Checked = false;
-            TextBox_disposition_unit_comments.Text = kix.Units.kix.EMPTY;
-            TextBox_disposition_division_timestamp.Text = kix.Units.kix.EMPTY;
-            TextBox_disposition_division_member_id.Text = kix.Units.kix.EMPTY;
+            TextBox_disposition_unit_comments.Text = k.EMPTY;
+            TextBox_disposition_division_timestamp.Text = k.EMPTY;
+            TextBox_disposition_division_member_id.Text = k.EMPTY;
             CheckBox_disposition_division_be_approved.Checked = false;
-            TextBox_disposition_division_comments.Text = kix.Units.kix.EMPTY;
-            TextBox_disposition_assistant_chief_timestamp.Text = kix.Units.kix.EMPTY;
-            TextBox_disposition_assistant_chief_member_id.Text = kix.Units.kix.EMPTY;
+            TextBox_disposition_division_comments.Text = k.EMPTY;
+            TextBox_disposition_assistant_chief_timestamp.Text = k.EMPTY;
+            TextBox_disposition_assistant_chief_member_id.Text = k.EMPTY;
             CheckBox_disposition_assistant_chief_be_approved.Checked = false;
-            TextBox_disposition_assistant_chief_comments.Text = kix.Units.kix.EMPTY;
-            TextBox_payment_timestamp.Text = kix.Units.kix.EMPTY;
-            TextBox_payment_member_id.Text = kix.Units.kix.EMPTY;
+            TextBox_disposition_assistant_chief_comments.Text = k.EMPTY;
+            TextBox_payment_timestamp.Text = k.EMPTY;
+            TextBox_payment_member_id.Text = k.EMPTY;
             CheckBox_payment_be_done.Checked = false;
-            TextBox_payment_actual_amount.Text = kix.Units.kix.EMPTY;
-            TextBox_payment_comments.Text = kix.Units.kix.EMPTY;
-            TextBox_status_code.Text = kix.Units.kix.EMPTY;
-            TextBox_finalization_timestamp.Text = kix.Units.kix.EMPTY;
-            TextBox_id.Text = kix.Units.kix.EMPTY;
-            TextBox_member_id.Text = kix.Units.kix.EMPTY;
-            TextBox_submission_timestamp.Text = kix.Units.kix.EMPTY;
+            TextBox_payment_actual_amount.Text = k.EMPTY;
+            TextBox_payment_comments.Text = k.EMPTY;
+            TextBox_status_code.Text = k.EMPTY;
+            TextBox_finalization_timestamp.Text = k.EMPTY;
+            TextBox_id.Text = k.EMPTY;
+            TextBox_member_id.Text = k.EMPTY;
+            TextBox_submission_timestamp.Text = k.EMPTY;
             LinkButton_go_to_match_prior.Visible = false;
             LinkButton_go_to_match_next.Visible = false;
             LinkButton_go_to_match_last.Visible = false;
@@ -91,34 +93,34 @@ namespace UserControl_training_request
             // EstablishClientSideFunction
             // (
             // 'RecalculateDependentValues()',
-            // kix.Units.kix.EMPTY
+            // k.EMPTY
             // + 'El("' + TextBox_gain_or_loss_in_lbs.clientid + '").value ='
             // +  ' El("' + TextBox_gross_landed_weight_in_pounds.clientid + '").value - El("' + TextBox_gross_invoiced_weight_in_lbs.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_gain_or_loss_in_kgs.clientid + '").value ='
             // +  ' El("' + TextBox_gross_landed_weight_in_kgs.clientid + '").value - El("' + TextBox_gross_invoiced_weight_in_kgs.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_gain_or_loss_per_bale_in_lbs.clientid + '").value ='
             // +  ' El("' + TextBox_gain_or_loss_in_lbs.clientid + '").value/El("' + TextBox_bales.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_gain_or_loss_per_bale_in_kgs.clientid + '").value ='
             // +  ' El("' + TextBox_gain_or_loss_in_kgs.clientid + '").value/El("' + TextBox_bales.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_actual_gain_or_loss_in_lbs.clientid + '").value ='
             // +  ' El("' + TextBox_gain_or_loss_in_lbs.clientid + '").value - El("' + TextBox_franchise_in_lbs.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_actual_gain_or_loss_in_kgs.clientid + '").value ='
             // +  ' El("' + TextBox_gain_or_loss_in_kgs.clientid + '").value - El("' + TextBox_franchise_in_kgs.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_actual_gain_or_loss_per_bale_in_lbs.clientid + '").value ='
             // +  ' El("' + TextBox_actual_gain_or_loss_in_lbs.clientid + '").value/El("' + TextBox_bales.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_actual_gain_or_loss_per_bale_in_kgs.clientid + '").value ='
             // +  ' El("' + TextBox_actual_gain_or_loss_in_kgs.clientid + '").value/El("' + TextBox_bales.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_percent_gain_or_loss.clientid + '").value ='
             // +  ' Math.round(El("' + TextBox_actual_gain_or_loss_in_lbs.clientid + '").value/El("' + TextBox_net_invoiced_in_lbs.clientid + '").value*100*100)/100;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_monetary_gain_or_loss.clientid + '").value ='
             // +  ' El("' + TextBox_actual_gain_or_loss_in_lbs.clientid + '").value*El("' + TextBox_unit_price_in_cents_per_pound.clientid + '").value;'
             // );
@@ -168,10 +170,10 @@ namespace UserControl_training_request
             if (!p.be_loaded)
             {
                 LinkButton_new_record.Visible = p.be_ok_to_config_training_requests;
-                LinkButton_go_to_match_first.Text = kix.Units.kix.ExpandTildePath(LinkButton_go_to_match_first.Text);
-                LinkButton_go_to_match_prior.Text = kix.Units.kix.ExpandTildePath(LinkButton_go_to_match_prior.Text);
-                LinkButton_go_to_match_next.Text = kix.Units.kix.ExpandTildePath(LinkButton_go_to_match_next.Text);
-                LinkButton_go_to_match_last.Text = kix.Units.kix.ExpandTildePath(LinkButton_go_to_match_last.Text);
+                LinkButton_go_to_match_first.Text = k.ExpandTildePath(LinkButton_go_to_match_first.Text);
+                LinkButton_go_to_match_prior.Text = k.ExpandTildePath(LinkButton_go_to_match_prior.Text);
+                LinkButton_go_to_match_next.Text = k.ExpandTildePath(LinkButton_go_to_match_next.Text);
+                LinkButton_go_to_match_last.Text = k.ExpandTildePath(LinkButton_go_to_match_last.Text);
                 RequireConfirmation(Button_delete, "Are you sure you want to delete this record?");
                 Focus(TextBox_nature, true);
                 p.be_loaded = true;
@@ -304,7 +306,7 @@ namespace UserControl_training_request
                 p.be_loaded = false;
                 p.biz_training_request_statuses = new TClass_biz_training_request_statuses();
                 p.biz_training_requests = new TClass_biz_training_requests();
-                p.be_ok_to_config_training_requests = kix.Units.kix.Has((string[])(Session["privilege_array"]), "config-training-requests");
+                p.be_ok_to_config_training_requests = k.Has((string[])(Session["privilege_array"]), "config-training-requests");
                 p.mode = mode_type.NONE;
             }
 
@@ -316,7 +318,7 @@ namespace UserControl_training_request
         // / </summary>
         private void InitializeComponent()
         {
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
             this.PreRender += this.TWebUserControl_training_request_PreRender;
         }
 
@@ -348,76 +350,76 @@ namespace UserControl_training_request
                 switch(p.mode)
                 {
                     case mode_type.@NEW:
-                        p.biz_training_requests.SetNew(kix.Units.kix.Safe(TextBox_nature.Text, kix.safe_hint_type.PUNCTUATED).Trim(), kix.Units.kix.Safe(TextBox_dates.Text, kix.safe_hint_type.PUNCTUATED).Trim(), kix.Units.kix.Safe(TextBox_conducting_agency.Text, kix.safe_hint_type.ORG_NAME).Trim(), kix.Units.kix.Safe(TextBox_location.Text, kix.safe_hint_type.PUNCTUATED).Trim(), kix.Units.kix.Safe(TextBox_cost_of_enrollment.Text, kix.safe_hint_type.CURRENCY_USA).Trim(), kix.Units.kix.Safe(TextBox_cost_of_lodging.Text, kix.safe_hint_type.CURRENCY_USA).Trim(), kix.Units.kix.Safe(TextBox_cost_of_meals.Text, kix.safe_hint_type.CURRENCY_USA).Trim(), kix.Units.kix.Safe(TextBox_cost_of_transportation.Text, kix.safe_hint_type.CURRENCY_USA).Trim(), kix.Units.kix.Safe(TextBox_reason.Text, kix.safe_hint_type.PUNCTUATED).Trim(), Session["member_id"].ToString());
+                        p.biz_training_requests.SetNew(k.Safe(TextBox_nature.Text, k.safe_hint_type.PUNCTUATED).Trim(), k.Safe(TextBox_dates.Text, k.safe_hint_type.PUNCTUATED).Trim(), k.Safe(TextBox_conducting_agency.Text, k.safe_hint_type.ORG_NAME).Trim(), k.Safe(TextBox_location.Text, k.safe_hint_type.PUNCTUATED).Trim(), k.Safe(TextBox_cost_of_enrollment.Text, k.safe_hint_type.CURRENCY_USA).Trim(), k.Safe(TextBox_cost_of_lodging.Text, k.safe_hint_type.CURRENCY_USA).Trim(), k.Safe(TextBox_cost_of_meals.Text, k.safe_hint_type.CURRENCY_USA).Trim(), k.Safe(TextBox_cost_of_transportation.Text, k.safe_hint_type.CURRENCY_USA).Trim(), k.Safe(TextBox_reason.Text, k.safe_hint_type.PUNCTUATED).Trim(), Session["member_id"].ToString());
                         break;
                 }
-                // if TextBox_disposition_training_timestamp.Text <> kix.Units.kix.EMPTY then begin
-                // disposition_training_timestamp := DateTime.Parse(kix.Units.kix.Safe(TextBox_disposition_training_timestamp.Text,kix.safe_hint_type.DATE_TIME));
+                // if TextBox_disposition_training_timestamp.Text <> k.EMPTY then begin
+                // disposition_training_timestamp := DateTime.Parse(k.Safe(TextBox_disposition_training_timestamp.Text,k.safe_hint_type.DATE_TIME));
                 // end;
-                // if TextBox_disposition_squad_timestamp.Text <> kix.Units.kix.EMPTY then begin
-                // disposition_squad_timestamp := DateTime.Parse(kix.Units.kix.Safe(TextBox_disposition_squad_timestamp.Text,kix.safe_hint_type.DATE_TIME));
+                // if TextBox_disposition_squad_timestamp.Text <> k.EMPTY then begin
+                // disposition_squad_timestamp := DateTime.Parse(k.Safe(TextBox_disposition_squad_timestamp.Text,k.safe_hint_type.DATE_TIME));
                 // end;
-                // if TextBox_disposition_unit_timestamp.Text <> kix.Units.kix.EMPTY then begin
-                // disposition_unit_timestamp := DateTime.Parse(kix.Units.kix.Safe(TextBox_disposition_unit_timestamp.Text,kix.safe_hint_type.DATE_TIME));
+                // if TextBox_disposition_unit_timestamp.Text <> k.EMPTY then begin
+                // disposition_unit_timestamp := DateTime.Parse(k.Safe(TextBox_disposition_unit_timestamp.Text,k.safe_hint_type.DATE_TIME));
                 // end;
-                // if TextBox_disposition_division_timestamp.Text <> kix.Units.kix.EMPTY then begin
-                // disposition_division_timestamp := DateTime.Parse(kix.Units.kix.Safe(TextBox_disposition_division_timestamp.Text,kix.safe_hint_type.DATE_TIME));
+                // if TextBox_disposition_division_timestamp.Text <> k.EMPTY then begin
+                // disposition_division_timestamp := DateTime.Parse(k.Safe(TextBox_disposition_division_timestamp.Text,k.safe_hint_type.DATE_TIME));
                 // end;
-                // if TextBox_disposition_assistant_chief_timestamp.Text <> kix.Units.kix.EMPTY then begin
-                // disposition_assistant_chief_timestamp := DateTime.Parse(kix.Units.kix.Safe(TextBox_disposition_assistant_chief_timestamp.Text,kix.safe_hint_type.DATE_TIME));
+                // if TextBox_disposition_assistant_chief_timestamp.Text <> k.EMPTY then begin
+                // disposition_assistant_chief_timestamp := DateTime.Parse(k.Safe(TextBox_disposition_assistant_chief_timestamp.Text,k.safe_hint_type.DATE_TIME));
                 // end;
-                // if TextBox_payment_timestamp.Text <> kix.Units.kix.EMPTY then begin
-                // payment_timestamp := DateTime.Parse(kix.Units.kix.Safe(TextBox_payment_timestamp.Text,kix.safe_hint_type.DATE_TIME));
+                // if TextBox_payment_timestamp.Text <> k.EMPTY then begin
+                // payment_timestamp := DateTime.Parse(k.Safe(TextBox_payment_timestamp.Text,k.safe_hint_type.DATE_TIME));
                 // end;
-                // if TextBox_finalization_timestamp.Text <> kix.Units.kix.EMPTY then begin
-                // finalization_timestamp := DateTime.Parse(kix.Units.kix.Safe(TextBox_finalization_timestamp.Text,kix.safe_hint_type.DATE_TIME));
+                // if TextBox_finalization_timestamp.Text <> k.EMPTY then begin
+                // finalization_timestamp := DateTime.Parse(k.Safe(TextBox_finalization_timestamp.Text,k.safe_hint_type.DATE_TIME));
                 // end;
-                // if TextBox_submission_timestamp.Text <> kix.Units.kix.EMPTY then begin
-                // submission_timestamp := DateTime.Parse(kix.Units.kix.Safe(TextBox_submission_timestamp.Text,kix.safe_hint_type.DATE_TIME));
+                // if TextBox_submission_timestamp.Text <> k.EMPTY then begin
+                // submission_timestamp := DateTime.Parse(k.Safe(TextBox_submission_timestamp.Text,k.safe_hint_type.DATE_TIME));
                 // end;
                 // p.biz_training_requests.&Set
                 // (
-                // kix.Units.kix.Safe(TextBox_id.Text,PUNCTUATED).Trim(),
-                // kix.Units.kix.Safe(TextBox_nature.Text,PUNCTUATED).Trim(),
-                // kix.Units.kix.Safe(TextBox_dates.Text,PUNCTUATED).Trim(),
-                // kix.Units.kix.Safe(TextBox_conducting_agency.Text,ORG_NAME).Trim(),
-                // kix.Units.kix.Safe(TextBox_location.Text,PUNCTUATED).Trim(),
-                // kix.Units.kix.Safe(TextBox_cost_of_enrollment.Text,CURRENCY_USA).Trim(),
-                // kix.Units.kix.Safe(TextBox_cost_of_lodging.Text,CURRENCY_USA).Trim(),
-                // kix.Units.kix.Safe(TextBox_cost_of_meals.Text,CURRENCY_USA).Trim(),
-                // kix.Units.kix.Safe(TextBox_cost_of_transportation.Text,CURRENCY_USA).Trim(),
-                // kix.Units.kix.Safe(TextBox_reason.Text,PUNCTUATED).Trim(),
+                // k.Safe(TextBox_id.Text,PUNCTUATED).Trim(),
+                // k.Safe(TextBox_nature.Text,PUNCTUATED).Trim(),
+                // k.Safe(TextBox_dates.Text,PUNCTUATED).Trim(),
+                // k.Safe(TextBox_conducting_agency.Text,ORG_NAME).Trim(),
+                // k.Safe(TextBox_location.Text,PUNCTUATED).Trim(),
+                // k.Safe(TextBox_cost_of_enrollment.Text,CURRENCY_USA).Trim(),
+                // k.Safe(TextBox_cost_of_lodging.Text,CURRENCY_USA).Trim(),
+                // k.Safe(TextBox_cost_of_meals.Text,CURRENCY_USA).Trim(),
+                // k.Safe(TextBox_cost_of_transportation.Text,CURRENCY_USA).Trim(),
+                // k.Safe(TextBox_reason.Text,PUNCTUATED).Trim(),
                 // disposition_training_timestamp,
-                // kix.Units.kix.Safe(TextBox_disposition_training_member_id.Text,NUM).Trim(),
-                // kix.Units.kix.Safe(TextBox_disposition_training_funding_source.Text,NUM).Trim(),
-                // kix.Units.kix.Safe(TextBox_disposition_training_comments.Text,PUNCTUATED).Trim(),
+                // k.Safe(TextBox_disposition_training_member_id.Text,NUM).Trim(),
+                // k.Safe(TextBox_disposition_training_funding_source.Text,NUM).Trim(),
+                // k.Safe(TextBox_disposition_training_comments.Text,PUNCTUATED).Trim(),
                 // disposition_squad_timestamp,
-                // kix.Units.kix.Safe(TextBox_disposition_squad_member_id.Text,NUM).Trim(),
+                // k.Safe(TextBox_disposition_squad_member_id.Text,NUM).Trim(),
                 // CheckBox_disposition_squad_be_approved.checked,
-                // kix.Units.kix.Safe(TextBox_disposition_squad_comments.Text,PUNCTUATED).Trim(),
+                // k.Safe(TextBox_disposition_squad_comments.Text,PUNCTUATED).Trim(),
                 // disposition_unit_timestamp,
-                // kix.Units.kix.Safe(TextBox_disposition_unit_member_id.Text,NUM).Trim(),
+                // k.Safe(TextBox_disposition_unit_member_id.Text,NUM).Trim(),
                 // CheckBox_disposition_unit_be_approved.checked,
-                // kix.Units.kix.Safe(TextBox_disposition_unit_comments.Text,PUNCTUATED).Trim(),
+                // k.Safe(TextBox_disposition_unit_comments.Text,PUNCTUATED).Trim(),
                 // disposition_division_timestamp,
-                // kix.Units.kix.Safe(TextBox_disposition_division_member_id.Text,NUM).Trim(),
+                // k.Safe(TextBox_disposition_division_member_id.Text,NUM).Trim(),
                 // CheckBox_disposition_division_be_approved.checked,
-                // kix.Units.kix.Safe(TextBox_disposition_division_comments.Text,PUNCTUATED).Trim(),
+                // k.Safe(TextBox_disposition_division_comments.Text,PUNCTUATED).Trim(),
                 // disposition_assistant_chief_timestamp,
-                // kix.Units.kix.Safe(TextBox_disposition_assistant_chief_member_id.Text,NUM).Trim(),
+                // k.Safe(TextBox_disposition_assistant_chief_member_id.Text,NUM).Trim(),
                 // CheckBox_disposition_assistant_chief_be_approved.checked,
-                // kix.Units.kix.Safe(TextBox_disposition_assistant_chief_comments.Text,PUNCTUATED).Trim(),
+                // k.Safe(TextBox_disposition_assistant_chief_comments.Text,PUNCTUATED).Trim(),
                 // payment_timestamp,
-                // kix.Units.kix.Safe(TextBox_payment_member_id.Text,NUM).Trim(),
+                // k.Safe(TextBox_payment_member_id.Text,NUM).Trim(),
                 // CheckBox_payment_be_done.checked,
-                // kix.Units.kix.Safe(TextBox_payment_actual_amount.Text,CURRENCY_USA).Trim(),
-                // kix.Units.kix.Safe(TextBox_payment_comments.Text,PUNCTUATED).Trim(),
-                // kix.Units.kix.Safe(TextBox_status_code.Text,NUM).Trim(),
+                // k.Safe(TextBox_payment_actual_amount.Text,CURRENCY_USA).Trim(),
+                // k.Safe(TextBox_payment_comments.Text,PUNCTUATED).Trim(),
+                // k.Safe(TextBox_status_code.Text,NUM).Trim(),
                 // finalization_timestamp,
-                // kix.Units.kix.Safe(TextBox_member_id.Text,NUM).Trim(),
+                // k.Safe(TextBox_member_id.Text,NUM).Trim(),
                 // submission_timestamp
                 // );
-                Alert(kix.alert_cause_type.USER, kix.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
+                Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
                 SetLookupMode();
             }
             else
@@ -428,42 +430,42 @@ namespace UserControl_training_request
 
         protected void DropDownList_id_SelectedIndexChanged(object sender, System.EventArgs e)
         {
-            PresentRecord(kix.Units.kix.Safe(DropDownList_id.SelectedValue, kix.safe_hint_type.NUM));
+            PresentRecord(k.Safe(DropDownList_id.SelectedValue, k.safe_hint_type.NUM));
         }
 
         protected void LinkButton_go_to_match_first_Click(object sender, System.EventArgs e)
         {
             DropDownList_id.SelectedIndex = 1;
-            PresentRecord(kix.Units.kix.Safe(DropDownList_id.SelectedValue, kix.safe_hint_type.NUM));
+            PresentRecord(k.Safe(DropDownList_id.SelectedValue, k.safe_hint_type.NUM));
         }
 
         protected void LinkButton_go_to_match_prior_Click(object sender, System.EventArgs e)
         {
             DropDownList_id.SelectedIndex = Math.Max(1, (DropDownList_id.SelectedIndex - 1));
-            PresentRecord(kix.Units.kix.Safe(DropDownList_id.SelectedValue, kix.safe_hint_type.NUM));
+            PresentRecord(k.Safe(DropDownList_id.SelectedValue, k.safe_hint_type.NUM));
         }
 
         protected void LinkButton_go_to_match_next_Click(object sender, System.EventArgs e)
         {
             DropDownList_id.SelectedIndex = Math.Min((DropDownList_id.SelectedIndex + 1), (DropDownList_id.Items.Count - 1));
-            PresentRecord(kix.Units.kix.Safe(DropDownList_id.SelectedValue, kix.safe_hint_type.NUM));
+            PresentRecord(k.Safe(DropDownList_id.SelectedValue, k.safe_hint_type.NUM));
         }
 
         protected void LinkButton_go_to_match_last_Click(object sender, System.EventArgs e)
         {
             DropDownList_id.SelectedIndex = DropDownList_id.Items.Count - 1;
-            PresentRecord(kix.Units.kix.Safe(DropDownList_id.SelectedValue, kix.safe_hint_type.NUM));
+            PresentRecord(k.Safe(DropDownList_id.SelectedValue, k.safe_hint_type.NUM));
         }
 
         protected void Button_delete_Click(object sender, System.EventArgs e)
         {
-            if (p.biz_training_requests.Delete(kix.Units.kix.Safe(TextBox_id.Text, kix.safe_hint_type.ALPHANUM)))
+            if (p.biz_training_requests.Delete(k.Safe(TextBox_id.Text, k.safe_hint_type.ALPHANUM)))
             {
                 SetLookupMode();
             }
             else
             {
-                Alert(kix.alert_cause_type.APPDATA, kix.alert_state_type.FAILURE, "dependency", " Cannot delete this record because another record depends on it.");
+                Alert(k.alert_cause_type.APPDATA, k.alert_state_type.FAILURE, "dependency", " Cannot delete this record because another record depends on it.");
             }
         }
 
@@ -534,11 +536,11 @@ namespace UserControl_training_request
                     DropDownList_id.Visible = true;
                     if (num_matches == 1)
                     {
-                        PresentRecord(kix.Units.kix.Safe(DropDownList_id.SelectedValue, kix.safe_hint_type.NUM));
+                        PresentRecord(k.Safe(DropDownList_id.SelectedValue, k.safe_hint_type.NUM));
                     }
                     else
                     {
-                        DropDownList_id.Items.Insert(0, new ListItem("-- Select --", kix.Units.kix.EMPTY));
+                        DropDownList_id.Items.Insert(0, new ListItem("-- Select --", k.EMPTY));
                     }
                 }
             }

@@ -1,3 +1,4 @@
+using kix;
 using Class_db;
 using Class_db_trail;
 using MySql.Data.MySqlClient;
@@ -36,9 +37,9 @@ namespace Class_db_privileges
         {
             MySqlDataReader dr;
             ((target) as ListControl).Items.Clear();
-            if (unselected_literal != kix.Units.kix.EMPTY)
+            if (unselected_literal != k.EMPTY)
             {
-                ((target) as ListControl).Items.Add(new ListItem(unselected_literal, kix.Units.kix.EMPTY));
+                ((target) as ListControl).Items.Add(new ListItem(unselected_literal, k.EMPTY));
             }
             this.Open();
             dr = new MySqlCommand("select privilege.id as privilege_id" + " , name as privilege_name" + " from privilege" + " order by privilege_name", this.connection).ExecuteReader();
@@ -48,7 +49,7 @@ namespace Class_db_privileges
             }
             dr.Close();
             this.Close();
-            if (selected_value != kix.Units.kix.EMPTY)
+            if (selected_value != k.EMPTY)
             {
                 ((target) as ListControl).SelectedValue = selected_value;
             }
@@ -62,7 +63,7 @@ namespace Class_db_privileges
 
         public void BindDirectToListControl(object target, string unselected_literal)
         {
-            BindDirectToListControl(target, unselected_literal, kix.Units.kix.EMPTY);
+            BindDirectToListControl(target, unselected_literal, k.EMPTY);
         }
 
         public bool Get(string name, out string soft_hyphenation_text)
@@ -71,7 +72,7 @@ namespace Class_db_privileges
             MySqlDataReader dr;
             result = false;
 
-            soft_hyphenation_text = kix.Units.kix.EMPTY;
+            soft_hyphenation_text = k.EMPTY;
             this.Open();
             dr = new MySqlCommand("select * from privilege where CAST(name AS CHAR) = \"" + name + "\"", this.connection).ExecuteReader();
             if (dr.Read())

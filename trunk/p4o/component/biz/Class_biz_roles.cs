@@ -1,3 +1,4 @@
+using kix;
 using System;
 using Class_db_roles;
 namespace Class_biz_roles
@@ -30,7 +31,7 @@ namespace Class_biz_roles
 
         public void BindDirectToListControl(object target, bool has_config_roles_and_matrices, string unselected_literal)
         {
-            BindDirectToListControl(target, has_config_roles_and_matrices, unselected_literal, kix.Units.kix.EMPTY);
+            BindDirectToListControl(target, has_config_roles_and_matrices, unselected_literal, k.EMPTY);
         }
 
         public bool Delete(string name)

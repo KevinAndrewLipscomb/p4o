@@ -1,3 +1,4 @@
+using kix;
 using System;
 using Class_db_training_request_statuses;
 namespace Class_biz_training_request_statuses
@@ -46,7 +47,7 @@ namespace Class_biz_training_request_statuses
 
         public void BindDirectToListControl(object target, string unselected_literal)
         {
-            BindDirectToListControl(target, unselected_literal, kix.Units.kix.EMPTY);
+            BindDirectToListControl(target, unselected_literal, k.EMPTY);
         }
 
         public bool Delete(string code)
@@ -66,7 +67,7 @@ namespace Class_biz_training_request_statuses
 
         public string IdOf(string description)
         {
-            string result = kix.Units.kix.EMPTY;
+            string result = k.EMPTY;
 
             if (description == "NEEDS_TRAINING_UNIT_COMMENTS")
             {

@@ -1,3 +1,4 @@
+using kix;
 using System;
 using System.Collections;
 using System.ComponentModel;
@@ -47,7 +48,7 @@ namespace test_report
             // subject
             // body
             // be_html
-           kix.Units.kix.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], "recipient@frompaper2web.com", "Test Report", sb.ToString(), true);
+           k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], "recipient@frompaper2web.com", "Test Report", sb.ToString(), true);
 
         }
 

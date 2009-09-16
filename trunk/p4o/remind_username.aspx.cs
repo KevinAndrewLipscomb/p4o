@@ -1,3 +1,4 @@
+using kix;
 using Class_biz_users;
 using System;
 using System.Collections;
@@ -25,7 +26,7 @@ namespace remind_username
         // / </summary>
         private void InitializeComponent()
         {
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
             this.PreRender += this.TWebForm_remind_username_PreRender;
         }
 
@@ -67,16 +68,16 @@ namespace remind_username
         protected void Button_submit_Click(object sender, System.EventArgs e)
         {
             string email_address;
-            email_address = kix.Units.kix.Safe(TextBox_email_address.Text.Trim(), kix.safe_hint_type.EMAIL_ADDRESS);
+            email_address = k.Safe(TextBox_email_address.Text.Trim(), k.safe_hint_type.EMAIL_ADDRESS);
             if (p.biz_users.BeRegisteredEmailAddress(email_address))
             {
-                p.biz_users.IssueUsernameReminder(email_address, kix.Units.kix.Safe(Request.UserHostName, kix.safe_hint_type.HOSTNAME));
-                Alert(kix.alert_cause_type.LOGIC, kix.alert_state_type.NORMAL, "usrnamsnt", "The associated " + ConfigurationManager.AppSettings["application_name"] + " username has been sent to " + email_address + kix.Units.kix.PERIOD, true);
+                p.biz_users.IssueUsernameReminder(email_address, k.Safe(Request.UserHostName, k.safe_hint_type.HOSTNAME));
+                Alert(k.alert_cause_type.LOGIC, k.alert_state_type.NORMAL, "usrnamsnt", "The associated " + ConfigurationManager.AppSettings["application_name"] + " username has been sent to " + email_address + k.PERIOD, true);
                 Table_return.Visible = true;
             }
             else
             {
-                Alert(kix.alert_cause_type.USER, kix.alert_state_type.FAILURE, "nosucheml", "No such email address registered", true);
+                Alert(k.alert_cause_type.USER, k.alert_state_type.FAILURE, "nosucheml", "No such email address registered", true);
             }
         }
 

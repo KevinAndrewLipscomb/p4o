@@ -1,3 +1,4 @@
+using kix;
 using Class_db;
 using Class_db_trail;
 using MySql.Data.MySqlClient;
@@ -24,7 +25,7 @@ namespace Class_db_squads
             dr = new MySqlCommand("SELECT lpad(id,4,\"0\") as id" + " , description" + " FROM squad" + " WHERE concat(lpad(id,4,\"0\"),\" -- \",description) like \"%" + partial_spec + "%\"" + " order by description", this.connection).ExecuteReader();
             while (dr.Read())
             {
-                ((target) as ListControl).Items.Add(new ListItem(dr["id"].ToString() + kix.Units.kix.SPACE_HYPHENS_SPACE + dr["description"].ToString(), dr["id"].ToString()));
+                ((target) as ListControl).Items.Add(new ListItem(dr["id"].ToString() + k.SPACE_HYPHENS_SPACE + dr["description"].ToString(), dr["id"].ToString()));
             }
             dr.Close();
             this.Close();
@@ -36,9 +37,9 @@ namespace Class_db_squads
         {
             MySqlDataReader dr;
             ((target) as ListControl).Items.Clear();
-            if (unselected_literal != kix.Units.kix.EMPTY)
+            if (unselected_literal != k.EMPTY)
             {
-                ((target) as ListControl).Items.Add(new ListItem(unselected_literal, kix.Units.kix.EMPTY));
+                ((target) as ListControl).Items.Add(new ListItem(unselected_literal, k.EMPTY));
             }
             this.Open();
             dr = new MySqlCommand("SELECT id,description FROM squad where description <> \"(none specified)\" order by id", this.connection).ExecuteReader();
@@ -48,7 +49,7 @@ namespace Class_db_squads
             }
             dr.Close();
             this.Close();
-            if (selected_value != kix.Units.kix.EMPTY)
+            if (selected_value != k.EMPTY)
             {
                 ((target) as ListControl).SelectedValue = selected_value;
             }
@@ -62,7 +63,7 @@ namespace Class_db_squads
 
         public void BindDirectToListControl(object target, string unselected_literal)
         {
-            BindDirectToListControl(target, unselected_literal, kix.Units.kix.EMPTY);
+            BindDirectToListControl(target, unselected_literal, k.EMPTY);
         }
 
         public bool Delete(string id)
@@ -92,9 +93,9 @@ namespace Class_db_squads
             bool result;
             MySqlDataReader dr;
 
-            description = kix.Units.kix.EMPTY;
+            description = k.EMPTY;
             result = false;
-            unit_id = kix.Units.kix.EMPTY;
+            unit_id = k.EMPTY;
             this.Open();
             dr = new MySqlCommand("select description,unit_id from squad where id = \"" + id + "\"", this.connection).ExecuteReader();
             if (dr.Read())

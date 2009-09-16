@@ -1,3 +1,4 @@
+using kix;
 using Class_db;
 using Class_db_trail;
 using MySql.Data.MySqlClient;
@@ -46,9 +47,9 @@ namespace Class_db_roles
             MySqlDataReader dr;
             string where_clause;
             ((target) as ListControl).Items.Clear();
-            if (unselected_literal != kix.Units.kix.EMPTY)
+            if (unselected_literal != k.EMPTY)
             {
-                ((target) as ListControl).Items.Add(new ListItem(unselected_literal, kix.Units.kix.EMPTY));
+                ((target) as ListControl).Items.Add(new ListItem(unselected_literal, k.EMPTY));
             }
             where_clause = " where name <> \"Member\"";
             if (!has_config_roles_and_matrices)
@@ -63,7 +64,7 @@ namespace Class_db_roles
             }
             dr.Close();
             this.Close();
-            if (selected_value != kix.Units.kix.EMPTY)
+            if (selected_value != k.EMPTY)
             {
                 ((target) as ListControl).SelectedValue = selected_value;
             }
@@ -77,7 +78,7 @@ namespace Class_db_roles
 
         public void BindDirectToListControl(object target, bool has_config_roles_and_matrices, string unselected_literal)
         {
-            BindDirectToListControl(target, has_config_roles_and_matrices, unselected_literal, kix.Units.kix.EMPTY);
+            BindDirectToListControl(target, has_config_roles_and_matrices, unselected_literal, k.EMPTY);
         }
 
         public bool Delete(string name)
@@ -107,8 +108,8 @@ namespace Class_db_roles
             bool result;
             MySqlDataReader dr;
 
-            soft_hyphenation_text = kix.Units.kix.EMPTY;
-            pecking_order = kix.Units.kix.EMPTY;
+            soft_hyphenation_text = k.EMPTY;
+            pecking_order = k.EMPTY;
             result = false;
             this.Open();
             dr = new MySqlCommand("select * from role where CAST(name AS CHAR) = \"" + name + "\"", this.connection).ExecuteReader();

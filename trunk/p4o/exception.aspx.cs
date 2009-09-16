@@ -1,3 +1,4 @@
+using kix;
 using Class_biz_user;
 using System;
 using System.Collections;
@@ -25,14 +26,14 @@ namespace exception
         // / </summary>
         private void InitializeComponent()
         {
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
             this.PreRender += this.TWebForm_exception_PreRender;
         }
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
             System.Exception the_exception;
-            switch(NatureOfVisit("p"))
+            switch(NatureOfVisit("exception.p"))
             {
                 case nature_of_visit_type.VISIT_INITIAL:
                     Title.InnerText = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - exception";
@@ -45,7 +46,7 @@ namespace exception
                     {
                         Table_db_down.Visible = false;
                         Focus(TextArea_user_comment, true);
-                        p.notification_message = kix.Units.kix.EscalatedException(the_exception, User.Identity.Name, Session);
+                        p.notification_message = k.EscalatedException(the_exception, User.Identity.Name, Session);
                     }
                     break;
                 case nature_of_visit_type.VISIT_POSTBACK_STANDARD:
@@ -66,10 +67,10 @@ namespace exception
         protected void Button_submit_Click(object sender, System.EventArgs e)
         {
             string comment;
-            comment = kix.Units.kix.Safe(TextArea_user_comment.Value, kix.safe_hint_type.PUNCTUATED);
-            if (comment != kix.Units.kix.EMPTY)
+            comment = k.Safe(TextArea_user_comment.Value, k.safe_hint_type.PUNCTUATED);
+            if (comment != k.EMPTY)
             {
-               kix.Units.kix.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], ConfigurationManager.AppSettings["sender_email_address"], "EXCEPTION REPORT with user comment", "[USER COMMENT]" + kix.Units.kix.NEW_LINE + comment + kix.Units.kix.NEW_LINE + kix.Units.kix.NEW_LINE + p.notification_message);
+               k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], ConfigurationManager.AppSettings["sender_email_address"], "EXCEPTION REPORT with user comment", "[USER COMMENT]" + k.NEW_LINE + comment + k.NEW_LINE + k.NEW_LINE + p.notification_message);
             }
             Server.Transfer("login.aspx");
         }

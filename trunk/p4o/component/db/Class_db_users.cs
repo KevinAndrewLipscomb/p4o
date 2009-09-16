@@ -1,3 +1,4 @@
+using kix;
 using Class_db;
 using Class_db_trail;
 using MySql.Data.MySqlClient;
@@ -93,9 +94,9 @@ namespace Class_db_users
         {
             MySqlDataReader dr;
             ((target) as ListControl).Items.Clear();
-            if (unselected_literal != kix.Units.kix.EMPTY)
+            if (unselected_literal != k.EMPTY)
             {
-                ((target) as ListControl).Items.Add(new ListItem(unselected_literal, kix.Units.kix.EMPTY));
+                ((target) as ListControl).Items.Add(new ListItem(unselected_literal, k.EMPTY));
             }
             this.Open();
             dr = new MySqlCommand("select user.id as user_id" + " , name as user_name" + " from user" + " order by user_name", this.connection).ExecuteReader();
@@ -105,7 +106,7 @@ namespace Class_db_users
             }
             dr.Close();
             this.Close();
-            if (selected_value != kix.Units.kix.EMPTY)
+            if (selected_value != k.EMPTY)
             {
                 ((target) as ListControl).SelectedValue = selected_value;
             }
@@ -119,7 +120,7 @@ namespace Class_db_users
 
         public void BindDirectToListControl(object target, string unselected_literal)
         {
-            BindDirectToListControl(target, unselected_literal, kix.Units.kix.EMPTY);
+            BindDirectToListControl(target, unselected_literal, k.EMPTY);
         }
 
         public void Delete(string username)
@@ -136,12 +137,12 @@ namespace Class_db_users
             string
               s;
 
-            encoded_password = kix.Units.kix.EMPTY;
+            encoded_password = k.EMPTY;
             be_stale_password = true;
-            password_reset_email_address = kix.Units.kix.EMPTY;
+            password_reset_email_address = k.EMPTY;
             be_active = false;
             num_unsuccessful_login_attempts = 0;
-            last_login = kix.Units.kix.EMPTY;
+            last_login = k.EMPTY;
             result = false;
             this.Open();
             dr = new MySqlCommand(s = "select username" + " , IFNULL(encoded_password,\"\") as encoded_password" + " , be_stale_password" + " , password_reset_email_address" + " , be_active" + " , num_unsuccessful_login_attempts" + " , IFNULL(last_login,\"\") as last_login" + " from user" + " where username = \"" + username + "\"", this.connection).ExecuteReader();

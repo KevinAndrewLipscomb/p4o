@@ -1,3 +1,5 @@
+using kix;
+
 using Class_db_notifications;
 using Class_biz_members;
 using Class_biz_roles;
@@ -37,7 +39,7 @@ namespace Class_biz_notifications
 
         public void BindDirectToListControl(object target, string unselected_literal)
         {
-            BindDirectToListControl(target, unselected_literal, kix.Units.kix.EMPTY);
+            BindDirectToListControl(target, unselected_literal, k.EMPTY);
         }
 
         private delegate string IssueForForgottenUsername_Merge(string s);
@@ -59,14 +61,14 @@ namespace Class_biz_notifications
             // to
             // subject
             // body
-            kix.Units.kix.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], email_address, Merge(template_reader.ReadLine()), Merge(template_reader.ReadToEnd()));
+            k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], email_address, Merge(template_reader.ReadLine()), Merge(template_reader.ReadToEnd()));
             template_reader.Close();
         }
 
         private delegate string IssueForMembershipEstablishmentTrouble_Merge(string s);
         public void IssueForMembershipEstablishmentTrouble(string full_name, string explanation)
         {
-            string user_email_address = kix.Units.kix.EMPTY;
+            string user_email_address = k.EMPTY;
             TClass_biz_user biz_user;
             StreamReader template_reader;
 
@@ -82,26 +84,26 @@ namespace Class_biz_notifications
             // to
             // subject
             // body
-            kix.Units.kix.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], ConfigurationManager.AppSettings["membership_establishment_liaison"] + kix.Units.kix.COMMA + ConfigurationManager.AppSettings["application_name"] + "-appadmin@" + host_domain_name, Merge(template_reader.ReadLine()), Merge(template_reader.ReadToEnd()));
+            k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], ConfigurationManager.AppSettings["membership_establishment_liaison"] + k.COMMA + ConfigurationManager.AppSettings["application_name"] + "-appadmin@" + host_domain_name, Merge(template_reader.ReadLine()), Merge(template_reader.ReadToEnd()));
             template_reader.Close();
         }
 
         private delegate string IssueForRoleChange_Merge(string s);
         public void IssueForRoleChange(string member_id, string role_id, bool be_granted)
         {
-            string actor = kix.Units.kix.EMPTY;
-            string actor_email_address = kix.Units.kix.EMPTY;
+            string actor = k.EMPTY;
+            string actor_email_address = k.EMPTY;
             string actor_member_id;
             TClass_biz_members biz_members;
             TClass_biz_roles biz_roles;
             TClass_biz_user biz_user;
             TClass_biz_users biz_users;
-            string changed = kix.Units.kix.EMPTY;
-            string first_name = kix.Units.kix.EMPTY;
-            string last_name = kix.Units.kix.EMPTY;
-            string role_name = kix.Units.kix.EMPTY;
+            string changed = k.EMPTY;
+            string first_name = k.EMPTY;
+            string last_name = k.EMPTY;
+            string role_name = k.EMPTY;
             StreamReader template_reader;
-            string to_or_from = kix.Units.kix.EMPTY;
+            string to_or_from = k.EMPTY;
 
             IssueForRoleChange_Merge Merge = delegate (string s)
               {
@@ -113,7 +115,7 @@ namespace Class_biz_notifications
             biz_user = new TClass_biz_user();
             biz_users = new TClass_biz_users();
             actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
-            actor = biz_user.Roles()[0] + kix.Units.kix.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + kix.Units.kix.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+            actor = biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
             actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
             if (be_granted)
             {
@@ -137,7 +139,7 @@ namespace Class_biz_notifications
             // cc
             // bcc
             // reply_to
-            kix.Units.kix.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], biz_members.EmailAddressOf(member_id) + kix.Units.kix.COMMA + actor_email_address + kix.Units.kix.COMMA + db_notifications.TargetOf("role-change", member_id), Merge(template_reader.ReadLine()), Merge(template_reader.ReadToEnd()), false, kix.Units.kix.EMPTY, kix.Units.kix.EMPTY, actor_email_address);
+            k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], biz_members.EmailAddressOf(member_id) + k.COMMA + actor_email_address + k.COMMA + db_notifications.TargetOf("role-change", member_id), Merge(template_reader.ReadLine()), Merge(template_reader.ReadToEnd()), false, k.EMPTY, k.EMPTY, actor_email_address);
             template_reader.Close();
         }
 
@@ -160,7 +162,7 @@ namespace Class_biz_notifications
             // to
             // subject
             // body
-            kix.Units.kix.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], biz_users.PasswordResetEmailAddressOfUsername(username), Merge(template_reader.ReadLine()), Merge(template_reader.ReadToEnd()));
+            k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], biz_users.PasswordResetEmailAddressOfUsername(username), Merge(template_reader.ReadLine()), Merge(template_reader.ReadToEnd()));
             template_reader.Close();
         }
 
@@ -176,9 +178,9 @@ namespace Class_biz_notifications.Units
         //Constructor  Class_biz_notifications()
         static Class_biz_notifications()
         {
-            BreakChars[1] = kix.Units.kix.SPACE;
-            BreakChars[2] = Convert.ToChar(kix.Units.kix.TAB);
-            BreakChars[3] = kix.Units.kix.HYPHEN;
+            BreakChars[1] = Convert.ToChar(k.SPACE);
+            BreakChars[2] = Convert.ToChar(k.TAB);
+            BreakChars[3] = Convert.ToChar(k.HYPHEN);
         }
     } // end Class_biz_notifications
 

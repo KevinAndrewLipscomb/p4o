@@ -1,3 +1,5 @@
+using kix;
+
 using Class_biz_members;
 using Class_biz_role_member_map;
 using Class_biz_roles;
@@ -19,10 +21,10 @@ namespace UserControl_role
         private p_type p;
         private void Clear()
         {
-            TextBox_name.Text = kix.Units.kix.EMPTY;
+            TextBox_name.Text = k.EMPTY;
             DropDownList_name.Visible = false;
-            TextBox_pecking_order.Text = kix.Units.kix.EMPTY;
-            TextBox_soft_hyphenation_text.Text = kix.Units.kix.EMPTY;
+            TextBox_pecking_order.Text = k.EMPTY;
+            TextBox_soft_hyphenation_text.Text = k.EMPTY;
             LinkButton_go_to_match_prior.Visible = false;
             LinkButton_go_to_match_next.Visible = false;
             LinkButton_go_to_match_last.Visible = false;
@@ -44,34 +46,34 @@ namespace UserControl_role
             // EstablishClientSideFunction
             // (
             // 'RecalculateDependentValues()',
-            // kix.Units.kix.EMPTY
+            // k.EMPTY
             // + 'El("' + TextBox_gain_or_loss_in_lbs.clientid + '").value ='
             // +  ' El("' + TextBox_gross_landed_weight_in_pounds.clientid + '").value - El("' + TextBox_gross_invoiced_weight_in_lbs.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_gain_or_loss_in_kgs.clientid + '").value ='
             // +  ' El("' + TextBox_gross_landed_weight_in_kgs.clientid + '").value - El("' + TextBox_gross_invoiced_weight_in_kgs.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_gain_or_loss_per_bale_in_lbs.clientid + '").value ='
             // +  ' El("' + TextBox_gain_or_loss_in_lbs.clientid + '").value/El("' + TextBox_bales.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_gain_or_loss_per_bale_in_kgs.clientid + '").value ='
             // +  ' El("' + TextBox_gain_or_loss_in_kgs.clientid + '").value/El("' + TextBox_bales.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_actual_gain_or_loss_in_lbs.clientid + '").value ='
             // +  ' El("' + TextBox_gain_or_loss_in_lbs.clientid + '").value - El("' + TextBox_franchise_in_lbs.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_actual_gain_or_loss_in_kgs.clientid + '").value ='
             // +  ' El("' + TextBox_gain_or_loss_in_kgs.clientid + '").value - El("' + TextBox_franchise_in_kgs.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_actual_gain_or_loss_per_bale_in_lbs.clientid + '").value ='
             // +  ' El("' + TextBox_actual_gain_or_loss_in_lbs.clientid + '").value/El("' + TextBox_bales.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_actual_gain_or_loss_per_bale_in_kgs.clientid + '").value ='
             // +  ' El("' + TextBox_actual_gain_or_loss_in_kgs.clientid + '").value/El("' + TextBox_bales.clientid + '").value;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_percent_gain_or_loss.clientid + '").value ='
             // +  ' Math.round(El("' + TextBox_actual_gain_or_loss_in_lbs.clientid + '").value/El("' + TextBox_net_invoiced_in_lbs.clientid + '").value*100*100)/100;'
-            // + kix.Units.kix.NEW_LINE
+            // + k.NEW_LINE
             // + 'El("' + TextBox_monetary_gain_or_loss.clientid + '").value ='
             // +  ' El("' + TextBox_actual_gain_or_loss_in_lbs.clientid + '").value*El("' + TextBox_unit_price_in_cents_per_pound.clientid + '").value;'
             // );
@@ -124,7 +126,7 @@ namespace UserControl_role
                 if (!(Session["mode:report"] != null))
                 {
                     Label_author_email_address.Text = p.biz_user.EmailAddress();
-                    if (kix.Units.kix.Has((string[])(Session["privilege_array"]), "config-roles-and-matrices"))
+                    if (k.Has((string[])(Session["privilege_array"]), "config-roles-and-matrices"))
                     {
                         LinkButton_new_record.Visible = p.be_ok_to_config_roles;
                         TableRow_pecking_order.Visible = true;
@@ -138,10 +140,10 @@ namespace UserControl_role
                     RequiredFieldValidator_quick_message_body.Enabled = false;
                     Button_send.Enabled = false;
                 }
-                LinkButton_go_to_match_first.Text = kix.Units.kix.ExpandTildePath(LinkButton_go_to_match_first.Text);
-                LinkButton_go_to_match_prior.Text = kix.Units.kix.ExpandTildePath(LinkButton_go_to_match_prior.Text);
-                LinkButton_go_to_match_next.Text = kix.Units.kix.ExpandTildePath(LinkButton_go_to_match_next.Text);
-                LinkButton_go_to_match_last.Text = kix.Units.kix.ExpandTildePath(LinkButton_go_to_match_last.Text);
+                LinkButton_go_to_match_first.Text = k.ExpandTildePath(LinkButton_go_to_match_first.Text);
+                LinkButton_go_to_match_prior.Text = k.ExpandTildePath(LinkButton_go_to_match_prior.Text);
+                LinkButton_go_to_match_next.Text = k.ExpandTildePath(LinkButton_go_to_match_next.Text);
+                LinkButton_go_to_match_last.Text = k.ExpandTildePath(LinkButton_go_to_match_last.Text);
                 RequireConfirmation(Button_delete, "Are you sure you want to delete this record?");
                 Focus(TextBox_name, true);
                 p.be_loaded = true;
@@ -205,11 +207,11 @@ namespace UserControl_role
                 p.biz_roles = new TClass_biz_roles();
                 p.biz_user = new TClass_biz_user();
                 p.be_gridview_empty = true;
-                p.be_ok_to_config_roles = kix.Units.kix.Has((string[])(Session["privilege_array"]), "config-roles-and-matrices");
+                p.be_ok_to_config_roles = k.Has((string[])(Session["privilege_array"]), "config-roles-and-matrices");
                 p.be_sort_order_ascending = true;
-                p.distribution_list = kix.Units.kix.EMPTY;
+                p.distribution_list = k.EMPTY;
                 p.num_gridview_rows = 0;
-                p.role_name = kix.Units.kix.EMPTY;
+                p.role_name = k.EMPTY;
                 p.sort_order = "member_name%";
             }
 
@@ -225,7 +227,7 @@ namespace UserControl_role
             this.GridView_holders.RowDataBound += new System.Web.UI.WebControls.GridViewRowEventHandler(this.GridView_holders_RowDataBound);
             this.GridView_holders.RowCreated += new System.Web.UI.WebControls.GridViewRowEventHandler(this.GridView_holders_RowCreated);
             this.PreRender += this.TWebUserControl_role_PreRender;
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
         }
 
         private void TWebUserControl_role_PreRender(object sender, System.EventArgs e)
@@ -265,7 +267,7 @@ namespace UserControl_role
         {
             if ((e.Row.RowType == DataControlRowType.DataRow) && (e.Row.Cells[Class_db_role_member_map.Units.Class_db_role_member_map.ROLE_HOLDER_EMAIL_ADDRESS_CI].Text != "&nbsp;"))
             {
-                p.distribution_list = p.distribution_list + e.Row.Cells[Class_db_role_member_map.Units.Class_db_role_member_map.ROLE_HOLDER_EMAIL_ADDRESS_CI].Text + kix.Units.kix.COMMA_SPACE;
+                p.distribution_list = p.distribution_list + e.Row.Cells[Class_db_role_member_map.Units.Class_db_role_member_map.ROLE_HOLDER_EMAIL_ADDRESS_CI].Text + k.COMMA_SPACE;
                 p.num_gridview_rows = p.num_gridview_rows + 1;
             }
         }
@@ -280,18 +282,18 @@ namespace UserControl_role
             // cc
             // bcc
             // reply_to
-           kix.Units.kix.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], Label_distribution_list.Text, TextBox_quick_message_subject.Text, "-- From " + p.biz_user.Roles()[0] + kix.Units.kix.SPACE + p.biz_members.FirstNameOfMemberId(Session["member_id"].ToString()) + kix.Units.kix.SPACE + p.biz_members.LastNameOfMemberId(Session["member_id"].ToString()) + " (" + p.biz_user.EmailAddress() + ") [via " + ConfigurationManager.AppSettings["application_name"] + "]" + kix.Units.kix.NEW_LINE + kix.Units.kix.NEW_LINE + TextBox_quick_message_body.Text, false, kix.Units.kix.EMPTY, p.biz_user.EmailAddress(), p.biz_user.EmailAddress());
-            TextBox_quick_message_subject.Text = kix.Units.kix.EMPTY;
-            TextBox_quick_message_body.Text = kix.Units.kix.EMPTY;
-            Alert(kix.alert_cause_type.LOGIC, kix.alert_state_type.NORMAL, "messagsnt", "Message sent", true);
+           k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], Label_distribution_list.Text, TextBox_quick_message_subject.Text, "-- From " + p.biz_user.Roles()[0] + k.SPACE + p.biz_members.FirstNameOfMemberId(Session["member_id"].ToString()) + k.SPACE + p.biz_members.LastNameOfMemberId(Session["member_id"].ToString()) + " (" + p.biz_user.EmailAddress() + ") [via " + ConfigurationManager.AppSettings["application_name"] + "]" + k.NEW_LINE + k.NEW_LINE + TextBox_quick_message_body.Text, false, k.EMPTY, p.biz_user.EmailAddress(), p.biz_user.EmailAddress());
+            TextBox_quick_message_subject.Text = k.EMPTY;
+            TextBox_quick_message_body.Text = k.EMPTY;
+            Alert(k.alert_cause_type.LOGIC, k.alert_state_type.NORMAL, "messagsnt", "Message sent", true);
         }
 
         protected void Button_submit_Click(object sender, System.EventArgs e)
         {
             if (Page.IsValid)
             {
-                p.biz_roles.Set(kix.Units.kix.Safe(TextBox_name.Text, kix.safe_hint_type.HUMAN_NAME).Trim(), kix.Units.kix.Safe(TextBox_soft_hyphenation_text.Text, kix.safe_hint_type.PUNCTUATED).Trim(), kix.Units.kix.Safe(TextBox_pecking_order.Text, kix.safe_hint_type.NUM).Trim());
-                Alert(kix.alert_cause_type.USER, kix.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
+                p.biz_roles.Set(k.Safe(TextBox_name.Text, k.safe_hint_type.HUMAN_NAME).Trim(), k.Safe(TextBox_soft_hyphenation_text.Text, k.safe_hint_type.PUNCTUATED).Trim(), k.Safe(TextBox_pecking_order.Text, k.safe_hint_type.NUM).Trim());
+                Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
                 SetLookupMode();
             }
             else
@@ -302,43 +304,43 @@ namespace UserControl_role
 
         protected void DropDownList_name_SelectedIndexChanged(object sender, System.EventArgs e)
         {
-            p.role_name = kix.Units.kix.Safe(DropDownList_name.SelectedValue, kix.safe_hint_type.HUMAN_NAME);
+            p.role_name = k.Safe(DropDownList_name.SelectedValue, k.safe_hint_type.HUMAN_NAME);
             PresentRecord(p.role_name);
         }
 
         protected void LinkButton_go_to_match_first_Click(object sender, System.EventArgs e)
         {
             DropDownList_name.SelectedIndex = 1;
-            PresentRecord(kix.Units.kix.Safe(DropDownList_name.SelectedValue, kix.safe_hint_type.HUMAN_NAME));
+            PresentRecord(k.Safe(DropDownList_name.SelectedValue, k.safe_hint_type.HUMAN_NAME));
         }
 
         protected void LinkButton_go_to_match_prior_Click(object sender, System.EventArgs e)
         {
             DropDownList_name.SelectedIndex = Math.Max(1, (DropDownList_name.SelectedIndex - 1));
-            PresentRecord(kix.Units.kix.Safe(DropDownList_name.SelectedValue, kix.safe_hint_type.HUMAN_NAME));
+            PresentRecord(k.Safe(DropDownList_name.SelectedValue, k.safe_hint_type.HUMAN_NAME));
         }
 
         protected void LinkButton_go_to_match_next_Click(object sender, System.EventArgs e)
         {
             DropDownList_name.SelectedIndex = Math.Min((DropDownList_name.SelectedIndex + 1), (DropDownList_name.Items.Count - 1));
-            PresentRecord(kix.Units.kix.Safe(DropDownList_name.SelectedValue, kix.safe_hint_type.HUMAN_NAME));
+            PresentRecord(k.Safe(DropDownList_name.SelectedValue, k.safe_hint_type.HUMAN_NAME));
         }
 
         protected void LinkButton_go_to_match_last_Click(object sender, System.EventArgs e)
         {
             DropDownList_name.SelectedIndex = DropDownList_name.Items.Count - 1;
-            PresentRecord(kix.Units.kix.Safe(DropDownList_name.SelectedValue, kix.safe_hint_type.HUMAN_NAME));
+            PresentRecord(k.Safe(DropDownList_name.SelectedValue, k.safe_hint_type.HUMAN_NAME));
         }
 
         protected void Button_delete_Click(object sender, System.EventArgs e)
         {
-            if (p.biz_roles.Delete(kix.Units.kix.Safe(TextBox_name.Text, kix.safe_hint_type.HUMAN_NAME)))
+            if (p.biz_roles.Delete(k.Safe(TextBox_name.Text, k.safe_hint_type.HUMAN_NAME)))
             {
                 SetLookupMode();
             }
             else
             {
-                Alert(kix.alert_cause_type.APPDATA, kix.alert_state_type.FAILURE, "dependency", " Cannot delete this record because another record depends on it.", true);
+                Alert(k.alert_cause_type.APPDATA, k.alert_state_type.FAILURE, "dependency", " Cannot delete this record because another record depends on it.", true);
             }
         }
 
@@ -387,11 +389,11 @@ namespace UserControl_role
                     DropDownList_name.Visible = true;
                     if (num_matches == 1)
                     {
-                        PresentRecord(kix.Units.kix.Safe(DropDownList_name.SelectedValue, kix.safe_hint_type.HUMAN_NAME));
+                        PresentRecord(k.Safe(DropDownList_name.SelectedValue, k.safe_hint_type.HUMAN_NAME));
                     }
                     else
                     {
-                        DropDownList_name.Items.Insert(0, new ListItem("-- Select --", kix.Units.kix.EMPTY));
+                        DropDownList_name.Items.Insert(0, new ListItem("-- Select --", k.EMPTY));
                     }
                 }
             }
@@ -403,13 +405,13 @@ namespace UserControl_role
             p.biz_role_member_map.BindHolders(role_name, GridView_holders, p.sort_order, p.be_sort_order_ascending);
             p.be_gridview_empty = (p.num_gridview_rows == 0);
             Table_holders.Visible = !p.be_gridview_empty;
-            Label_distribution_list.Text = (p.distribution_list + kix.Units.kix.SPACE).TrimEnd(new char[] {kix.Units.kix.COMMA, kix.Units.kix.SPACE});
+            Label_distribution_list.Text = (p.distribution_list + k.SPACE).TrimEnd(new char[] {Convert.ToChar(k.COMMA), Convert.ToChar(k.SPACE)});
             Label_num_rows.Text = p.num_gridview_rows.ToString();
-            be_user_authorized_to_send_quickmessages = kix.Units.kix.Has((string[])(Session["privilege_array"]), "send-quickmessages") && !p.be_gridview_empty;
+            be_user_authorized_to_send_quickmessages = k.Has((string[])(Session["privilege_array"]), "send-quickmessages") && !p.be_gridview_empty;
             Anchor_quick_message_shortcut.Visible = be_user_authorized_to_send_quickmessages;
             Table_quick_message.Visible = be_user_authorized_to_send_quickmessages;
             // Clear aggregation vars for next bind, if any.
-            p.distribution_list = kix.Units.kix.EMPTY;
+            p.distribution_list = k.EMPTY;
             p.num_gridview_rows = 0;
 
         }

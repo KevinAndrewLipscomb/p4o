@@ -1,3 +1,4 @@
+using kix;
 using Class_biz_user;
 using Class_biz_users;
 using System;
@@ -60,16 +61,16 @@ namespace UserControl_establish_membership
 
         protected void Button_submit_Click(object sender, System.EventArgs e)
         {
-            if (p.biz_users.AcceptAsMember(kix.Units.kix.Safe(TextBox_shared_secret.Text, kix.safe_hint_type.ALPHANUM), p.biz_user.IdNum()))
+            if (p.biz_users.AcceptAsMember(k.Safe(TextBox_shared_secret.Text, k.safe_hint_type.ALPHANUM), p.biz_user.IdNum()))
             {
                 SessionSet("privilege_array", p.biz_user.Privileges());
                 // User was an unprivileged user until now, so reset privs.
-                Alert(kix.alert_cause_type.USER, kix.alert_state_type.SUCCESS, "memaccept", "Link to membership record established.  Membership privileges granted.", true);
+                Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "memaccept", "Link to membership record established.  Membership privileges granted.", true);
                 Table_proceed.Visible = true;
             }
             else
             {
-                Alert(kix.alert_cause_type.USER, kix.alert_state_type.FAILURE, "nosuchmem", "No such membership record could be located.  Please check your submission for accuracy.", true);
+                Alert(k.alert_cause_type.USER, k.alert_state_type.FAILURE, "nosuchmem", "No such membership record could be located.  Please check your submission for accuracy.", true);
             }
         }
 
@@ -80,7 +81,7 @@ namespace UserControl_establish_membership
         private void InitializeComponent()
         {
             this.PreRender += this.TWebUserControl_establish_membership_PreRender;
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
         }
 
         private void TWebUserControl_establish_membership_PreRender(object sender, System.EventArgs e)

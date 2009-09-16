@@ -1,3 +1,4 @@
+using kix;
 using Class_db;
 using Class_db_trail;
 using MySql.Data.MySqlClient;
@@ -45,9 +46,9 @@ namespace Class_db_members
         {
             MySqlDataReader dr;
             ((target) as ListControl).Items.Clear();
-            if (unselected_literal != kix.Units.kix.EMPTY)
+            if (unselected_literal != k.EMPTY)
             {
-                ((target) as ListControl).Items.Add(new ListItem(unselected_literal, kix.Units.kix.EMPTY));
+                ((target) as ListControl).Items.Add(new ListItem(unselected_literal, k.EMPTY));
             }
             this.Open();
             dr = new MySqlCommand("select member.id as member_id" + " , concat(last_name,\", \",first_name) as member_designator" + " from member" + " order by member_designator", this.connection).ExecuteReader();
@@ -57,7 +58,7 @@ namespace Class_db_members
             }
             dr.Close();
             this.Close();
-            if (selected_value != kix.Units.kix.EMPTY)
+            if (selected_value != k.EMPTY)
             {
                 ((target) as ListControl).SelectedValue = selected_value;
             }
@@ -71,7 +72,7 @@ namespace Class_db_members
 
         public void BindDirectToListControl(object target, string unselected_literal)
         {
-            BindDirectToListControl(target, unselected_literal, kix.Units.kix.EMPTY);
+            BindDirectToListControl(target, unselected_literal, k.EMPTY);
         }
 
         public bool Delete(string registration_code)
@@ -108,7 +109,7 @@ namespace Class_db_members
             }
             else
             {
-                result = kix.Units.kix.EMPTY;
+                result = k.EMPTY;
             }
             this.Close();
             return result;
@@ -128,10 +129,10 @@ namespace Class_db_members
             bool result;
             MySqlDataReader dr;
 
-            last_name = kix.Units.kix.EMPTY;
-            first_name = kix.Units.kix.EMPTY;
-            email_address = kix.Units.kix.EMPTY;
-            squad_id = kix.Units.kix.EMPTY;
+            last_name = k.EMPTY;
+            first_name = k.EMPTY;
+            email_address = k.EMPTY;
+            squad_id = k.EMPTY;
             result = false;
             this.Open();
             dr = new MySqlCommand("select * from member where CAST(registration_code AS CHAR) = \"" + registration_code + "\"", this.connection).ExecuteReader();
@@ -161,7 +162,7 @@ namespace Class_db_members
             }
             else
             {
-                result = kix.Units.kix.EMPTY;
+                result = k.EMPTY;
             }
             this.Close();
             return result;
@@ -205,7 +206,7 @@ namespace Class_db_members
             }
             else
             {
-                result = kix.Units.kix.EMPTY;
+                result = k.EMPTY;
             }
             this.Close();
             return result;

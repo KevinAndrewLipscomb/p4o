@@ -1,3 +1,5 @@
+using kix;
+
 using Class_biz_notifications;
 using Class_biz_user;
 using System;
@@ -22,7 +24,7 @@ namespace establish_membership_trouble
         private void InitializeComponent()
         {
             this.PreRender += this.TWebForm_establish_membership_trouble_PreRender;
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
         }
 
         protected void Page_Load(object sender, System.EventArgs e)
@@ -64,7 +66,7 @@ namespace establish_membership_trouble
 
         protected void Button_submit_Click(object sender, System.EventArgs e)
         {
-            p.biz_notifications.IssueForMembershipEstablishmentTrouble(kix.Units.kix.Safe(TextBox_full_name.Text, kix.safe_hint_type.HUMAN_NAME), kix.Units.kix.Safe(TextBox_explanation.Text, kix.safe_hint_type.PUNCTUATED));
+            p.biz_notifications.IssueForMembershipEstablishmentTrouble(k.Safe(TextBox_full_name.Text, k.safe_hint_type.HUMAN_NAME), k.Safe(TextBox_explanation.Text, k.safe_hint_type.PUNCTUATED));
             Session.Clear();
             Server.Transfer("~/login.aspx");
         }

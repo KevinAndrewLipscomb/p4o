@@ -1,3 +1,5 @@
+using kix;
+
 using Class_biz_users;
 using System;
 using System.Collections;
@@ -15,14 +17,14 @@ namespace UserControl_user
         protected System.Web.UI.WebControls.Label Label_application_name = null;
         private void Clear()
         {
-            TextBox_username.Text = kix.Units.kix.EMPTY;
+            TextBox_username.Text = k.EMPTY;
             DropDownList_username.Visible = false;
-            TextBox_encoded_password.Text = kix.Units.kix.EMPTY;
+            TextBox_encoded_password.Text = k.EMPTY;
             CheckBox_be_stale_password.Checked = false;
-            TextBox_password_reset_email_address.Text = kix.Units.kix.EMPTY;
+            TextBox_password_reset_email_address.Text = k.EMPTY;
             CheckBox_be_active.Checked = false;
-            TextBox_num_unsuccessful_login_attempts.Text = kix.Units.kix.EMPTY;
-            TextBox_last_login.Text = kix.Units.kix.EMPTY;
+            TextBox_num_unsuccessful_login_attempts.Text = k.EMPTY;
+            TextBox_last_login.Text = k.EMPTY;
             LinkButton_go_to_match_prior.Visible = false;
             LinkButton_go_to_match_next.Visible = false;
             LinkButton_go_to_match_last.Visible = false;
@@ -37,10 +39,10 @@ namespace UserControl_user
         {
             if (!p.be_loaded)
             {
-                LinkButton_go_to_match_first.Text = kix.Units.kix.ExpandTildePath(LinkButton_go_to_match_first.Text);
-                LinkButton_go_to_match_prior.Text = kix.Units.kix.ExpandTildePath(LinkButton_go_to_match_prior.Text);
-                LinkButton_go_to_match_next.Text = kix.Units.kix.ExpandTildePath(LinkButton_go_to_match_next.Text);
-                LinkButton_go_to_match_last.Text = kix.Units.kix.ExpandTildePath(LinkButton_go_to_match_last.Text);
+                LinkButton_go_to_match_first.Text = k.ExpandTildePath(LinkButton_go_to_match_first.Text);
+                LinkButton_go_to_match_prior.Text = k.ExpandTildePath(LinkButton_go_to_match_prior.Text);
+                LinkButton_go_to_match_next.Text = k.ExpandTildePath(LinkButton_go_to_match_next.Text);
+                LinkButton_go_to_match_last.Text = k.ExpandTildePath(LinkButton_go_to_match_last.Text);
                 RequireConfirmation(Button_delete, "Are you sure you want to delete this record?");
                 Focus(TextBox_username, true);
                 p.be_loaded = true;
@@ -105,7 +107,7 @@ namespace UserControl_user
             {
                 p.be_loaded = false;
                 p.biz_users = new TClass_biz_users();
-                p.be_ok_to_config_users = kix.Units.kix.Has((string[])(Session["privilege_array"]), "config-users");
+                p.be_ok_to_config_users = k.Has((string[])(Session["privilege_array"]), "config-users");
             }
 
         }
@@ -117,7 +119,7 @@ namespace UserControl_user
         private void InitializeComponent()
         {
             this.PreRender += this.TWebUserControl_user_PreRender;
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
         }
 
         private void TWebUserControl_user_PreRender(object sender, System.EventArgs e)
@@ -137,8 +139,8 @@ namespace UserControl_user
         {
             if (Page.IsValid)
             {
-                p.biz_users.Set(kix.Units.kix.Safe(TextBox_username.Text, kix.safe_hint_type.HYPHENATED_UNDERSCORED_ALPHANUM), CheckBox_be_stale_password.Checked, kix.Units.kix.Safe(TextBox_password_reset_email_address.Text, kix.safe_hint_type.EMAIL_ADDRESS), CheckBox_be_active.Checked);
-                Alert(kix.alert_cause_type.USER, kix.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
+                p.biz_users.Set(k.Safe(TextBox_username.Text, k.safe_hint_type.HYPHENATED_UNDERSCORED_ALPHANUM), CheckBox_be_stale_password.Checked, k.Safe(TextBox_password_reset_email_address.Text, k.safe_hint_type.EMAIL_ADDRESS), CheckBox_be_active.Checked);
+                Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
                 SetLookupMode();
             }
             else
@@ -149,36 +151,36 @@ namespace UserControl_user
 
         protected void DropDownList_username_SelectedIndexChanged(object sender, System.EventArgs e)
         {
-            PresentRecord(kix.Units.kix.Safe(DropDownList_username.SelectedValue, kix.safe_hint_type.HYPHENATED_UNDERSCORED_ALPHANUM));
+            PresentRecord(k.Safe(DropDownList_username.SelectedValue, k.safe_hint_type.HYPHENATED_UNDERSCORED_ALPHANUM));
         }
 
         protected void LinkButton_go_to_match_first_Click(object sender, System.EventArgs e)
         {
             DropDownList_username.SelectedIndex = 1;
-            PresentRecord(kix.Units.kix.Safe(DropDownList_username.SelectedValue, kix.safe_hint_type.HYPHENATED_UNDERSCORED_ALPHANUM));
+            PresentRecord(k.Safe(DropDownList_username.SelectedValue, k.safe_hint_type.HYPHENATED_UNDERSCORED_ALPHANUM));
         }
 
         protected void LinkButton_go_to_match_prior_Click(object sender, System.EventArgs e)
         {
             DropDownList_username.SelectedIndex = Math.Max(1, (DropDownList_username.SelectedIndex - 1));
-            PresentRecord(kix.Units.kix.Safe(DropDownList_username.SelectedValue, kix.safe_hint_type.HYPHENATED_UNDERSCORED_ALPHANUM));
+            PresentRecord(k.Safe(DropDownList_username.SelectedValue, k.safe_hint_type.HYPHENATED_UNDERSCORED_ALPHANUM));
         }
 
         protected void LinkButton_go_to_match_next_Click(object sender, System.EventArgs e)
         {
             DropDownList_username.SelectedIndex = Math.Min((DropDownList_username.SelectedIndex + 1), (DropDownList_username.Items.Count - 1));
-            PresentRecord(kix.Units.kix.Safe(DropDownList_username.SelectedValue, kix.safe_hint_type.HYPHENATED_UNDERSCORED_ALPHANUM));
+            PresentRecord(k.Safe(DropDownList_username.SelectedValue, k.safe_hint_type.HYPHENATED_UNDERSCORED_ALPHANUM));
         }
 
         protected void LinkButton_go_to_match_last_Click(object sender, System.EventArgs e)
         {
             DropDownList_username.SelectedIndex = DropDownList_username.Items.Count - 1;
-            PresentRecord(kix.Units.kix.Safe(DropDownList_username.SelectedValue, kix.safe_hint_type.HYPHENATED_UNDERSCORED_ALPHANUM));
+            PresentRecord(k.Safe(DropDownList_username.SelectedValue, k.safe_hint_type.HYPHENATED_UNDERSCORED_ALPHANUM));
         }
 
         protected void Button_delete_Click(object sender, System.EventArgs e)
         {
-            p.biz_users.Delete(kix.Units.kix.Safe(TextBox_username.Text, kix.safe_hint_type.ALPHANUM));
+            p.biz_users.Delete(k.Safe(TextBox_username.Text, k.safe_hint_type.ALPHANUM));
             SetLookupMode();
         }
 
@@ -214,11 +216,11 @@ namespace UserControl_user
                     DropDownList_username.Visible = true;
                     if (num_matches == 1)
                     {
-                        PresentRecord(kix.Units.kix.Safe(DropDownList_username.SelectedValue, kix.safe_hint_type.HYPHENATED_UNDERSCORED_ALPHANUM));
+                        PresentRecord(k.Safe(DropDownList_username.SelectedValue, k.safe_hint_type.HYPHENATED_UNDERSCORED_ALPHANUM));
                     }
                     else
                     {
-                        DropDownList_username.Items.Insert(0, new ListItem("-- Select --", kix.Units.kix.EMPTY));
+                        DropDownList_username.Items.Insert(0, new ListItem("-- Select --", k.EMPTY));
                     }
                 }
             }

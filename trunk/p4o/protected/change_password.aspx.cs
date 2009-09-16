@@ -1,3 +1,5 @@
+using kix;
+
 using Class_biz_users;
 using Class_biz_user;
 using System;
@@ -29,7 +31,7 @@ namespace change_password
         private void InitializeComponent()
         {
             this.PreRender += this.TWebForm_change_password_PreRender;
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
         }
 
         protected void Page_Load(object sender, System.EventArgs e)
@@ -74,7 +76,7 @@ namespace change_password
         {
             if (Page.IsValid)
             {
-                p.biz_users.SetPassword(p.biz_user.IdNum(), kix.Units.kix.Digest(kix.Units.kix.Safe(TextBox_nominal_password.Text.Trim(), kix.safe_hint_type.ALPHANUM)));
+                p.biz_users.SetPassword(p.biz_user.IdNum(), k.Digest(k.Safe(TextBox_nominal_password.Text.Trim(), k.safe_hint_type.ALPHANUM)));
                 BackTrack();
             }
             else

@@ -1,3 +1,5 @@
+using kix;
+
 using Class_biz_users;
 using System;
 using System.Collections;
@@ -29,7 +31,7 @@ namespace login
         // / </summary>
         private void InitializeComponent()
         {
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
             this.PreRender += this.TWebForm_login_PreRender;
         }
 
@@ -69,21 +71,21 @@ namespace login
         protected void LinkButton_forgot_password_Click(object sender, System.EventArgs e)
         {
             string username;
-            if (TextBox_username.Text == kix.Units.kix.EMPTY)
+            if (TextBox_username.Text == k.EMPTY)
             {
-                Alert(kix.alert_cause_type.USER, kix.alert_state_type.FAILURE, "misusrnam", "Please enter your username.", true);
+                Alert(k.alert_cause_type.USER, k.alert_state_type.FAILURE, "misusrnam", "Please enter your username.", true);
             }
             else
             {
-                username = kix.Units.kix.Safe(TextBox_username.Text.Trim(), kix.safe_hint_type.HYPHENATED_UNDERSCORED_ALPHANUM);
+                username = k.Safe(TextBox_username.Text.Trim(), k.safe_hint_type.HYPHENATED_UNDERSCORED_ALPHANUM);
                 if (p.biz_users.BeRegisteredUsername(username))
                 {
-                    p.biz_users.IssueTemporaryPassword(username, kix.Units.kix.Safe(Request.UserHostName, kix.safe_hint_type.HOSTNAME));
-                    Alert(kix.alert_cause_type.LOGIC, kix.alert_state_type.NORMAL, "tmpassent", "A temporary password has been sent to the email address that " + ConfigurationManager.AppSettings["application_name"] + " has on file for " + username + ".  Please log in after you receive it.  You will receive further instructions at that" + " time.", true);
+                    p.biz_users.IssueTemporaryPassword(username, k.Safe(Request.UserHostName, k.safe_hint_type.HOSTNAME));
+                    Alert(k.alert_cause_type.LOGIC, k.alert_state_type.NORMAL, "tmpassent", "A temporary password has been sent to the email address that " + ConfigurationManager.AppSettings["application_name"] + " has on file for " + username + ".  Please log in after you receive it.  You will receive further instructions at that" + " time.", true);
                 }
                 else
                 {
-                    Alert(kix.alert_cause_type.USER, kix.alert_state_type.FAILURE, "nosuchusr", "No such user registered", true);
+                    Alert(k.alert_cause_type.USER, k.alert_state_type.FAILURE, "nosuchusr", "No such user registered", true);
                 }
             }
         }
@@ -95,13 +97,13 @@ namespace login
 
         protected void CustomValidator_account_exists_ServerValidate(object source, System.Web.UI.WebControls.ServerValidateEventArgs args)
         {
-            args.IsValid = p.biz_users.BeAuthorized(kix.Units.kix.Safe(TextBox_username.Text.Trim(), kix.safe_hint_type.HYPHENATED_UNDERSCORED_ALPHANUM), kix.Units.kix.Digest(kix.Units.kix.Safe(TextBox_password.Text.Trim(), kix.safe_hint_type.HYPHENATED_UNDERSCORED_ALPHANUM)));
+            args.IsValid = p.biz_users.BeAuthorized(k.Safe(TextBox_username.Text.Trim(), k.safe_hint_type.HYPHENATED_UNDERSCORED_ALPHANUM), k.Digest(k.Safe(TextBox_password.Text.Trim(), k.safe_hint_type.HYPHENATED_UNDERSCORED_ALPHANUM)));
         }
 
         protected void Button_log_in_Click(object sender, System.EventArgs e)
         {
             string username;
-            username = kix.Units.kix.Safe(TextBox_username.Text.Trim(), kix.safe_hint_type.HYPHENATED_UNDERSCORED_ALPHANUM);
+            username = k.Safe(TextBox_username.Text.Trim(), k.safe_hint_type.HYPHENATED_UNDERSCORED_ALPHANUM);
             if (Page.IsValid)
             {
                 SessionSet("user_id", p.biz_users.IdOf(username));
