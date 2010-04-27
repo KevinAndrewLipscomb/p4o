@@ -81,7 +81,7 @@ namespace Class_db_members
             result = true;
             this.Open();
             try {
-                new MySqlCommand(db_trail.Saved("delete from member where registration_code = " + registration_code), this.connection).ExecuteNonQuery();
+                new MySqlCommand(db_trail.Saved("delete from member where registration_code = '" + registration_code + "'"), this.connection).ExecuteNonQuery();
             }
             catch(System.Exception e) {
                 if (e.Message.StartsWith("Cannot delete or update a parent row: a foreign key constraint fails", true, null))
