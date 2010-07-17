@@ -314,22 +314,22 @@ namespace UserControl_member
                 TextBox_registration_code.Text = saved_registration_code;
                 p.biz_members.Bind(saved_registration_code, DropDownList_registration_code);
                 num_matches = (uint)(DropDownList_registration_code.Items.Count);
-                if (num_matches > 0)
-                {
-                    LinkButton_go_to_match_prior.Visible = true;
-                    LinkButton_go_to_match_next.Visible = true;
-                    LinkButton_go_to_match_last.Visible = true;
-                    LinkButton_go_to_match_first.Visible = true;
-                    DropDownList_registration_code.Visible = true;
-                    if (num_matches == 1)
-                    {
-                        PresentRecord(k.Safe(DropDownList_registration_code.SelectedValue, k.safe_hint_type.ALPHANUM));
-                    }
-                    else
-                    {
-                        DropDownList_registration_code.Items.Insert(0, new ListItem("-- Select --", k.EMPTY));
-                    }
-                }
+        if (num_matches > 0)
+          {
+          DropDownList_registration_code.Visible = true;
+          if (num_matches == 1)
+            {
+            PresentRecord(k.Safe(DropDownList_registration_code.SelectedValue, k.safe_hint_type.ALPHANUM));
+            }
+          else
+            {
+            LinkButton_go_to_match_prior.Visible = true;
+            LinkButton_go_to_match_next.Visible = true;
+            LinkButton_go_to_match_last.Visible = true;
+            LinkButton_go_to_match_first.Visible = true;
+            DropDownList_registration_code.Items.Insert(0, new ListItem("-- Select --", k.EMPTY));
+            }
+          }
             }
         }
 
