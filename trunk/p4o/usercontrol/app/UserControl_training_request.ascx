@@ -162,6 +162,7 @@
     </font>
     </td>
     <td>
+      <asp:RegularExpressionValidator ID="RegularExpressionValidator_reason" runat="server" ErrorMessage="Please restrict the Reason entry to 65,535 characters." ControlToValidate="TextBox_reason" Display="Dynamic" Font-Bold="True" ValidationExpression="^[\s\S]{0,65535}$">!ERR!</asp:RegularExpressionValidator>
     </td>
   </tr>
 </ASP:Panel>
@@ -205,6 +206,7 @@
     </font>
     </td>
     <td>
+      <asp:RegularExpressionValidator ID="RegularExpressionValidator_disposition_training_comments" runat="server" ErrorMessage="Please restrict the Disposition training comments entry to 65,535 characters." ControlToValidate="TextBox_disposition_training_comments" Display="Dynamic" Font-Bold="True" ValidationExpression="^[\s\S]{0,65535}$">!ERR!</asp:RegularExpressionValidator>
     </td>
   </tr>
 </ASP:Panel>
@@ -246,6 +248,7 @@
     </font>
     </td>
     <td>
+      <asp:RegularExpressionValidator ID="RegularExpressionValidator_disposition_squad_comments" runat="server" ErrorMessage="Please restrict the Disposition squad comments entry to 65,535 characters." ControlToValidate="TextBox_disposition_squad_comments" Display="Dynamic" Font-Bold="True" ValidationExpression="^[\s\S]{0,65535}$">!ERR!</asp:RegularExpressionValidator>
     </td>
   </tr>
 </ASP:Panel>
@@ -287,6 +290,7 @@
     </font>
     </td>
     <td>
+      <asp:RegularExpressionValidator ID="RegularExpressionValidator_disposition_unit_comments" runat="server" ErrorMessage="Please restrict the Disposition unit comments entry to 65,535 characters." ControlToValidate="TextBox_disposition_unit_comments" Display="Dynamic" Font-Bold="True" ValidationExpression="^[\s\S]{0,65535}$">!ERR!</asp:RegularExpressionValidator>
     </td>
   </tr>
 </ASP:Panel>
@@ -328,6 +332,7 @@
     </font>
     </td>
     <td>
+      <asp:RegularExpressionValidator ID="RegularExpressionValidator_disposition_division_comments" runat="server" ErrorMessage="Please restrict the Disposition division comments entry to 65,535 characters." ControlToValidate="TextBox_disposition_division_comments" Display="Dynamic" Font-Bold="True" ValidationExpression="^[\s\S]{0,65535}$">!ERR!</asp:RegularExpressionValidator>
     </td>
   </tr>
 </ASP:Panel>
@@ -369,6 +374,7 @@
     </font>
     </td>
     <td>
+      <asp:RegularExpressionValidator ID="RegularExpressionValidator_disposition_assistant_chief_comments" runat="server" ErrorMessage="Please restrict the Disposition assistant chief comments entry to 65,535 characters." ControlToValidate="TextBox_disposition_assistant_chief_comments" Display="Dynamic" Font-Bold="True" ValidationExpression="^[\s\S]{0,65535}$">!ERR!</asp:RegularExpressionValidator>
     </td>
   </tr>
 </ASP:Panel>
@@ -421,6 +427,7 @@
     </font>
     </td>
     <td>
+      <asp:RegularExpressionValidator ID="RegularExpressionValidator_payment_comments" runat="server" ErrorMessage="Please restrict the Payment comments entry to 65,535 characters." ControlToValidate="TextBox_payment_comments" Display="Dynamic" Font-Bold="True" ValidationExpression="^[\s\S]{0,65535}$">!ERR!</asp:RegularExpressionValidator>
     </td>
   </tr>
 </ASP:Panel>
