@@ -1,0 +1,7 @@
+grant select
+ , insert
+ , update
+ , delete
+ , create
+  on p4odb_x.*
+  to 'ki-p4o-x'@'localhost' identified by '~ki-p4o-x-password~'
