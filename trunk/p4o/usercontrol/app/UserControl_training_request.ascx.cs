@@ -300,9 +300,9 @@ namespace UserControl_training_request
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (Session["UserControl_training_request.p"] != null)
+            if (Session[InstanceId() + ".p"] != null)
             {
-                p = (p_type)(Session["UserControl_training_request.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
                 p.be_loaded = IsPostBack && (((p.mode == mode_type.@NEW) && ((Session["UserControl_member_binder_UserControl_new_binder_PlaceHolder_content"] as string) == "UserControl_training_request")) || ((p.mode == mode_type.CURRENT) && ((Session["UserControl_member_binder_UserControl_current_binder_PlaceHolder_content"] as string) == "UserControl_training_request")));
             }
             else
@@ -328,13 +328,13 @@ namespace UserControl_training_request
 
         private void TWebUserControl_training_request_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("UserControl_training_request.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         public TWebUserControl_training_request Fresh()
         {
             TWebUserControl_training_request result;
-            Session.Remove("UserControl_training_request.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }

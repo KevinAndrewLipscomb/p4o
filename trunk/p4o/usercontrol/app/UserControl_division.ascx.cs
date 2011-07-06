@@ -176,9 +176,9 @@ namespace UserControl_division
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (Session["UserControl_division.p"] != null)
+            if (Session[InstanceId() + ".p"] != null)
             {
-                p = (p_type)(Session["UserControl_division.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
                 p.be_loaded = IsPostBack && ((Session["UserControl_member_binder_UserControl_config_UserControl_business_objects_binder_PlaceHolder_content"] as string) == "UserControl_division");
             }
             else
@@ -203,13 +203,13 @@ namespace UserControl_division
 
         private void TWebUserControl_division_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("UserControl_division.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         public TWebUserControl_division Fresh()
         {
             TWebUserControl_division result;
-            Session.Remove("UserControl_division.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }

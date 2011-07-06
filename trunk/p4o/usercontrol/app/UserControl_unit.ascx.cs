@@ -176,9 +176,9 @@ namespace UserControl_unit
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (Session["UserControl_unit.p"] != null)
+            if (Session[InstanceId() + ".p"] != null)
             {
-                p = (p_type)(Session["UserControl_unit.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
                 p.be_loaded = IsPostBack && ((Session["UserControl_member_binder_UserControl_config_UserControl_business_objects_binder_PlaceHolder_content"] as string) == "UserControl_unit");
             }
             else
@@ -203,13 +203,13 @@ namespace UserControl_unit
 
         private void TWebUserControl_unit_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("UserControl_unit.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         public TWebUserControl_unit Fresh()
         {
             TWebUserControl_unit result;
-            Session.Remove("UserControl_unit.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }
