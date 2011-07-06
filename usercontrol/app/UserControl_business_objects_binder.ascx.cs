@@ -31,9 +31,9 @@ namespace UserControl_business_objects_binder
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (Session["UserControl_business_objects_binder.p"] != null)
+            if (Session[InstanceId() + ".p"] != null)
             {
-                p = (p_type)(Session["UserControl_business_objects_binder.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
                 p.be_loaded = IsPostBack && ((Session["UserControl_config_PlaceHolder_content"] as string) == "UserControl_business_objects_binder");
                 if ((Session["UserControl_business_objects_binder_selected_tab"] != null))
                 {
@@ -62,7 +62,7 @@ namespace UserControl_business_objects_binder
             {
                 p.be_loaded = false;
                 p.tab_index = Units.UserControl_business_objects_binder.TSSI_SQUAD;
-                p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_squad)(LoadControl("~/usercontrol/app/UserControl_squad.ascx"))).Fresh(), "UserControl_squad", PlaceHolder_content);
+                p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_squad)(LoadControl("~/usercontrol/app/UserControl_squad.ascx"))),"UserControl_squad",PlaceHolder_content,InstanceId());
             }
 
         }
@@ -74,16 +74,16 @@ namespace UserControl_business_objects_binder
             switch(p.tab_index)
             {
                 case Units.UserControl_business_objects_binder.TSSI_SQUAD:
-                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_squad)(LoadControl("~/usercontrol/app/UserControl_squad.ascx"))).Fresh(), "UserControl_squad", PlaceHolder_content);
+                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_squad)(LoadControl("~/usercontrol/app/UserControl_squad.ascx"))),"UserControl_squad",PlaceHolder_content,InstanceId());
                     break;
                 case Units.UserControl_business_objects_binder.TSSI_UNIT:
-                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_unit)(LoadControl("~/usercontrol/app/UserControl_unit.ascx"))).Fresh(), "UserControl_unit", PlaceHolder_content);
+                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_unit)(LoadControl("~/usercontrol/app/UserControl_unit.ascx"))),"UserControl_unit",PlaceHolder_content,InstanceId());
                     break;
                 case Units.UserControl_business_objects_binder.TSSI_DIVISION:
-                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_division)(LoadControl("~/usercontrol/app/UserControl_division.ascx"))).Fresh(), "UserControl_division", PlaceHolder_content);
+                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_division)(LoadControl("~/usercontrol/app/UserControl_division.ascx"))),"UserControl_division",PlaceHolder_content,InstanceId());
                     break;
                 case Units.UserControl_business_objects_binder.TSSI_BUREAU:
-                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_bureau)(LoadControl("~/usercontrol/app/UserControl_bureau.ascx"))).Fresh(), "UserControl_bureau", PlaceHolder_content);
+                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_bureau)(LoadControl("~/usercontrol/app/UserControl_bureau.ascx"))),"UserControl_bureau",PlaceHolder_content,InstanceId());
                     break;
             }
         }
@@ -104,14 +104,14 @@ namespace UserControl_business_objects_binder
             // Indicate to children which content control was active on this pass, so that on subsequent passes a child can detect whether or
             // not it is already loaded in the user's browser.
             SessionSet(PlaceHolder_content.ClientID, p.content_id);
-            SessionSet("UserControl_business_objects_binder.p", p);
+            SessionSet(InstanceId() + ".p", p);
 
         }
 
         public TWebUserControl_business_objects_binder Fresh()
         {
             TWebUserControl_business_objects_binder result;
-            Session.Remove("UserControl_business_objects_binder.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }

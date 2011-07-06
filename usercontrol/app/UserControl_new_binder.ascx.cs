@@ -39,9 +39,9 @@ namespace UserControl_new_binder
             InitializeComponent();
             base.OnInit(e);
             UserControl_training_request_control = ((TWebUserControl_training_request)(LoadControl("~/usercontrol/app/UserControl_training_request.ascx")));
-            if (Session["UserControl_new_binder.p"] != null)
+            if (Session[InstanceId() + ".p"] != null)
             {
-                p = (p_type)(Session["UserControl_new_binder.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
                 p.be_loaded = IsPostBack && ((Session["UserControl_member_binder_PlaceHolder_content"] as string) == "UserControl_new_binder");
                 if ((Session["UserControl_new_binder_selected_tab"] != null))
                 {
@@ -75,7 +75,7 @@ namespace UserControl_new_binder
             {
                 p.be_loaded = false;
                 p.tab_index = Units.UserControl_new_binder.TSSI_TRAINING_REQUEST;
-                p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_training_request_control.Fresh(), "UserControl_training_request", PlaceHolder_content);
+                p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_training_request_control,"UserControl_training_request",PlaceHolder_content,InstanceId());
                 UserControl_training_request_control.mode = UserControl_training_request.mode_type.@NEW;
             }
 
@@ -124,14 +124,14 @@ namespace UserControl_new_binder
             // Indicate to children which content control was active on this pass, so that on subsequent passes a child can detect whether or
             // not it is already loaded in the user's browser.
             SessionSet(PlaceHolder_content.ClientID, p.content_id);
-            SessionSet("UserControl_new_binder.p", p);
+            SessionSet(InstanceId() + ".p", p);
 
         }
 
         public TWebUserControl_new_binder Fresh()
         {
             TWebUserControl_new_binder result;
-            Session.Remove("UserControl_new_binder.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }
