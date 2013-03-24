@@ -49,7 +49,8 @@ namespace login
                 case nature_of_visit_type.VISIT_INITIAL:
                     Title = ConfigurationManager.AppSettings["application_name"] + " - login";
                     p.biz_users = new TClass_biz_users();
-                    Focus(TextBox_username, true);
+                RequireConfirmation(LinkButton_forgot_password,"Are you sure you want a new password?");
+                TextBox_username.Focus();
                     break;
                 case nature_of_visit_type.VISIT_POSTBACK_STANDARD:
                     p = (p_type)(Session[InstanceId() + ".p"]);
