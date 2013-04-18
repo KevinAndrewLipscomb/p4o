@@ -222,6 +222,13 @@
     <Compile Include="salogin.aspx.designer.cs">
       <DependentUpon>salogin.aspx</DependentUpon>
     </Compile>
+    <Compile Include="timeout.aspx.cs">
+      <DependentUpon>timeout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="timeout.aspx.designer.cs">
+      <DependentUpon>timeout.aspx</DependentUpon>
+    </Compile>
     <Compile Include="usercontrol\app\UserControl_about.ascx.cs">
       <DependentUpon>UserControl_about.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
