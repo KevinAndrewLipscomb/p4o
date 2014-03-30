@@ -10,6 +10,7 @@ namespace Class_biz_user
     {
         private TClass_db_user db_user = null;
         private TClass_db_users db_users = null;
+
         //Constructor  Create()
         public TClass_biz_user() : base()
         {
@@ -17,6 +18,22 @@ namespace Class_biz_user
             db_user = new TClass_db_user();
             db_users = new TClass_db_users();
         }
+
+    public void BindNotificationsToBaseDataList(object target)
+      {
+      db_user.BindNotificationsToBaseDataList(IdNum(),target);
+      }
+
+    public void BindPrivilegesToBaseDataList(object target)
+      {
+      db_user.BindPrivilegesToBaseDataList(IdNum(),target);
+      }
+
+    public void BindRolesToBaseDataList(object target)
+      {
+      db_user.BindRolesToBaseDataList(IdNum(),target);
+      }
+
         public string EmailAddress()
         {
             string result;
@@ -46,14 +63,6 @@ namespace Class_biz_user
         }
 
     } // end TClass_biz_user
-
-}
-
-namespace Class_biz_user.Units
-{
-    public class Class_biz_user
-    {
-    } // end Class_biz_user
 
 }
 
