@@ -18,7 +18,7 @@ namespace Class_db_roles
 
     public class TClass_db_roles: TClass_db
     {
-        private TClass_db_trail db_trail = null;
+        private readonly TClass_db_trail db_trail = null;
         //Constructor  Create()
         public TClass_db_roles() : base()
         {
@@ -29,15 +29,16 @@ namespace Class_db_roles
         {
             bool result;
             MySqlDataReader dr;
-            this.Open();
+            Open();
             ((target) as ListControl).Items.Clear();
-            dr = new MySqlCommand("SELECT name FROM role WHERE name like \"" + partial_name + "%\" order by name", this.connection).ExecuteReader();
+            using var my_sql_command = new MySqlCommand("SELECT name FROM role WHERE name like \"" + partial_name + "%\" order by name", connection);
+            dr = my_sql_command.ExecuteReader();
             while (dr.Read())
             {
                 ((target) as ListControl).Items.Add(new ListItem(dr["name"].ToString(), dr["name"].ToString()));
             }
             dr.Close();
-            this.Close();
+            Close();
             result = ((target) as ListControl).Items.Count > 0;
             return result;
         }
@@ -54,16 +55,17 @@ namespace Class_db_roles
             where_clause = " where name <> \"Member\"";
             if (!has_config_roles_and_matrices)
             {
-                where_clause = where_clause + " and (name <> \"Application Administrator\")";
+                where_clause += " and (name <> \"Application Administrator\")";
             }
-            this.Open();
-            dr = new MySqlCommand("SELECT id,name FROM role" + where_clause + " order by pecking_order", this.connection).ExecuteReader();
+            Open();
+            using var my_sql_command = new MySqlCommand("SELECT id,name FROM role" + where_clause + " order by pecking_order", connection);
+            dr = my_sql_command.ExecuteReader();
             while (dr.Read())
             {
                 ((target) as ListControl).Items.Add(new ListItem(dr["name"].ToString(), dr["id"].ToString()));
             }
             dr.Close();
-            this.Close();
+            Close();
             if (selected_value != k.EMPTY)
             {
                 ((target) as ListControl).SelectedValue = selected_value;
@@ -85,9 +87,10 @@ namespace Class_db_roles
         {
             bool result;
             result = true;
-            this.Open();
+            Open();
             try {
-                new MySqlCommand(db_trail.Saved("delete from role where name = " + name), this.connection).ExecuteNonQuery();
+                using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from role where name = " + name), connection);
+                my_sql_command.ExecuteNonQuery();
             }
             catch(System.Exception e) {
                 if (e.Message.StartsWith("Cannot delete or update a parent row: a foreign key constraint fails", true, null))
@@ -99,7 +102,7 @@ namespace Class_db_roles
                     throw e;
                 }
             }
-            this.Close();
+            Close();
             return result;
         }
 
@@ -111,8 +114,9 @@ namespace Class_db_roles
             soft_hyphenation_text = k.EMPTY;
             pecking_order = k.EMPTY;
             result = false;
-            this.Open();
-            dr = new MySqlCommand("select * from role where CAST(name AS CHAR) = \"" + name + "\"", this.connection).ExecuteReader();
+            Open();
+            using var my_sql_command = new MySqlCommand("select * from role where CAST(name AS CHAR) = \"" + name + "\"", connection);
+            dr = my_sql_command.ExecuteReader();
             if (dr.Read())
             {
                 name = dr["name"].ToString();
@@ -121,16 +125,17 @@ namespace Class_db_roles
                 result = true;
             }
             dr.Close();
-            this.Close();
+            Close();
             return result;
         }
 
         public string NameOfId(string id)
         {
             string result;
-            this.Open();
-            result = new MySqlCommand("select name from role where id = \"" + id + "\"", this.connection).ExecuteScalar().ToString();
-            this.Close();
+            Open();
+            using var my_sql_command = new MySqlCommand("select name from role where id = \"" + id + "\"", connection);
+            result = my_sql_command.ExecuteScalar().ToString();
+            Close();
             return result;
         }
 
@@ -138,9 +143,10 @@ namespace Class_db_roles
         {
             string childless_field_assignments_clause;
             childless_field_assignments_clause = " soft_hyphenation_text = NULLIF(\"" + soft_hyphenation_text + "\",\"\")" + " , pecking_order = NULLIF(\"" + pecking_order + "\",\"\")";
-            this.Open();
-            new MySqlCommand(db_trail.Saved("insert role" + " set name = NULLIF(\"" + name + "\",\"\")" + " , " + childless_field_assignments_clause + " on duplicate key update " + childless_field_assignments_clause), this.connection).ExecuteNonQuery();
-            this.Close();
+            Open();
+            using var my_sql_command = new MySqlCommand(db_trail.Saved("insert role" + " set name = NULLIF(\"" + name + "\",\"\")" + " , " + childless_field_assignments_clause + " on duplicate key update " + childless_field_assignments_clause), connection);
+            my_sql_command.ExecuteNonQuery();
+            Close();
 
         }
 

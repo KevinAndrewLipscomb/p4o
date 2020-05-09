@@ -13,10 +13,11 @@ namespace Class_biz_notifications
 {
     public class TClass_biz_notifications
     {
-        private string application_name = String.Empty;
-        private TClass_db_notifications db_notifications = null;
-        private string host_domain_name = String.Empty;
-        private string runtime_root_fullspec = String.Empty;
+        private readonly string application_name = k.EMPTY;
+        private readonly TClass_db_notifications db_notifications = null;
+        private readonly string host_domain_name = k.EMPTY;
+        private readonly string runtime_root_fullspec = k.EMPTY;
+
         //Constructor  Create()
         public TClass_biz_notifications() : base()
         {
@@ -26,6 +27,7 @@ namespace Class_biz_notifications
             host_domain_name = ConfigurationManager.AppSettings["host_domain_name"];
             runtime_root_fullspec = ConfigurationManager.AppSettings["runtime_root_fullspec"];
         }
+
         public void BindDirectToListControl(object target, string unselected_literal, string selected_value)
         {
             db_notifications.BindDirectToListControl(target, unselected_literal, selected_value);

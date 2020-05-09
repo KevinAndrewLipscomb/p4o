@@ -6,6 +6,7 @@ using System.Web.UI.WebControls;
 using System.Collections;
 
 using UserControl_training_request;
+
 namespace UserControl_current_binder
 {
     public struct p_type
@@ -114,9 +115,8 @@ namespace UserControl_current_binder
         // / </summary>
         private void InitializeComponent()
         {
-            this.TabContainer_control.ActiveTabChanged += this.TabContainer_control_ActiveTabChanged;
-            //this.Load += this.Page_Load;
-            this.PreRender += this.TWebUserControl_current_binder_PreRender;
+            TabContainer_control.ActiveTabChanged += TabContainer_control_ActiveTabChanged;
+            PreRender += TWebUserControl_current_binder_PreRender;
         }
 
         private void TWebUserControl_current_binder_PreRender(object sender, System.EventArgs e)

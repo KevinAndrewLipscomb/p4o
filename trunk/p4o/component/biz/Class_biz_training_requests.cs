@@ -1,10 +1,11 @@
 using System;
 using Class_db_training_requests;
+
 namespace Class_biz_training_requests
 {
     public class TClass_biz_training_requests
     {
-        private TClass_db_training_requests db_training_requests = null;
+        private readonly TClass_db_training_requests db_training_requests = null;
         //Constructor  Create()
         public TClass_biz_training_requests() : base()
         {

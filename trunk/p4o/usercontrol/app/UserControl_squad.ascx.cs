@@ -11,6 +11,7 @@ using Class_biz_squads;
 using Class_biz_units;
 using UserControl_drop_down_date;
 using System.Collections.Specialized;
+
 namespace UserControl_squad
 {
     public partial class TWebUserControl_squad: ki_web_ui.usercontrol_class
@@ -197,8 +198,7 @@ namespace UserControl_squad
         // / </summary>
         private void InitializeComponent()
         {
-            this.PreRender += this.TWebUserControl_squad_PreRender;
-            //this.Load += this.Page_Load;
+            PreRender += TWebUserControl_squad_PreRender;
         }
 
         private void TWebUserControl_squad_PreRender(object sender, System.EventArgs e)

@@ -1,11 +1,12 @@
 using kix;
 using System;
 using Class_db_divisions;
+
 namespace Class_biz_divisions
 {
     public class TClass_biz_divisions
     {
-        private TClass_db_divisions db_divisions = null;
+        private readonly TClass_db_divisions db_divisions = null;
         //Constructor  Create()
         public TClass_biz_divisions() : base()
         {

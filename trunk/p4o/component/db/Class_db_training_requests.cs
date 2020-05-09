@@ -10,8 +10,8 @@ namespace Class_db_training_requests
 {
     public class TClass_db_training_requests: TClass_db
     {
-        private TClass_db_trail db_trail = null;
-        private TClass_db_training_request_statuses db_training_request_statuses = null;
+        private readonly TClass_db_trail db_trail = null;
+        private readonly TClass_db_training_request_statuses db_training_request_statuses = null;
         //Constructor  Create()
         public TClass_db_training_requests() : base()
         {
@@ -23,15 +23,16 @@ namespace Class_db_training_requests
         {
             bool result;
             MySqlDataReader dr;
-            this.Open();
+            Open();
             ((target) as ListControl).Items.Clear();
-            dr = new MySqlCommand("SELECT id FROM training_request WHERE id like \"" + partial_id + "%\" order by id", this.connection).ExecuteReader();
+            using var my_sql_command = new MySqlCommand("SELECT id FROM training_request WHERE id like \"" + partial_id + "%\" order by id", connection);
+            dr = my_sql_command.ExecuteReader();
             while (dr.Read())
             {
                 ((target) as ListControl).Items.Add(new ListItem(dr["id"].ToString(), dr["id"].ToString()));
             }
             dr.Close();
-            this.Close();
+            Close();
             result = ((target) as ListControl).Items.Count > 0;
             return result;
         }
@@ -39,24 +40,26 @@ namespace Class_db_training_requests
         public void BindDirectToListControl(object target)
         {
             MySqlDataReader dr;
-            this.Open();
+            Open();
             ((target) as ListControl).Items.Clear();
-            dr = new MySqlCommand("SELECT id,id FROM training_request order by id", this.connection).ExecuteReader();
+            using var my_sql_command = new MySqlCommand("SELECT id,id FROM training_request order by id", connection);
+            dr = my_sql_command.ExecuteReader();
             while (dr.Read())
             {
                 ((target) as ListControl).Items.Add(new ListItem(dr["id"].ToString(), dr["id"].ToString()));
             }
             dr.Close();
-            this.Close();
+            Close();
         }
 
         public bool Delete(string id)
         {
             bool result;
             result = true;
-            this.Open();
+            Open();
             try {
-                new MySqlCommand(db_trail.Saved("delete from training_request where id = " + id), this.connection).ExecuteNonQuery();
+                using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from training_request where id = " + id), connection);
+                my_sql_command.ExecuteNonQuery();
             }
             catch(System.Exception e) {
                 if (e.Message.StartsWith("Cannot delete or update a parent row: a foreign key constraint fails", true, null))
@@ -68,7 +71,7 @@ namespace Class_db_training_requests
                     throw e;
                 }
             }
-            this.Close();
+            Close();
             return result;
         }
 
@@ -117,8 +120,9 @@ namespace Class_db_training_requests
             member_id = k.EMPTY;
             submission_timestamp = DateTime.MinValue;
             result = false;
-            this.Open();
-            dr = new MySqlCommand("select * from training_request where CAST(id AS CHAR) = \"" + id + "\"", this.connection).ExecuteReader();
+            Open();
+            using var my_sql_command = new MySqlCommand("select * from training_request where CAST(id AS CHAR) = \"" + id + "\"", connection);
+            dr = my_sql_command.ExecuteReader();
             if (dr.Read())
             {
                 id = dr["id"].ToString();
@@ -191,7 +195,7 @@ namespace Class_db_training_requests
                 result = true;
             }
             dr.Close();
-            this.Close();
+            Close();
             return result;
         }
 
@@ -203,22 +207,24 @@ namespace Class_db_training_requests
             // 1 var
             // 1   childless_field_assignments_clause: string;
             // 1  childless_field_assignments_clause := // {Move childless field assignments here.}
-            this.Open();
+            Open();
             // 1      'insert training_request'
             // 1      + ' set // {Move parent field assignments here.}
             // 1      + ' , ' + childless_field_assignments_clause
             // 1      + ' on duplicate key update '
             // 1      + childless_field_assignments_clause
-            new MySqlCommand(db_trail.Saved("replace training_request" + " set id = NULLIF(\"" + id + "\",\"\")" + " , nature = NULLIF(\"" + nature + "\",\"\")" + " , dates = NULLIF(\"" + dates + "\",\"\")" + " , conducting_agency = NULLIF(\"" + conducting_agency + "\",\"\")" + " , location = NULLIF(\"" + location + "\",\"\")" + " , cost_of_enrollment = NULLIF(\"" + cost_of_enrollment + "\",\"\")" + " , cost_of_lodging = NULLIF(\"" + cost_of_lodging + "\",\"\")" + " , cost_of_meals = NULLIF(\"" + cost_of_meals + "\",\"\")" + " , cost_of_transportation = NULLIF(\"" + cost_of_transportation + "\",\"\")" + " , reason = NULLIF(\"" + reason + "\",\"\")" + " , disposition_training_timestamp = \"" + disposition_training_timestamp.ToString() + "\"" + " , disposition_training_member_id = NULLIF(\"" + disposition_training_member_id + "\",\"\")" + " , disposition_training_funding_source = NULLIF(\"" + disposition_training_funding_source + "\",\"\")" + " , disposition_training_comments = NULLIF(\"" + disposition_training_comments + "\",\"\")" + " , disposition_squad_timestamp = \"" + disposition_squad_timestamp.ToString() + "\"" + " , disposition_squad_member_id = NULLIF(\"" + disposition_squad_member_id + "\",\"\")" + " , disposition_squad_be_approved = " + disposition_squad_be_approved.ToString() + " , disposition_squad_comments = NULLIF(\"" + disposition_squad_comments + "\",\"\")" + " , disposition_unit_timestamp = \"" + disposition_unit_timestamp.ToString() + "\"" + " , disposition_unit_member_id = NULLIF(\"" + disposition_unit_member_id + "\",\"\")" + " , disposition_unit_be_approved = " + disposition_unit_be_approved.ToString() + " , disposition_unit_comments = NULLIF(\"" + disposition_unit_comments + "\",\"\")" + " , disposition_division_timestamp = \"" + disposition_division_timestamp.ToString() + "\"" + " , disposition_division_member_id = NULLIF(\"" + disposition_division_member_id + "\",\"\")" + " , disposition_division_be_approved = " + disposition_division_be_approved.ToString() + " , disposition_division_comments = NULLIF(\"" + disposition_division_comments + "\",\"\")" + " , disposition_assistant_chief_timestamp = \"" + disposition_assistant_chief_timestamp.ToString() + "\"" + " , disposition_assistant_chief_member_id = NULLIF(\"" + disposition_assistant_chief_member_id + "\",\"\")" + " , disposition_assistant_chief_be_approved = " + disposition_assistant_chief_be_approved.ToString() + " , disposition_assistant_chief_comments = NULLIF(\"" + disposition_assistant_chief_comments + "\",\"\")" + " , payment_timestamp = \"" + payment_timestamp.ToString() + "\"" + " , payment_member_id = NULLIF(\"" + payment_member_id + "\",\"\")" + " , payment_be_done = " + payment_be_done.ToString() + " , payment_actual_amount = NULLIF(\"" + payment_actual_amount + "\",\"\")" + " , payment_comments = NULLIF(\"" + payment_comments + "\",\"\")" + " , status_code = NULLIF(\"" + status_code + "\",\"\")" + " , finalization_timestamp = \"" + finalization_timestamp.ToString() + "\"" + " , member_id = NULLIF(\"" + member_id + "\",\"\")" + " , submission_timestamp = \"" + submission_timestamp.ToString() + "\""), this.connection).ExecuteNonQuery();
-            this.Close();
+            using var my_sql_command = new MySqlCommand(db_trail.Saved("replace training_request" + " set id = NULLIF(\"" + id + "\",\"\")" + " , nature = NULLIF(\"" + nature + "\",\"\")" + " , dates = NULLIF(\"" + dates + "\",\"\")" + " , conducting_agency = NULLIF(\"" + conducting_agency + "\",\"\")" + " , location = NULLIF(\"" + location + "\",\"\")" + " , cost_of_enrollment = NULLIF(\"" + cost_of_enrollment + "\",\"\")" + " , cost_of_lodging = NULLIF(\"" + cost_of_lodging + "\",\"\")" + " , cost_of_meals = NULLIF(\"" + cost_of_meals + "\",\"\")" + " , cost_of_transportation = NULLIF(\"" + cost_of_transportation + "\",\"\")" + " , reason = NULLIF(\"" + reason + "\",\"\")" + " , disposition_training_timestamp = \"" + disposition_training_timestamp.ToString() + "\"" + " , disposition_training_member_id = NULLIF(\"" + disposition_training_member_id + "\",\"\")" + " , disposition_training_funding_source = NULLIF(\"" + disposition_training_funding_source + "\",\"\")" + " , disposition_training_comments = NULLIF(\"" + disposition_training_comments + "\",\"\")" + " , disposition_squad_timestamp = \"" + disposition_squad_timestamp.ToString() + "\"" + " , disposition_squad_member_id = NULLIF(\"" + disposition_squad_member_id + "\",\"\")" + " , disposition_squad_be_approved = " + disposition_squad_be_approved.ToString() + " , disposition_squad_comments = NULLIF(\"" + disposition_squad_comments + "\",\"\")" + " , disposition_unit_timestamp = \"" + disposition_unit_timestamp.ToString() + "\"" + " , disposition_unit_member_id = NULLIF(\"" + disposition_unit_member_id + "\",\"\")" + " , disposition_unit_be_approved = " + disposition_unit_be_approved.ToString() + " , disposition_unit_comments = NULLIF(\"" + disposition_unit_comments + "\",\"\")" + " , disposition_division_timestamp = \"" + disposition_division_timestamp.ToString() + "\"" + " , disposition_division_member_id = NULLIF(\"" + disposition_division_member_id + "\",\"\")" + " , disposition_division_be_approved = " + disposition_division_be_approved.ToString() + " , disposition_division_comments = NULLIF(\"" + disposition_division_comments + "\",\"\")" + " , disposition_assistant_chief_timestamp = \"" + disposition_assistant_chief_timestamp.ToString() + "\"" + " , disposition_assistant_chief_member_id = NULLIF(\"" + disposition_assistant_chief_member_id + "\",\"\")" + " , disposition_assistant_chief_be_approved = " + disposition_assistant_chief_be_approved.ToString() + " , disposition_assistant_chief_comments = NULLIF(\"" + disposition_assistant_chief_comments + "\",\"\")" + " , payment_timestamp = \"" + payment_timestamp.ToString() + "\"" + " , payment_member_id = NULLIF(\"" + payment_member_id + "\",\"\")" + " , payment_be_done = " + payment_be_done.ToString() + " , payment_actual_amount = NULLIF(\"" + payment_actual_amount + "\",\"\")" + " , payment_comments = NULLIF(\"" + payment_comments + "\",\"\")" + " , status_code = NULLIF(\"" + status_code + "\",\"\")" + " , finalization_timestamp = \"" + finalization_timestamp.ToString() + "\"" + " , member_id = NULLIF(\"" + member_id + "\",\"\")" + " , submission_timestamp = \"" + submission_timestamp.ToString() + "\""), connection);
+            my_sql_command.ExecuteNonQuery();
+            Close();
 
         }
 
         public void SetNew(string nature, string dates, string conducting_agency, string location, string cost_of_enrollment, string cost_of_lodging, string cost_of_meals, string cost_of_transportation, string reason, string member_id)
         {
-            this.Open();
-            new MySqlCommand(db_trail.Saved("insert training_request" + " set nature = NULLIF(\"" + nature + "\",\"\")" + " , dates = NULLIF(\"" + dates + "\",\"\")" + " , conducting_agency = NULLIF(\"" + conducting_agency + "\",\"\")" + " , location = NULLIF(\"" + location + "\",\"\")" + " , cost_of_enrollment = NULLIF(\"" + cost_of_enrollment + "\",\"\")" + " , cost_of_lodging = NULLIF(\"" + cost_of_lodging + "\",\"\")" + " , cost_of_meals = NULLIF(\"" + cost_of_meals + "\",\"\")" + " , cost_of_transportation = NULLIF(\"" + cost_of_transportation + "\",\"\")" + " , reason = NULLIF(\"" + reason + "\",\"\")" + " , status_code = \"" + db_training_request_statuses.IdOf("NEEDS_TRAINING_UNIT_COMMENTS") + "\"" + " , member_id = NULLIF(\"" + member_id + "\",\"\")" + " , submission_timestamp = NOW()"), this.connection).ExecuteNonQuery();
-            this.Close();
+            Open();
+            using var my_sql_command = new MySqlCommand(db_trail.Saved("insert training_request" + " set nature = NULLIF(\"" + nature + "\",\"\")" + " , dates = NULLIF(\"" + dates + "\",\"\")" + " , conducting_agency = NULLIF(\"" + conducting_agency + "\",\"\")" + " , location = NULLIF(\"" + location + "\",\"\")" + " , cost_of_enrollment = NULLIF(\"" + cost_of_enrollment + "\",\"\")" + " , cost_of_lodging = NULLIF(\"" + cost_of_lodging + "\",\"\")" + " , cost_of_meals = NULLIF(\"" + cost_of_meals + "\",\"\")" + " , cost_of_transportation = NULLIF(\"" + cost_of_transportation + "\",\"\")" + " , reason = NULLIF(\"" + reason + "\",\"\")" + " , status_code = \"" + db_training_request_statuses.IdOf("NEEDS_TRAINING_UNIT_COMMENTS") + "\"" + " , member_id = NULLIF(\"" + member_id + "\",\"\")" + " , submission_timestamp = NOW()"), connection);
+            my_sql_command.ExecuteNonQuery();
+            Close();
         }
 
     } // end TClass_db_training_requests

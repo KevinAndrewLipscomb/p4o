@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using Class_db_milestones;
 using Class_biz_users;
+
 namespace Class_biz_milestones
 {
     public class TClass_biz_milestones
@@ -70,7 +71,7 @@ namespace Class_biz_milestones
                             // be_handled := TRUE;
                             // end;
                             }
-                            i = i + 1;
+                            i++;
                         }
                     }
                 }

@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Class_biz_training_request_statuses;
 using Class_biz_training_requests;
+
 namespace UserControl_training_request
 {
     // Unit class type
@@ -322,8 +323,7 @@ namespace UserControl_training_request
         // / </summary>
         private void InitializeComponent()
         {
-            //this.Load += this.Page_Load;
-            this.PreRender += this.TWebUserControl_training_request_PreRender;
+            PreRender += TWebUserControl_training_request_PreRender;
         }
 
         private void TWebUserControl_training_request_PreRender(object sender, System.EventArgs e)

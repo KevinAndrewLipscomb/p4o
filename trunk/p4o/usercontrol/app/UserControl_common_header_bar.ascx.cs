@@ -27,7 +27,6 @@ namespace UserControl_common_header_bar
         // / </summary>
         private void InitializeComponent()
         {
-            //this.Load += this.Page_Load;
         }
 
     } // end TWebUserControl_common_header_bar
