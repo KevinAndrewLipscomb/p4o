@@ -1,11 +1,12 @@
 using kix;
 using System;
 using Class_db_bureaus;
+
 namespace Class_biz_bureaus
 {
     public class TClass_biz_bureaus
     {
-        private TClass_db_bureaus db_bureaus = null;
+        private readonly TClass_db_bureaus db_bureaus = null;
         //Constructor  Create()
         public TClass_biz_bureaus() : base()
         {

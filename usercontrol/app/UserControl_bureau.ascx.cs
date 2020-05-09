@@ -10,6 +10,7 @@ using System.Collections;
 using Class_biz_bureaus;
 using UserControl_drop_down_date;
 using System.Collections.Specialized;
+
 namespace UserControl_bureau
 {
     public partial class TWebUserControl_bureau: ki_web_ui.usercontrol_class
@@ -191,8 +192,7 @@ namespace UserControl_bureau
         // / </summary>
         private void InitializeComponent()
         {
-            this.PreRender += this.TWebUserControl_bureau_PreRender;
-            //this.Load += this.Page_Load;
+            PreRender += TWebUserControl_bureau_PreRender;
         }
 
         private void TWebUserControl_bureau_PreRender(object sender, System.EventArgs e)

@@ -5,7 +5,7 @@ namespace Class_biz_members
 {
     public class TClass_biz_members
     {
-        private TClass_db_members db_members = null;
+        private readonly TClass_db_members db_members = null;
         //Constructor  Create()
         public TClass_biz_members() : base()
         {

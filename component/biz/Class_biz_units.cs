@@ -1,11 +1,12 @@
 using kix;
 using System;
 using Class_db_units;
+
 namespace Class_biz_units
 {
     public class TClass_biz_units
     {
-        private TClass_db_units db_units = null;
+        private readonly TClass_db_units db_units = null;
         //Constructor  Create()
         public TClass_biz_units() : base()
         {

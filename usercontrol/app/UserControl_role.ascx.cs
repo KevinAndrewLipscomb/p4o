@@ -227,11 +227,10 @@ namespace UserControl_role
         // / </summary>
         private void InitializeComponent()
         {
-            this.GridView_holders.Sorting += new System.Web.UI.WebControls.GridViewSortEventHandler(this.GridView_holders_Sorting);
-            this.GridView_holders.RowDataBound += new System.Web.UI.WebControls.GridViewRowEventHandler(this.GridView_holders_RowDataBound);
-            this.GridView_holders.RowCreated += new System.Web.UI.WebControls.GridViewRowEventHandler(this.GridView_holders_RowCreated);
-            this.PreRender += this.TWebUserControl_role_PreRender;
-            //this.Load += this.Page_Load;
+            GridView_holders.Sorting += new System.Web.UI.WebControls.GridViewSortEventHandler(GridView_holders_Sorting);
+            GridView_holders.RowDataBound += new System.Web.UI.WebControls.GridViewRowEventHandler(GridView_holders_RowDataBound);
+            GridView_holders.RowCreated += new System.Web.UI.WebControls.GridViewRowEventHandler(GridView_holders_RowCreated);
+            PreRender += TWebUserControl_role_PreRender;
         }
 
         private void TWebUserControl_role_PreRender(object sender, System.EventArgs e)
@@ -272,7 +271,7 @@ namespace UserControl_role
             if ((e.Row.RowType == DataControlRowType.DataRow) && (e.Row.Cells[Class_db_role_member_map.Units.Class_db_role_member_map.ROLE_HOLDER_EMAIL_ADDRESS_CI].Text != "&nbsp;"))
             {
                 p.distribution_list = p.distribution_list + e.Row.Cells[Class_db_role_member_map.Units.Class_db_role_member_map.ROLE_HOLDER_EMAIL_ADDRESS_CI].Text + k.COMMA_SPACE;
-                p.num_gridview_rows = p.num_gridview_rows + 1;
+                p.num_gridview_rows++;
             }
         }
 

@@ -1,19 +1,20 @@
-using kix;
-using System;
 using Class_db_training_request_statuses;
+using kix;
+
 namespace Class_biz_training_request_statuses
-{
-    public class TClass_biz_training_request_statuses
+  {
+  public class TClass_biz_training_request_statuses
     {
-        private TClass_db_training_request_statuses db_training_request_statuses = null;
-        private string id_of_needs_training_unit_comments = String.Empty;
-        private string id_of_needs_squad_approval = String.Empty;
-        private string id_of_needs_unit_approval = String.Empty;
-        private string id_of_needs_division_approval = String.Empty;
-        private string id_of_needs_assistant_chief_approval = String.Empty;
-        private string id_of_needs_graduation = String.Empty;
-        private string id_of_needs_payment = String.Empty;
-        private string id_of_canceled = String.Empty;
+        private readonly TClass_db_training_request_statuses db_training_request_statuses = null;
+        private readonly string id_of_needs_training_unit_comments = k.EMPTY;
+        private readonly string id_of_needs_squad_approval = k.EMPTY;
+        private readonly string id_of_needs_unit_approval = k.EMPTY;
+        private readonly string id_of_needs_division_approval = k.EMPTY;
+        private readonly string id_of_needs_assistant_chief_approval = k.EMPTY;
+        private readonly string id_of_needs_graduation = k.EMPTY;
+        private readonly string id_of_needs_payment = k.EMPTY;
+        private readonly string id_of_canceled = k.EMPTY;
+
         //Constructor  Create()
         public TClass_biz_training_request_statuses() : base()
         {
@@ -28,6 +29,7 @@ namespace Class_biz_training_request_statuses
             id_of_needs_payment = db_training_request_statuses.IdOf("NEEDS_PAYMENT");
             id_of_canceled = db_training_request_statuses.IdOf("CANCELED");
         }
+
         public bool Bind(string partial_code, object target)
         {
             bool result;
@@ -115,8 +117,8 @@ namespace Class_biz_training_request_statuses
 }
 
 namespace Class_biz_training_request_statuses.Units
-{
-    public class Class_biz_training_request_statuses
+  {
+  public class Class_biz_training_request_statuses
     {
     } // end Class_biz_training_request_statuses
 

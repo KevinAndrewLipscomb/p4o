@@ -11,6 +11,7 @@ using Class_biz_bureaus;
 using Class_biz_divisions;
 using UserControl_drop_down_date;
 using System.Collections.Specialized;
+
 namespace UserControl_division
 {
     public partial class TWebUserControl_division: ki_web_ui.usercontrol_class
@@ -197,8 +198,7 @@ namespace UserControl_division
         // / </summary>
         private void InitializeComponent()
         {
-            this.PreRender += this.TWebUserControl_division_PreRender;
-            //this.Load += this.Page_Load;
+            PreRender += TWebUserControl_division_PreRender;
         }
 
         private void TWebUserControl_division_PreRender(object sender, System.EventArgs e)

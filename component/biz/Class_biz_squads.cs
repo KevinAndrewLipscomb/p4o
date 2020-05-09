@@ -1,11 +1,12 @@
 using kix;
 using System;
 using Class_db_squads;
+
 namespace Class_biz_squads
 {
     public class TClass_biz_squads
     {
-        private TClass_db_squads db_squads = null;
+        private readonly TClass_db_squads db_squads = null;
         //Constructor  Create()
         public TClass_biz_squads() : base()
         {

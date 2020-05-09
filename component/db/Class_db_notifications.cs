@@ -1,16 +1,18 @@
-using kix;
 using Class_db;
+using kix;
 using MySql.Data.MySqlClient;
-using System;
 using System.Configuration;
 using System.Web.UI.WebControls;
 
 namespace Class_db_notifications
-{
-    public class TClass_db_notifications: TClass_db
+  {
+  public class TClass_db_notifications: TClass_db
     {
-        private string tier_2_match_field = String.Empty;
-        private string tier_3_match_field = String.Empty;
+        #pragma warning disable IDE0052 // Remove unread private members
+        private readonly string tier_2_match_field = k.EMPTY;
+        private readonly string tier_3_match_field = k.EMPTY;
+        #pragma warning restore IDE0052 // Remove unread private members
+
         //Constructor  Create()
         public TClass_db_notifications() : base()
         {
@@ -26,14 +28,15 @@ namespace Class_db_notifications
             {
                 ((target) as ListControl).Items.Add(new ListItem(unselected_literal, k.EMPTY));
             }
-            this.Open();
-            dr = new MySqlCommand("select notification.id as notification_id" + " , name as notification_name" + " from notification" + " order by notification_name", this.connection).ExecuteReader();
+            Open();
+            using var my_sql_command = new MySqlCommand("select notification.id as notification_id" + " , name as notification_name" + " from notification" + " order by notification_name", connection);
+            dr = my_sql_command.ExecuteReader();
             while (dr.Read())
             {
                 ((target) as ListControl).Items.Add(new ListItem(dr["notification_name"].ToString(), dr["notification_id"].ToString()));
             }
             dr.Close();
-            this.Close();
+            Close();
             if (selected_value != k.EMPTY)
             {
                 ((target) as ListControl).SelectedValue = selected_value;
@@ -59,7 +62,7 @@ namespace Class_db_notifications
             // tier_2_match_value: string;
             // tier_3_match_value: string;
             target_of = k.EMPTY;
-            this.Open();
+            Open();
             // //
             // // Get tier 2 and 3 associations of target member.
             // //
@@ -71,7 +74,8 @@ namespace Class_db_notifications
             // dr.Close();
             // Tier 1 stakeholders
             // + ' where tier_id = 1'
-            dr = new MySqlCommand("select email_address" + " from member" + " join role_member_map on (role_member_map.member_id=member.id)" + " join role_notification_map on (role_notification_map.role_id=role_member_map.role_id)" + " join role on (role.id=role_member_map.role_id)" + " join notification on (notification.id=role_notification_map.notification_id)" + " and notification.name = \"" + name + "\"", this.connection).ExecuteReader();
+            using var my_sql_command = new MySqlCommand("select email_address" + " from member" + " join role_member_map on (role_member_map.member_id=member.id)" + " join role_notification_map on (role_notification_map.role_id=role_member_map.role_id)" + " join role on (role.id=role_member_map.role_id)" + " join notification on (notification.id=role_notification_map.notification_id)" + " and notification.name = \"" + name + "\"", connection);
+            dr = my_sql_command.ExecuteReader();
             if (dr != null)
             {
                 while (dr.Read())
@@ -127,7 +131,7 @@ namespace Class_db_notifications
             // end;
             // end;
             // dr.Close();
-            this.Close();
+            Close();
             if (target_of != k.EMPTY)
             {
                 result = target_of.Substring(0, target_of.Length - 1);
@@ -144,8 +148,8 @@ namespace Class_db_notifications
 }
 
 namespace Class_db_notifications.Units
-{
-    public class Class_db_notifications
+  {
+  public class Class_db_notifications
     {
     } // end Class_db_notifications
 
