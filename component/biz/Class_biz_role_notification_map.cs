@@ -5,6 +5,7 @@ namespace Class_biz_role_notification_map
   {
   public class TClass_biz_role_notification_map
     {
+
         private readonly TClass_db_role_notification_map db_role_notification_map = null;
 
         //Constructor  Create()
@@ -31,12 +32,3 @@ namespace Class_biz_role_notification_map
     } // end TClass_biz_role_notification_map
 
 }
-
-namespace Class_biz_role_notification_map.Units
-{
-    public class Class_biz_role_notification_map
-    {
-    } // end Class_biz_role_notification_map
-
-}
-

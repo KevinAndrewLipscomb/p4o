@@ -6,8 +6,31 @@ using Class_biz_users;
 
 namespace Class_biz_milestones
 {
-    public class TClass_biz_milestones
+  public class TClass_biz_milestones
     {
+
+    private enum milestone_type
+      {
+      FIRST_MILESTONE = 1,
+      SECOND_MILESTONE = 2,
+      }
+
+    private struct reminder_control_record_type
+      {
+      public uint num_reminders;
+      public uint[] relative_day_num_array;
+      }
+
+    private static class Static
+      {
+      public const int MAX_NUM_REMINDERS = 6;
+      public static reminder_control_record_type[] REMINDER_CONTROL_TABLE =
+        {
+        new reminder_control_record_type {num_reminders = 6, relative_day_num_array = new uint[MAX_NUM_REMINDERS] {1, 3, 7, 14, 30, 90}}, // FIRST_MILESTONE
+        new reminder_control_record_type {num_reminders = 6, relative_day_num_array = new uint[MAX_NUM_REMINDERS] {1, 3, 7, 14, 30, 90}}  // SECOND_MILESTONE
+        };
+      }
+
         //Constructor  Create()
         public TClass_biz_milestones() : base()
         {
@@ -59,9 +82,9 @@ namespace Class_biz_milestones
                     {
                         be_handled = false;
                         i = 0;
-                        while (!be_handled && (i < Units.Class_biz_milestones.REMINDER_CONTROL_TABLE[(int)milestone].num_reminders))
+                        while (!be_handled && (i < Static.REMINDER_CONTROL_TABLE[(int)milestone].num_reminders))
                         {
-                            relative_day_num = Units.Class_biz_milestones.REMINDER_CONTROL_TABLE[(int)milestone].relative_day_num_array[i];
+                            relative_day_num = Static.REMINDER_CONTROL_TABLE[(int)milestone].relative_day_num_array[i];
                             if (today == deadline.AddDays( -relative_day_num).Date)
                             {
                             // master_id_q := biz_emsof_requests.SusceptibleTo(milestone);
@@ -78,36 +101,6 @@ namespace Class_biz_milestones
             }
         }
 
-    } // end TClass_biz_milestones
+    }
 
-    public struct reminder_control_record_type
-    {
-        public uint num_reminders;
-        public uint[] relative_day_num_array;
-    } // end reminder_control_record_type
-
-    public enum milestone_type
-    {
-        FIRST_MILESTONE = 1,
-        SECOND_MILESTONE = 2,
-    } // end milestone_type
-
-}
-
-namespace Class_biz_milestones.Units
-{
-    public class Class_biz_milestones
-    {
-        // REMINDER_CONTROL_TABLE
-        public const int MAX_NUM_REMINDERS = 6;
-        // FIRST_MILESTONE
-        // SECOND_MILESTONE
-        public static reminder_control_record_type[] REMINDER_CONTROL_TABLE =
-          {
-          new reminder_control_record_type {num_reminders = 6, relative_day_num_array = new uint[MAX_NUM_REMINDERS] {1, 3, 7, 14, 30, 90}}, 
-          new reminder_control_record_type {num_reminders = 6, relative_day_num_array = new uint[MAX_NUM_REMINDERS] {1, 3, 7, 14, 30, 90}}
-          };
-    } // end Class_biz_milestones
-
-}
-
+  }

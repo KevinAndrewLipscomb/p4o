@@ -1,21 +1,23 @@
-using kix;
 using Class_db;
 using Class_db_trail;
+using kix;
 using MySql.Data.MySqlClient;
-using System;
 using System.Web.UI.WebControls;
 
 namespace Class_db_bureaus
-{
-    public class TClass_db_bureaus: TClass_db
+  {
+  public class TClass_db_bureaus: TClass_db
     {
+
         private readonly TClass_db_trail db_trail = null;
+
         //Constructor  Create()
         public TClass_db_bureaus() : base()
         {
             // TODO: Add any constructor code here
             db_trail = new TClass_db_trail();
         }
+
         public bool Bind(string partial_spec, object target)
         {
             bool result;
@@ -38,7 +40,7 @@ namespace Class_db_bureaus
         {
             MySqlDataReader dr;
             ((target) as ListControl).Items.Clear();
-            if (unselected_literal != k.EMPTY)
+            if (unselected_literal.Length > 0)
             {
                 ((target) as ListControl).Items.Add(new ListItem(unselected_literal, k.EMPTY));
             }
@@ -51,7 +53,7 @@ namespace Class_db_bureaus
             }
             dr.Close();
             Close();
-            if (selected_value != k.EMPTY)
+            if (selected_value.Length > 0)
             {
                 ((target) as ListControl).SelectedValue = selected_value;
             }
@@ -84,7 +86,7 @@ namespace Class_db_bureaus
                 }
                 else
                 {
-                    throw e;
+                    throw;
                 }
             }
             Close();
@@ -125,12 +127,3 @@ namespace Class_db_bureaus
     } // end TClass_db_bureaus
 
 }
-
-namespace Class_db_bureaus.Units
-{
-    public class Class_db_bureaus
-    {
-    } // end Class_db_bureaus
-
-}
-

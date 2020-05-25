@@ -8,14 +8,16 @@ using System.Configuration;
 
 namespace UserControl_about
 {
-    public struct p_type
+  public partial class TWebUserControl_about: ki_web_ui.usercontrol_class
     {
-        public bool be_loaded;
-    } // end p_type
 
-    public partial class TWebUserControl_about: ki_web_ui.usercontrol_class
-    {
-        private p_type p;
+    private struct p_type
+      {
+      public bool be_loaded;
+      }
+
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
+
         protected void Page_Load(object sender, System.EventArgs e)
         {
             if (!p.be_loaded)

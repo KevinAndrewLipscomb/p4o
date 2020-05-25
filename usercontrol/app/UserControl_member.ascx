@@ -1,6 +1,6 @@
 <%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_member.ascx.cs" Inherits="UserControl_member.TWebUserControl_member"%>
 <%@ Register TagPrefix="uc1" TagName="UserControl_drop_down_date" Src="~/usercontrol/ki/UserControl_drop_down_date.ascx" %>
-<table cellspacing="0" cellpadding="5" width="100%" border="0">
+A<table cellspacing="0" cellpadding="5" width="100%" border="0">
   <tr>
     <td valign="top">
       <table cellspacing="0" cellpadding="5" border="0">

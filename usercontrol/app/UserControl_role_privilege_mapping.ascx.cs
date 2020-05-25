@@ -14,9 +14,12 @@ using System.Collections.Specialized;
 
 namespace UserControl_role_privilege_mapping
 {
-    public struct p_type
+  public partial class TWebUserControl_role_privilege_mapping: ki_web_ui.usercontrol_class
     {
-        public bool be_interactive;
+
+    private struct p_type
+      {
+      public bool be_interactive;
         public bool be_loaded;
         public bool be_sort_order_ascending;
         public TClass_biz_privileges biz_privileges;
@@ -24,11 +27,10 @@ namespace UserControl_role_privilege_mapping
         public TClass_biz_roles biz_roles;
         public bool may_add_mappings;
         public string sort_order;
-    } // end p_type
+      }
 
-    public partial class TWebUserControl_role_privilege_mapping: ki_web_ui.usercontrol_class
-    {
-        private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
+
         private void InjectPersistentClientSideScript()
         {
             // EstablishClientSideFunction(EL);

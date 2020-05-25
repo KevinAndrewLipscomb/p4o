@@ -1,12 +1,13 @@
-using kix;
-using System;
 using Class_db_bureaus;
+using kix;
 
 namespace Class_biz_bureaus
-{
-    public class TClass_biz_bureaus
+  {
+  public class TClass_biz_bureaus
     {
+
         private readonly TClass_db_bureaus db_bureaus = null;
+
         //Constructor  Create()
         public TClass_biz_bureaus() : base()
         {
@@ -59,12 +60,3 @@ namespace Class_biz_bureaus
     } // end TClass_biz_bureaus
 
 }
-
-namespace Class_biz_bureaus.Units
-{
-    public class Class_biz_bureaus
-    {
-    } // end Class_biz_bureaus
-
-}
-

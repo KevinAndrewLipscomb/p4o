@@ -11,8 +11,8 @@ namespace overview
   {
   public partial class TWebForm_overview: ki_web_ui.page_class
     {
-        private p_type p;
-        protected System.Web.UI.ScriptManager ScriptManager_control = null;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
+
         // / <summary>
         // / Required method for Designer support -- do not modify
         // / the contents of this method with the code editor.
@@ -56,7 +56,7 @@ namespace overview
                     p = (p_type)(Session[InstanceId() + ".p"]);
                     break;
             }
-            if (p.biz_members.IdOfUserId(p.biz_user.IdNum()) == k.EMPTY)
+            if (p.biz_members.IdOfUserId(p.biz_user.IdNum()).Length == 0)
             {
                 // Display controls appropriate ONLY to nonmembers.
                 AddIdentifiedControlToPlaceHolder(((TWebUserControl_establish_membership)(LoadControl("~/usercontrol/app/UserControl_establish_membership.ascx"))), "UserControl_establish_membership", PlaceHolder_establish_membership);

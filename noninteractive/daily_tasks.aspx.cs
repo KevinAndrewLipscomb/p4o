@@ -10,7 +10,7 @@ using Class_biz_scheduled_tasks;
 
 namespace daily_tasks
 {
-    public partial class TWebForm1: System.Web.UI.Page
+    public partial class TWebForm1: ki_web_ui.page_class
     {
         // / <summary>
         // / Required method for Designer support -- do not modify

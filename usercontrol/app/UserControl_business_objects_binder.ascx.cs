@@ -1,21 +1,15 @@
-using System;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Collections;
 using UserControl_bureau;
 using UserControl_division;
 using UserControl_squad;
 using UserControl_unit;
 
 namespace UserControl_business_objects_binder
-{
-    public class TWebUserControl_business_objects_binder: ki_web_ui.usercontrol_class
+  {
+  public partial class TWebUserControl_business_objects_binder: ki_web_ui.usercontrol_class
     {
-        protected AjaxControlToolkit.TabContainer TabContainer_control = null;
-        protected System.Web.UI.WebControls.PlaceHolder PlaceHolder_content = null;
-        private p_type p;
+
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
+
         private void Page_Load(object sender, System.EventArgs e)
         {
             if (!p.be_loaded)
@@ -127,8 +121,8 @@ namespace UserControl_business_objects_binder
 }
 
 namespace UserControl_business_objects_binder.Units
-{
-    public class UserControl_business_objects_binder
+  {
+  public class UserControl_business_objects_binder
     {
         public const int TSSI_SQUAD = 0;
         public const int TSSI_UNIT = 1;

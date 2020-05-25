@@ -33,7 +33,8 @@ namespace UserControl_training_request
             p.mode = value;
           }
         }
-        private p_type p;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
+
         private void Clear()
         {
             DropDownList_id.Visible = false;

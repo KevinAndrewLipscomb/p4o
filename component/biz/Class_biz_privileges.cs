@@ -6,7 +6,9 @@ namespace Class_biz_privileges
 {
     public class TClass_biz_privileges
     {
+
         private readonly TClass_db_privileges db_privileges = null;
+
         //Constructor  Create()
         public TClass_biz_privileges() : base()
         {
@@ -46,12 +48,3 @@ namespace Class_biz_privileges
     } // end TClass_biz_privileges
 
 }
-
-namespace Class_biz_privileges.Units
-{
-    public class Class_biz_privileges
-    {
-    } // end Class_biz_privileges
-
-}
-

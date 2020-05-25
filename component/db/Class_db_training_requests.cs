@@ -10,8 +10,10 @@ namespace Class_db_training_requests
 {
     public class TClass_db_training_requests: TClass_db
     {
+
         private readonly TClass_db_trail db_trail = null;
         private readonly TClass_db_training_request_statuses db_training_request_statuses = null;
+
         //Constructor  Create()
         public TClass_db_training_requests() : base()
         {
@@ -19,6 +21,7 @@ namespace Class_db_training_requests
             db_trail = new TClass_db_trail();
             db_training_request_statuses = new TClass_db_training_request_statuses();
         }
+
         public bool Bind(string partial_id, object target)
         {
             bool result;
@@ -68,7 +71,7 @@ namespace Class_db_training_requests
                 }
                 else
                 {
-                    throw e;
+                    throw;
                 }
             }
             Close();
@@ -136,42 +139,42 @@ namespace Class_db_training_requests
                 cost_of_transportation = dr["cost_of_transportation"].ToString();
                 reason = dr["reason"].ToString();
                 s = dr["disposition_training_timestamp"].ToString();
-                if (s != k.EMPTY)
+                if (s.Length > 0)
                 {
                     disposition_training_timestamp = DateTime.Parse(s);
                     disposition_training_member_id = dr["disposition_training_member_id"].ToString();
                     disposition_training_funding_source = dr["disposition_training_funding_source"].ToString();
                     disposition_training_comments = dr["disposition_training_comments"].ToString();
                     s = dr["disposition_squad_timestamp"].ToString();
-                    if (s != k.EMPTY)
+                    if (s.Length > 0)
                     {
                         disposition_squad_timestamp = DateTime.Parse(s);
                         disposition_squad_member_id = dr["disposition_squad_member_id"].ToString();
                         disposition_squad_be_approved = (dr["disposition_squad_be_approved"].ToString() == "1");
                         disposition_squad_comments = dr["disposition_squad_comments"].ToString();
                         s = dr["disposition_unit_timestamp"].ToString();
-                        if (s != k.EMPTY)
+                        if (s.Length > 0)
                         {
                             disposition_unit_timestamp = DateTime.Parse(s);
                             disposition_unit_member_id = dr["disposition_unit_member_id"].ToString();
                             disposition_unit_be_approved = (dr["disposition_unit_be_approved"].ToString() == "1");
                             disposition_unit_comments = dr["disposition_unit_comments"].ToString();
                             s = dr["disposition_division_timestamp"].ToString();
-                            if (s != k.EMPTY)
+                            if (s.Length > 0)
                             {
                                 disposition_division_timestamp = DateTime.Parse(s);
                                 disposition_division_member_id = dr["disposition_division_member_id"].ToString();
                                 disposition_division_be_approved = (dr["disposition_division_be_approved"].ToString() == "1");
                                 disposition_division_comments = dr["disposition_division_comments"].ToString();
                                 s = dr["disposition_assistant_chief_timestamp"].ToString();
-                                if (s != k.EMPTY)
+                                if (s.Length > 0)
                                 {
                                     disposition_assistant_chief_timestamp = DateTime.Parse(s);
                                     disposition_assistant_chief_member_id = dr["disposition_assistant_chief_member_id"].ToString();
                                     disposition_assistant_chief_be_approved = (dr["disposition_assistant_chief_be_approved"].ToString() == "1");
                                     disposition_assistant_chief_comments = dr["disposition_assistant_chief_comments"].ToString();
                                     s = dr["payment_timestamp"].ToString();
-                                    if (s != k.EMPTY)
+                                    if (s.Length > 0)
                                     {
                                         payment_timestamp = DateTime.Parse(s);
                                         payment_member_id = dr["payment_member_id"].ToString();
@@ -185,7 +188,7 @@ namespace Class_db_training_requests
                     }
                 }
                 s = dr["finalization_timestamp"].ToString();
-                if (s != k.EMPTY)
+                if (s.Length > 0)
                 {
                     finalization_timestamp = DateTime.Parse(s);
                 }
@@ -230,12 +233,3 @@ namespace Class_db_training_requests
     } // end TClass_db_training_requests
 
 }
-
-namespace Class_db_training_requests.Units
-{
-    public class Class_db_training_requests
-    {
-    } // end Class_db_training_requests
-
-}
-
