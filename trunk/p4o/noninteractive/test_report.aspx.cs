@@ -13,7 +13,7 @@ using System.Web.UI.WebControls;
 
 namespace test_report
 {
-    public partial class TWebForm_test_report: System.Web.UI.Page
+    public partial class TWebForm_test_report: ki_web_ui.page_class
     {
         // / <summary>
         // / Required method for Designer support -- do not modify
@@ -36,21 +36,26 @@ namespace test_report
             base.OnInit(e);
         }
 
-        protected override void Render(HtmlTextWriter writer)
-        {
-            StringBuilder sb;
-            // Write the HTML stream into a StringBuilder.
-            sb = new StringBuilder();
-            base.Render(new HtmlTextWriter(new StringWriter(sb)));
-            // Send output stream as an email message.
-            // from
-            // to
-            // subject
-            // body
-            // be_html
-           k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], "recipient@frompaper2web.com", "Test Report", sb.ToString(), true);
-
-        }
+    protected override void Render(HtmlTextWriter writer)
+      {
+      //
+      // Write the HTML stream into a StringBuilder.
+      //
+      var sb = new StringBuilder();
+      using var html_text_writer = new HtmlTextWriter(new StringWriter(sb));
+      base.Render(html_text_writer);
+      //
+      // Send output stream as an email message.
+      //
+      k.SmtpMailSend
+        (
+        from:ConfigurationManager.AppSettings["sender_email_address"],
+        to:"recipient@frompaper2web.com",
+        subject:"Test Report",
+        message_string:sb.ToString(),
+        be_html:true
+        );
+      }
 
     } // end TWebForm_test_report
 

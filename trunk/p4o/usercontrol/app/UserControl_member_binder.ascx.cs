@@ -1,28 +1,32 @@
 using kix;
-
-using System;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Collections;
-using System.Collections.Specialized;
 using UserControl_about;
 using UserControl_config_binder;
 using UserControl_current_binder;
 using UserControl_new_binder;
 
 namespace UserControl_member_binder
-{
-    public class TWebUserControl_member_binder: ki_web_ui.usercontrol_class
+  {
+  public partial class TWebUserControl_member_binder: ki_web_ui.usercontrol_class
     {
-        protected System.Web.UI.WebControls.PlaceHolder PlaceHolder_content = null;
-        protected AjaxControlToolkit.TabContainer TabContainer_control = null;
-        protected AjaxControlToolkit.TabPanel TabPanel_new = null;
-        protected AjaxControlToolkit.TabPanel TabPanel_current = null;
-        protected AjaxControlToolkit.TabPanel TabPanel_old = null;
-        protected AjaxControlToolkit.TabPanel TabPanel_config = null;
-        private p_type p;
+
+    private static class Static
+      {
+      public const int TSSI_NEW = 0;
+      public const int TSSI_CURRENT = 1;
+      public const int TSSI_OLD = 2;
+      public const int TSSI_CONFIG = 3;
+      public const int TSSI_ABOUT = 4;
+      }
+
+    private struct p_type
+      {
+      public bool be_loaded;
+      public string content_id;
+      public uint tab_index;
+      }
+
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
+
         private void Page_Load(object sender, System.EventArgs e)
         {
             if (!p.be_loaded)
@@ -46,17 +50,17 @@ namespace UserControl_member_binder
                 p = (p_type)(Session[InstanceId() + ".p"]);
                 switch(p.tab_index)
                 {
-                    case Units.UserControl_member_binder.TSSI_NEW:
+                    case Static.TSSI_NEW:
                         // Dynamic controls must be re-added on each postback.
                         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_new_binder)(LoadControl("~/usercontrol/app/UserControl_new_binder.ascx"))), "UserControl_new_binder", PlaceHolder_content);
                         break;
-                    case Units.UserControl_member_binder.TSSI_CURRENT:
+                    case Static.TSSI_CURRENT:
                         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_current_binder)(LoadControl("~/usercontrol/app/UserControl_current_binder.ascx"))), "UserControl_current_binder", PlaceHolder_content);
                         break;
-                    case Units.UserControl_member_binder.TSSI_CONFIG:
+                    case Static.TSSI_CONFIG:
                         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_config_binder)(LoadControl("~/usercontrol/app/UserControl_config_binder.ascx"))), "UserControl_config", PlaceHolder_content);
                         break;
-                    case Units.UserControl_member_binder.TSSI_ABOUT:
+                    case Static.TSSI_ABOUT:
                         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_about)(LoadControl("~/usercontrol/app/UserControl_about.ascx"))), "UserControl_about", PlaceHolder_content);
                         break;
                 }
@@ -64,7 +68,7 @@ namespace UserControl_member_binder
             else
             {
                 p.be_loaded = false;
-                p.tab_index = Units.UserControl_member_binder.TSSI_NEW;
+                p.tab_index = Static.TSSI_NEW;
                 p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_new_binder)(LoadControl("~/usercontrol/app/UserControl_new_binder.ascx"))),"UserControl_new_binder",PlaceHolder_content,InstanceId());
             }
 
@@ -103,42 +107,21 @@ namespace UserControl_member_binder
             PlaceHolder_content.Controls.Clear();
             switch(p.tab_index)
             {
-                case Units.UserControl_member_binder.TSSI_NEW:
+                case Static.TSSI_NEW:
                     p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_new_binder)(LoadControl("~/usercontrol/app/UserControl_new_binder.ascx"))),"UserControl_new_binder",PlaceHolder_content,InstanceId());
                     break;
-                case Units.UserControl_member_binder.TSSI_CURRENT:
+                case Static.TSSI_CURRENT:
                     p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_current_binder)(LoadControl("~/usercontrol/app/UserControl_current_binder.ascx"))),"UserControl_current_binder",PlaceHolder_content,InstanceId());
                     break;
-                case Units.UserControl_member_binder.TSSI_CONFIG:
+                case Static.TSSI_CONFIG:
                     p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_config_binder)(LoadControl("~/usercontrol/app/UserControl_config_binder.ascx"))),"UserControl_config",PlaceHolder_content,InstanceId());
                     break;
-                case Units.UserControl_member_binder.TSSI_ABOUT:
+                case Static.TSSI_ABOUT:
                     p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_about)(LoadControl("~/usercontrol/app/UserControl_about.ascx"))),"UserControl_about",PlaceHolder_content,InstanceId());
                     break;
             }
         }
 
-        private struct p_type
-        {
-            public bool be_loaded;
-            public string content_id;
-            public uint tab_index;
-        } // end p_type
-
     } // end TWebUserControl_member_binder
 
 }
-
-namespace UserControl_member_binder.Units
-{
-    public class UserControl_member_binder
-    {
-        public const int TSSI_NEW = 0;
-        public const int TSSI_CURRENT = 1;
-        public const int TSSI_OLD = 2;
-        public const int TSSI_CONFIG = 3;
-        public const int TSSI_ABOUT = 4;
-    } // end UserControl_member_binder
-
-}
-

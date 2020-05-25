@@ -5,13 +5,16 @@ namespace Class_biz_training_requests
 {
     public class TClass_biz_training_requests
     {
+
         private readonly TClass_db_training_requests db_training_requests = null;
+
         //Constructor  Create()
         public TClass_biz_training_requests() : base()
         {
             // TODO: Add any constructor code here
             db_training_requests = new TClass_db_training_requests();
         }
+
         public bool Bind(string partial_id, object target)
         {
             bool result;
@@ -53,12 +56,3 @@ namespace Class_biz_training_requests
     } // end TClass_biz_training_requests
 
 }
-
-namespace Class_biz_training_requests.Units
-{
-    public class Class_biz_training_requests
-    {
-    } // end Class_biz_training_requests
-
-}
-

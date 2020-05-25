@@ -4,6 +4,7 @@ namespace Class_biz_user_member_map
   {
   public class TClass_biz_user_member_map
     {
+
         private readonly TClass_db_user_member_map db_user_member_map = null;
 
         //Constructor  Create()
@@ -25,12 +26,3 @@ namespace Class_biz_user_member_map
     } // end TClass_biz_user_member_map
 
 }
-
-namespace Class_biz_user_member_map.Units
-{
-    public class Class_biz_user_member_map
-    {
-    } // end Class_biz_user_member_map
-
-}
-

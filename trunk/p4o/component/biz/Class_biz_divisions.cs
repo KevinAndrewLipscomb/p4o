@@ -6,7 +6,9 @@ namespace Class_biz_divisions
 {
     public class TClass_biz_divisions
     {
+
         private readonly TClass_db_divisions db_divisions = null;
+
         //Constructor  Create()
         public TClass_biz_divisions() : base()
         {
@@ -59,12 +61,3 @@ namespace Class_biz_divisions
     } // end TClass_biz_divisions
 
 }
-
-namespace Class_biz_divisions.Units
-{
-    public class Class_biz_divisions
-    {
-    } // end Class_biz_divisions
-
-}
-

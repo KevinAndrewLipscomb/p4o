@@ -1,26 +1,16 @@
 using kix;
-using System;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Collections;
-using System.Collections.Specialized;
 using UserControl_business_objects_binder;
 using UserControl_member;
 using UserControl_roles_and_matrices_binder;
 using UserControl_users_and_mapping_binder;
 
 namespace UserControl_config_binder
-{
-    public class TWebUserControl_config_binder: ki_web_ui.usercontrol_class
+  {
+  public partial class TWebUserControl_config_binder: ki_web_ui.usercontrol_class
     {
-        protected System.Web.UI.WebControls.PlaceHolder PlaceHolder_content = null;
-        protected AjaxControlToolkit.TabContainer TabContainer_control = null;
-        protected AjaxControlToolkit.TabPanel TabPanel_business_objects = null;
-        protected AjaxControlToolkit.TabPanel TabPanel_members = null;
-        protected AjaxControlToolkit.TabPanel TabPanel_users_and_mappings = null;
-        private p_type p;
+
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
+
         private void Page_Load(object sender, System.EventArgs e)
         {
             if (!p.be_loaded)
@@ -128,8 +118,8 @@ namespace UserControl_config_binder
 }
 
 namespace UserControl_config_binder.Units
-{
-    public class UserControl_config_binder
+  {
+  public class UserControl_config_binder
     {
         public const int TSSI_ROLES_AND_MATRICES = 0;
         public const int TSSI_USERS_AND_MAPPING = 1;

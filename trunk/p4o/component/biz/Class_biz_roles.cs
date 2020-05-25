@@ -6,7 +6,9 @@ namespace Class_biz_roles
 {
     public class TClass_biz_roles
     {
+
         private readonly TClass_db_roles db_roles = null;
+
         //Constructor  Create()
         public TClass_biz_roles() : base()
         {
@@ -66,12 +68,3 @@ namespace Class_biz_roles
     } // end TClass_biz_roles
 
 }
-
-namespace Class_biz_roles.Units
-{
-    public class Class_biz_roles
-    {
-    } // end Class_biz_roles
-
-}
-

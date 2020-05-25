@@ -1,18 +1,20 @@
-using kix;
-using System;
 using Class_db_units;
+using kix;
 
 namespace Class_biz_units
-{
-    public class TClass_biz_units
+  {
+  public class TClass_biz_units
     {
+
         private readonly TClass_db_units db_units = null;
+
         //Constructor  Create()
         public TClass_biz_units() : base()
         {
             // TODO: Add any constructor code here
             db_units = new TClass_db_units();
         }
+
         public bool Bind(string partial_code, object target)
         {
             bool result;
@@ -59,12 +61,3 @@ namespace Class_biz_units
     } // end TClass_biz_units
 
 }
-
-namespace Class_biz_units.Units
-{
-    public class Class_biz_units
-    {
-    } // end Class_biz_units
-
-}
-

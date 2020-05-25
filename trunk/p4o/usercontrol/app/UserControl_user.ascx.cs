@@ -13,8 +13,8 @@ namespace UserControl_user
 {
     public partial class TWebUserControl_user: ki_web_ui.usercontrol_class
     {
-        private p_type p;
-        protected System.Web.UI.WebControls.Label Label_application_name = null;
+    private p_type p; // Private Parcel of Page-Pertinent Process-Persistent Parameters
+
         private void Clear()
         {
             TextBox_username.Text = k.EMPTY;

@@ -1,18 +1,20 @@
-using kix;
-using System;
 using Class_db_squads;
+using kix;
 
 namespace Class_biz_squads
-{
-    public class TClass_biz_squads
+  {
+  public class TClass_biz_squads
     {
+
         private readonly TClass_db_squads db_squads = null;
+
         //Constructor  Create()
         public TClass_biz_squads() : base()
         {
             // TODO: Add any constructor code here
             db_squads = new TClass_db_squads();
         }
+
         public bool Bind(string partial_code, object target)
         {
             bool result;
@@ -59,12 +61,3 @@ namespace Class_biz_squads
     } // end TClass_biz_squads
 
 }
-
-namespace Class_biz_squads.Units
-{
-    public class Class_biz_squads
-    {
-    } // end Class_biz_squads
-
-}
-

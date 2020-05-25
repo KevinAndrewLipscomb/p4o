@@ -7,13 +7,16 @@ namespace Class_db_milestones
 {
     public class TClass_db_milestones: TClass_db
     {
+
         private readonly TClass_db_trail db_trail = null;
+
         //Constructor  Create()
         public TClass_db_milestones() : base()
         {
             // TODO: Add any constructor code here
             db_trail = new TClass_db_trail();
         }
+
         public void Check(uint code, out bool be_processed, out DateTime value)
         {
             MySqlDataReader dr;
@@ -42,12 +45,3 @@ namespace Class_db_milestones
     } // end TClass_db_milestones
 
 }
-
-namespace Class_db_milestones.Units
-{
-    public class Class_db_milestones
-    {
-    } // end Class_db_milestones
-
-}
-

@@ -5,6 +5,7 @@ namespace Class_biz_role_privilege_map
   {
   public class TClass_biz_role_privilege_map
     {
+
         private readonly TClass_db_role_privilege_map db_role_privilege_map = null;
 
         //Constructor  Create()
@@ -31,12 +32,3 @@ namespace Class_biz_role_privilege_map
     } // end TClass_biz_role_privilege_map
 
 }
-
-namespace Class_biz_role_privilege_map.Units
-{
-    public class Class_biz_role_privilege_map
-    {
-    } // end Class_biz_role_privilege_map
-
-}
-
