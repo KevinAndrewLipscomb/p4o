@@ -105,6 +105,15 @@ namespace Class_db_user
       Close();
       }
 
+    internal DateTime LastLoginTime(string id)
+      {
+      Open();
+      using var mysql_command = new MySqlCommand("select last_login from user where id = '" + id + "'",connection);
+      var last_login_time_obj = mysql_command.ExecuteScalar();
+      Close();
+      return (last_login_time_obj == DBNull.Value ? DateTime.MaxValue : DateTime.Parse(last_login_time_obj.ToString()));
+      }
+
         public string[] RolesOf(string id)
         {
             MySqlDataReader dr;

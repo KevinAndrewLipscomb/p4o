@@ -48,6 +48,11 @@ namespace Class_biz_user
             return result;
         }
 
+    internal DateTime LastLoginTime()
+      {
+      return db_user.LastLoginTime(IdNum());
+      }
+
         public string[] Privileges()
         {
             string[] result;
