@@ -6,6 +6,11 @@
 unpublished.config
 /.svn
 /.vs
+/bin/*.dll.config
+/bin/*.xml
+/lib/ki/*.dll
+/lib/ki/*.dll.config
+/lib/ki/*.xml
 /obj
 /packages
 /Web.config
