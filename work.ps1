@@ -1,5 +1,5 @@
 Set-Location "C:\Inetpub\wwwroot\p4o"
-Start-Process -WindowStyle Maximized "C:\Inetpub\wwwroot\p4o"
+Start-Process -WindowStyle Maximized "."
 Start-Process -WindowStyle Maximized p4o.sln
 IF (Test-Path "C:\Program Files\MySQL\MySQL Workbench\MySQLWorkbench.exe")
   {
